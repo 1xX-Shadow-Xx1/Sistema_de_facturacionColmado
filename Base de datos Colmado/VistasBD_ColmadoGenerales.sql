@@ -1,3 +1,10 @@
+/*Vista de la tabla productoSQL*/
+CREATE VIEW vistaproductos AS
+SELECT id_producto, nombre, cantidad, precio, unidad_medida
+FROM ProductoColmado;
+
+
+
 
 /* vistadatospersonales */
 CREATE VIEW vistadatospersonales AS
@@ -51,3 +58,4 @@ FROM Venta v
 JOIN Factura f ON v.id_factura = f.id_factura
 JOIN Cliente c ON v.id_cliente = c.id_cliente
 JOIN Persona p ON c.cedula = p.cedula;
+
