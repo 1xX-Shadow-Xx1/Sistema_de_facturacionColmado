@@ -3,14 +3,13 @@ package logica.producto;
 
 public class ProductoColmado implements Producto {
     
-    static protected int id_producto = 0;
+    static protected int id_producto;
     protected String nombre;
     protected double precio;
     protected int cantidad;
     protected String unidad_medida;
 
     public ProductoColmado() {
-        ++id_producto;
     }
 
     

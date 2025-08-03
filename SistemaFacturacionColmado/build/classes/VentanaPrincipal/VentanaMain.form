@@ -207,15 +207,20 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="GestionProductosBtn" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <EmptySpace min="61" pref="61" max="-2" attributes="0"/>
-                          <Component id="JavaIcon" min="-2" pref="142" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="61" pref="61" max="-2" attributes="0"/>
+                                  <Component id="JavaIcon" min="-2" pref="142" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="DatosPersonalesBtn" min="-2" max="-2" attributes="0"/>
+                              <Component id="HistorialClienteBtn" min="-2" max="-2" attributes="0"/>
+                              <Component id="RegistroVentasBtn" min="-2" max="-2" attributes="0"/>
+                              <Component id="FacturacionBtn" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="DatosPersonalesBtn" min="-2" max="-2" attributes="0"/>
-                      <Component id="GestionProductosBtn" min="-2" max="-2" attributes="0"/>
-                      <Component id="HistorialClienteBtn" min="-2" max="-2" attributes="0"/>
-                      <Component id="RegistroVentasBtn" min="-2" max="-2" attributes="0"/>
-                      <Component id="FacturacionBtn" min="-2" max="-2" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -223,24 +228,28 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="34" pref="34" max="-2" attributes="0"/>
                           <Component id="JavaIcon" min="-2" pref="155" max="-2" attributes="0"/>
-                          <EmptySpace min="61" pref="61" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="DatosPersonalesBtn" min="-2" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="80" pref="80" max="-2" attributes="0"/>
+                                  <EmptySpace min="61" pref="61" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="DatosPersonalesBtn" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="320" pref="320" max="-2" attributes="0"/>
+                                          <Component id="HistorialClienteBtn" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="240" pref="240" max="-2" attributes="0"/>
+                                          <Component id="RegistroVentasBtn" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="160" pref="160" max="-2" attributes="0"/>
+                                          <Component id="FacturacionBtn" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
                                   <Component id="GestionProductosBtn" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="320" pref="320" max="-2" attributes="0"/>
-                                  <Component id="HistorialClienteBtn" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="240" pref="240" max="-2" attributes="0"/>
-                                  <Component id="RegistroVentasBtn" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="160" pref="160" max="-2" attributes="0"/>
-                                  <Component id="FacturacionBtn" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -324,7 +333,7 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace pref="37" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="GestionProductosTxt" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                           </Group>
@@ -545,13 +554,13 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <Component id="TituloVentanaDatosPersonales" pref="224" max="32767" attributes="0"/>
                                       <EmptySpace min="674" pref="674" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
-                                      <Component id="CuadroEditarDatosPersonales" max="32767" attributes="0"/>
-                                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                                      <Component id="CuadroEditarDatosPersonales" min="-2" pref="325" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="PanelTablaDatosPersonales" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
@@ -596,13 +605,17 @@
                         <Component class="javax.swing.JTable" name="TablaDatosPersonales">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="3" rowCount="4">
+                              <Table columnCount="4" rowCount="0">
                                 <Column editable="true" title="Cedula" type="java.lang.Integer"/>
                                 <Column editable="true" title="Nombre" type="java.lang.String"/>
-                                <Column editable="true" title="Numero de Telefono" type="java.lang.Integer"/>
+                                <Column editable="true" title="Numero de Telefono" type="java.lang.String"/>
+                                <Column editable="true" title="Tipo" type="java.lang.String"/>
                               </Table>
                             </Property>
                           </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="MostrarTablas(&quot;vistadatospersonales&quot;, TablaDatosPersonales);"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -666,9 +679,9 @@
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="BotonEditarDatos" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="242" max="-2" attributes="0"/>
+                                  <Component id="BotonEditarDatos" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -693,9 +706,9 @@
                                   <Component id="TextoEditarCargo" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="14" pref="14" max="-2" attributes="0"/>
                                   <Component id="ComboBoxEditarDatos" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="20" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="BotonEditarDatos" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace pref="8" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -720,6 +733,7 @@
                             <Property name="text" type="java.lang.String" value="Ingrese el nuevo numero"/>
                           </Properties>
                           <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="BarraEditarDatos_TelefonoFocusGained"/>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BarraEditarDatos_TelefonoMouseClicked"/>
                           </Events>
                         </Component>
@@ -731,7 +745,9 @@
                             <Property name="text" type="java.lang.String" value="Ingrese nuevo nombre"/>
                           </Properties>
                           <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="BarraEditarDatoNombreFocusGained"/>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BarraEditarDatoNombreMouseClicked"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BarraEditarDatoNombreActionPerformed"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="TextoEditarNombre">
@@ -757,6 +773,7 @@
                             <Property name="text" type="java.lang.String" value="Ingrese nueva cedula"/>
                           </Properties>
                           <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="BarraEditarCedulaFocusGained"/>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BarraEditarCedulaMouseClicked"/>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BarraEditarCedulaActionPerformed"/>
                           </Events>
@@ -778,7 +795,7 @@
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="2">
-                                <StringItem index="0" value="Ninguno"/>
+                                <StringItem index="0" value="Cliente"/>
                                 <StringItem index="1" value="Empleado"/>
                               </StringArray>
                             </Property>
@@ -949,6 +966,7 @@
                             <Property name="text" type="java.lang.String" value="Ingrese el nombre del Producto"/>
                           </Properties>
                           <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="BarraAgregarNombreProductosFocusGained"/>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BarraAgregarNombreProductosMouseClicked"/>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BarraAgregarNombreProductosActionPerformed"/>
                           </Events>
@@ -966,6 +984,7 @@
                             <Property name="text" type="java.lang.String" value="Ingrese la cantidad"/>
                           </Properties>
                           <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="BarraAgregarCantidadProductoFocusGained"/>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BarraAgregarCantidadProductoMouseClicked"/>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BarraAgregarCantidadProductoActionPerformed"/>
                           </Events>
@@ -988,6 +1007,7 @@
                             <Property name="text" type="java.lang.String" value="Ingrese el precio del Producto"/>
                           </Properties>
                           <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="BarraAgregarPrecioProductoFocusGained"/>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BarraAgregarPrecioProductoMouseClicked"/>
                           </Events>
                         </Component>
@@ -1049,15 +1069,19 @@
                         <Component class="javax.swing.JTable" name="TablaMostrarProductos_VentanaGestionProductos">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="5" rowCount="20">
+                              <Table columnCount="5" rowCount="0">
                                 <Column editable="true" title="id" type="java.lang.Integer"/>
-                                <Column editable="true" title="Producto" type="java.lang.Object"/>
+                                <Column editable="true" title="Producto" type="java.lang.String"/>
                                 <Column editable="true" title="Cantidad" type="java.lang.Integer"/>
                                 <Column editable="true" title="Precio" type="java.lang.Double"/>
                                 <Column editable="true" title="Unidad de medida" type="java.lang.String"/>
                               </Table>
                             </Property>
                           </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="MostrarTablas(&quot;vistaproductos&quot;, TablaMostrarProductos_VentanaGestionProductos);"/>
+                            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -1097,42 +1121,31 @@
                     </Container>
                     <Container class="javax.swing.JPanel" name="BotonEliminarVentanaProductos">
                       <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[84, 37]"/>
                         </Property>
                       </Properties>
 
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
-                                  <Component id="BotonEliminarProductos" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
-                                  <Component id="BotonEliminarProductos" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+                        <Property name="useNullLayout" type="boolean" value="false"/>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JButton" name="BotonEliminarProductos">
+                        <Component class="javax.swing.JLabel" name="jLabel1">
                           <Properties>
+                            <Property name="horizontalAlignment" type="int" value="0"/>
                             <Property name="text" type="java.lang.String" value="Eliminar"/>
+                            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                              <Color id="Hand Cursor"/>
+                            </Property>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonEliminarProductosActionPerformed"/>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel1MouseClicked"/>
                           </Events>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                              <AbsoluteConstraints x="0" y="0" width="80" height="30"/>
+                            </Constraint>
+                          </Constraints>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -1158,17 +1171,26 @@
                               <Component id="TituloVentanaFacturacion" max="32767" attributes="0"/>
                               <EmptySpace min="777" pref="777" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
-                              <Component id="CuadroDatos_Factura" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                              <Component id="CuadroInformacion_Factura" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="BotonGenerearFactura" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
+                                      <Component id="CuadroDatos_Factura" min="-2" pref="321" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                                      <Component id="CuadroInformacion_Factura" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="779" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <EmptySpace min="60" pref="60" max="-2" attributes="0"/>
+                                              <Component id="jLabel2" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Component id="BotonGenerearFactura" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1176,19 +1198,17 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="TituloVentanaFacturacion" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                              <Component id="TituloVentanaFacturacion" pref="35" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                                      <Component id="CuadroDatos_Factura" max="32767" attributes="0"/>
-                                      <EmptySpace min="107" pref="107" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="CuadroDatos_Factura" max="32767" attributes="0"/>
                                   <Component id="CuadroInformacion_Factura" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="BotonGenerearFactura" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1212,36 +1232,40 @@
                                       <Group type="102" attributes="0">
                                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="TextoEmpreadoCuadro_Factura" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="14" pref="14" max="-2" attributes="0"/>
-                                                  <Component id="TextoNombreEmpleadoCuadro_Factura" min="-2" pref="130" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Component id="TextoEmpreadoCuadro_Factura" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace min="14" pref="14" max="-2" attributes="0"/>
+                                                          <Component id="TextoNombreEmpleadoCuadro_Factura" min="-2" pref="130" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Component id="TextoClienteCuadro_Factura" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
+                                                          <Component id="TextoNombreClienteCuadro_Factura" min="-2" pref="119" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Component id="TextoCedulaCuadro_Factura" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                                          <Component id="TextoNumericoCedulaCuadro_Factura" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Component id="TextoNumeroTefonicoCuadro_Factura" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
+                                                          <Component id="TextoNumericoTelefonoCuadro_Factura" min="-2" pref="80" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
+                                                  <Component id="TextoFechaCuadro_Factura" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                                                  <Component id="TextoNumericoFechaCuadro_Factura" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="TextoClienteCuadro_Factura" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
-                                                  <Component id="TextoNombreClienteCuadro_Factura" min="-2" pref="119" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="TextoCedulaCuadro_Factura" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                                                  <Component id="TextoNumericoCedulaCuadro_Factura" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="TextoNumeroTefonicoCuadro_Factura" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
-                                                  <Component id="TextoNumericoTelefonoCuadro_Factura" min="-2" pref="80" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
                                                   <Component id="TextoTipodepagoCuadro_Factura" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="17" pref="17" max="-2" attributes="0"/>
                                                   <Component id="TextoNombreTipoPagoCuadro_Factura" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
-                                          <Component id="TextoFechaCuadro_Factura" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                                          <Component id="TextoNumericoFechaCuadro_Factura" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
@@ -1313,7 +1337,7 @@
                                       <Component id="TextoTipodepagoCuadro_Factura" min="-2" max="-2" attributes="0"/>
                                       <Component id="TextoNombreTipoPagoCuadro_Factura" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="14" pref="14" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                                   <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                                   <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                                   <Component id="jScrollTablaCuadro_Factura" min="-2" pref="230" max="-2" attributes="0"/>
@@ -1418,7 +1442,7 @@
                         </Component>
                         <Component class="javax.swing.JLabel" name="TextoNombreTipoPagoCuadro_Factura">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Ninguno"/>
+                            <Property name="text" type="java.lang.String" value="Credito"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="TextoCedulaCuadro_Factura">
@@ -1467,7 +1491,8 @@
                                   <Color blue="f0" green="f0" red="f0" type="rgb"/>
                                 </Property>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                  <Table columnCount="3" rowCount="4">
+                                  <Table columnCount="4" rowCount="0">
+                                    <Column editable="true" title="ID" type="java.lang.Integer"/>
                                     <Column editable="true" title="Producto" type="java.lang.String"/>
                                     <Column editable="true" title="Cantidad" type="java.lang.Integer"/>
                                     <Column editable="true" title="Precio" type="java.lang.Double"/>
@@ -1484,7 +1509,7 @@
                         </Component>
                         <Component class="javax.swing.JLabel" name="TextoPorcentajeCuadro_Factura">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="0%"/>
+                            <Property name="text" type="java.lang.String" value="18%"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -1494,7 +1519,7 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="TextoBotonGenerarFactura" alignment="1" pref="130" max="32767" attributes="0"/>
+                              <Component id="TextoBotonGenerarFactura" alignment="0" pref="133" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
@@ -1524,12 +1549,20 @@
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="BotonAgregarCuadro__DatosFactura" min="-2" pref="75" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace min="-2" pref="140" max="-2" attributes="0"/>
+                                          <Component id="BotonEliminarCuadro__DatosFactura" max="32767" attributes="0"/>
+                                          <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                                          <Component id="BotonAgregarCuadro__DatosFactura" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="40" pref="40" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="TituloCuadro_DatosFactura" max="32767" attributes="0"/>
@@ -1583,6 +1616,10 @@
                                           <Component id="ComboBoxTipodePagoCuadro_DatosFactura" min="-2" pref="79" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
                                       </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="TituloAgregarProductoCuadro_DatosFactura" max="32767" attributes="0"/>
+                                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
@@ -1604,7 +1641,15 @@
                                   <Component id="TextoTelefonoCuadro_DatosFactura" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
                                   <Component id="BarraTelefonoCuadro_DatosFactura" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="TextoTipodePagoCuadro_DatosFactura" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="ComboBoxTipodePagoCuadro_DatosFactura" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="TituloAgregarProductoCuadro_DatosFactura" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Component id="TextoProductoCuadro__DatosFactura" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
                                   <Component id="BarraProductoCuadro_DatosFactura" min="-2" max="-2" attributes="0"/>
@@ -1612,13 +1657,12 @@
                                   <Component id="TextoCantidadCuadro_DatosFactura" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
                                   <Component id="BarraCantidadCuadro__DatosFactura" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="28" pref="28" max="-2" attributes="0"/>
-                                  <Component id="TextoTipodePagoCuadro_DatosFactura" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
-                                  <Component id="ComboBoxTipodePagoCuadro_DatosFactura" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="BotonAgregarCuadro__DatosFactura" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="BotonAgregarCuadro__DatosFactura" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="BotonEliminarCuadro__DatosFactura" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1632,8 +1676,10 @@
                             <Property name="text" type="java.lang.String" value="Ingrese el nombre del Cliente"/>
                           </Properties>
                           <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="BarraNombreClienteCuadro_DatosFacturaFocusGained"/>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BarraNombreClienteCuadro_DatosFacturaMouseClicked"/>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BarraNombreClienteCuadro_DatosFacturaActionPerformed"/>
+                            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="BarraNombreClienteCuadro_DatosFacturaKeyReleased"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JTextField" name="BarraProductoCuadro_DatosFactura">
@@ -1641,9 +1687,10 @@
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="cc" green="cc" red="cc" type="rgb"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Ingrese el nombre del producto "/>
+                            <Property name="text" type="java.lang.String" value="Ingrese el id del producto"/>
                           </Properties>
                           <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="BarraProductoCuadro_DatosFacturaFocusGained"/>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BarraProductoCuadro_DatosFacturaMouseClicked"/>
                           </Events>
                         </Component>
@@ -1654,7 +1701,7 @@
                         </Component>
                         <Component class="javax.swing.JLabel" name="TextoProductoCuadro__DatosFactura">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Producto"/>
+                            <Property name="text" type="java.lang.String" value="ID del producto"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="BarraCantidadCuadro__DatosFactura">
@@ -1665,6 +1712,7 @@
                             <Property name="text" type="java.lang.String" value="Ingrese la cantidad"/>
                           </Properties>
                           <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="BarraCantidadCuadro__DatosFacturaFocusGained"/>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BarraCantidadCuadro__DatosFacturaMouseClicked"/>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BarraCantidadCuadro__DatosFacturaActionPerformed"/>
                           </Events>
@@ -1689,6 +1737,9 @@
                               <Color id="Hand Cursor"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonAgregarCuadro__DatosFacturaActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="TextoTipodePagoCuadro_DatosFactura">
                           <Properties>
@@ -1707,6 +1758,9 @@
                               <Color id="Hand Cursor"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="ComboBoxTipodePagoCuadro_DatosFacturaItemStateChanged"/>
+                          </Events>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                           </AuxValues>
@@ -1724,8 +1778,10 @@
                             <Property name="text" type="java.lang.String" value="Ingrese la Cedula"/>
                           </Properties>
                           <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="BarraCedulaCuadro_DatosFacturaFocusGained"/>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BarraCedulaCuadro_DatosFacturaMouseClicked"/>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BarraCedulaCuadro_DatosFacturaActionPerformed"/>
+                            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="BarraCedulaCuadro_DatosFacturaKeyReleased"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="TextoTelefonoCuadro_DatosFactura">
@@ -1741,11 +1797,48 @@
                             <Property name="text" type="java.lang.String" value="Ingrese el numero"/>
                           </Properties>
                           <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="BarraTelefonoCuadro_DatosFacturaFocusGained"/>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BarraTelefonoCuadro_DatosFacturaMouseClicked"/>
+                            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="BarraTelefonoCuadro_DatosFacturaKeyReleased"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JSeparator" name="jSeparator2">
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="TituloAgregarProductoCuadro_DatosFactura">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Segoe UI" size="18" style="1"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="Agregar Productos a la Factura"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="BotonEliminarCuadro__DatosFactura">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Eliminar"/>
+                            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                              <Color id="Hand Cursor"/>
+                            </Property>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonEliminarCuadro__DatosFacturaActionPerformed"/>
                           </Events>
                         </Component>
                       </SubComponents>
                     </Container>
+                    <Component class="javax.swing.JLabel" name="jLabel2">
+                      <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/Imagenes/incono_reset.png"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="Reiniciar"/>
+                        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                          <Color id="Hand Cursor"/>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel2MouseClicked"/>
+                      </Events>
+                    </Component>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="VentanaRegistroVentas">
@@ -1842,13 +1935,17 @@
                         <Component class="javax.swing.JTable" name="TablaVentanaVentas">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="3" rowCount="30">
+                              <Table columnCount="4" rowCount="0">
+                                <Column editable="true" title="Cedula" type="java.lang.Integer"/>
                                 <Column editable="true" title="Numero de Factura" type="java.lang.Integer"/>
                                 <Column editable="true" title="Cliente" type="java.lang.String"/>
                                 <Column editable="true" title="Venta" type="java.lang.Double"/>
                               </Table>
                             </Property>
                           </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="MostrarTablas(&quot;vistahistorialcliente_tablafacturas&quot;, TablaVentanaVentas);"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -2256,7 +2353,7 @@
                             <Component class="javax.swing.JTable" name="Tabla_CuadroInfomacionFactura__VentanaHistorialCliente">
                               <Properties>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                  <Table columnCount="3" rowCount="20">
+                                  <Table columnCount="3" rowCount="0">
                                     <Column editable="true" title="Producto" type="java.lang.String"/>
                                     <Column editable="true" title="Cantidad" type="java.lang.Integer"/>
                                     <Column editable="true" title="Precio" type="java.lang.Double"/>
@@ -2330,13 +2427,16 @@
                         <Component class="javax.swing.JTable" name="TablaClientes_VentanaHistorialCliente">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="3" rowCount="15">
-                                <Column editable="true" title="Nombre" type="java.lang.String"/>
+                              <Table columnCount="3" rowCount="0">
                                 <Column editable="true" title="Cedula" type="java.lang.String"/>
+                                <Column editable="true" title="Nombre" type="java.lang.String"/>
                                 <Column editable="true" title="Numero de Telefono" type="java.lang.String"/>
                               </Table>
                             </Property>
                           </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="MostrarTablas(&quot;vistahistorial_tablaclientes&quot;, TablaClientes_VentanaHistorialCliente);"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -2356,13 +2456,16 @@
                         <Component class="javax.swing.JTable" name="TablaHistorialCliente_VentanaHistorialCliente">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="3" rowCount="15">
+                              <Table columnCount="3" rowCount="0">
                                 <Column editable="true" title="Numero de Factura" type="java.lang.String"/>
-                                <Column editable="true" title="Tipo de Pago" type="java.lang.String"/>
-                                <Column editable="true" title="Pago" type="java.lang.Double"/>
+                                <Column editable="true" title="Pago" type="java.lang.String"/>
+                                <Column editable="true" title="Total" type="java.lang.Double"/>
                               </Table>
                             </Property>
                           </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="MostrarTablas(&quot;vistaregistro_ventas&quot;, TablaHistorialCliente_VentanaHistorialCliente);"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -2374,6 +2477,7 @@
                         <Property name="text" type="java.lang.String" value="000-0000000-0"/>
                       </Properties>
                       <Events>
+                        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="BarraBusquedaCedula_VentanaHistorialClienteFocusGained"/>
                         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BarraBusquedaCedula_VentanaHistorialClienteMouseClicked"/>
                       </Events>
                     </Component>

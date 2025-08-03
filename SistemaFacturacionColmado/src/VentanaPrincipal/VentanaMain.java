@@ -4,11 +4,17 @@ import VentanaEditarProductos.VentanaEditarProductos;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import javax.swing.JFrame;
-
+import desplazable.Desface;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -19,6 +25,19 @@ import javax.swing.table.DefaultTableModel;
 import logica.producto.ProductoColmado;
 import persistencia.ConexionBD;
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
+import static javax.swing.UIManager.getString;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
+
+        
 /**
  *
  * @author kevin
@@ -35,6 +54,13 @@ public class VentanaMain extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaMain.class.getName());
 
+    Desface desplace;
+    public VentanaMain() {
+        initComponents();
+        desplace = new Desface();
+        mostrarFecha();
+        SumaFactura();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,7 +125,7 @@ public class VentanaMain extends javax.swing.JFrame {
         BotonEditarVentanaProductos = new javax.swing.JPanel();
         TextoBotonEditarProductos = new javax.swing.JLabel();
         BotonEliminarVentanaProductos = new javax.swing.JPanel();
-        BotonEliminarProductos = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         VentanaFacturacion = new javax.swing.JPanel();
         TituloVentanaFacturacion = new javax.swing.JLabel();
         CuadroInformacion_Factura = new javax.swing.JPanel();
@@ -143,6 +169,10 @@ public class VentanaMain extends javax.swing.JFrame {
         BarraCedulaCuadro_DatosFactura = new javax.swing.JTextField();
         TextoTelefonoCuadro_DatosFactura = new javax.swing.JLabel();
         BarraTelefonoCuadro_DatosFactura = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
+        TituloAgregarProductoCuadro_DatosFactura = new javax.swing.JLabel();
+        BotonEliminarCuadro__DatosFactura = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         VentanaRegistroVentas = new javax.swing.JPanel();
         Titulo_VentanaRegistroVentas = new javax.swing.JLabel();
         ScrollTabla_VentanaRegistroVentas = new javax.swing.JScrollPane();
@@ -363,7 +393,7 @@ public class VentanaMain extends javax.swing.JFrame {
         GestionProductosBtnLayout.setHorizontalGroup(
             GestionProductosBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GestionProductosBtnLayout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(GestionProductosTxt)
                 .addGap(31, 31, 31))
         );
@@ -495,35 +525,40 @@ public class VentanaMain extends javax.swing.JFrame {
         Menu.setLayout(MenuLayout);
         MenuLayout.setHorizontalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(GestionProductosBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(MenuLayout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(JavaIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(DatosPersonalesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(GestionProductosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(HistorialClienteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(RegistroVentasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(FacturacionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MenuLayout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(JavaIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(DatosPersonalesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(HistorialClienteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RegistroVentasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FacturacionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         MenuLayout.setVerticalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MenuLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(JavaIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
                 .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DatosPersonalesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(MenuLayout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(GestionProductosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(61, 61, 61)
+                        .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(DatosPersonalesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(MenuLayout.createSequentialGroup()
+                                .addGap(320, 320, 320)
+                                .addComponent(HistorialClienteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(MenuLayout.createSequentialGroup()
+                                .addGap(240, 240, 240)
+                                .addComponent(RegistroVentasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(MenuLayout.createSequentialGroup()
+                                .addGap(160, 160, 160)
+                                .addComponent(FacturacionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(MenuLayout.createSequentialGroup()
-                        .addGap(320, 320, 320)
-                        .addComponent(HistorialClienteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(MenuLayout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addComponent(RegistroVentasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(MenuLayout.createSequentialGroup()
-                        .addGap(160, 160, 160)
-                        .addComponent(FacturacionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(141, 141, 141)
+                        .addComponent(GestionProductosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         jSplitPane1.setLeftComponent(Menu);
@@ -538,17 +573,14 @@ public class VentanaMain extends javax.swing.JFrame {
 
         TablaDatosPersonales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Cedula", "Nombre", "Numero de Telefono"
+                "Cedula", "Nombre", "Numero de Telefono", "Tipo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -556,6 +588,7 @@ public class VentanaMain extends javax.swing.JFrame {
             }
         });
         PanelTablaDatosPersonales.setViewportView(TablaDatosPersonales);
+        MostrarTablas("vistadatospersonales", TablaDatosPersonales);
 
         CuadroEditarDatosPersonales.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(198, 198, 198), 2));
 
@@ -569,6 +602,11 @@ public class VentanaMain extends javax.swing.JFrame {
 
         BarraEditarDatos_Telefono.setForeground(new java.awt.Color(204, 204, 204));
         BarraEditarDatos_Telefono.setText("Ingrese el nuevo numero");
+        BarraEditarDatos_Telefono.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                BarraEditarDatos_TelefonoFocusGained(evt);
+            }
+        });
         BarraEditarDatos_Telefono.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BarraEditarDatos_TelefonoMouseClicked(evt);
@@ -577,9 +615,19 @@ public class VentanaMain extends javax.swing.JFrame {
 
         BarraEditarDatoNombre.setForeground(new java.awt.Color(204, 204, 204));
         BarraEditarDatoNombre.setText("Ingrese nuevo nombre");
+        BarraEditarDatoNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                BarraEditarDatoNombreFocusGained(evt);
+            }
+        });
         BarraEditarDatoNombre.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BarraEditarDatoNombreMouseClicked(evt);
+            }
+        });
+        BarraEditarDatoNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BarraEditarDatoNombreActionPerformed(evt);
             }
         });
 
@@ -591,6 +639,11 @@ public class VentanaMain extends javax.swing.JFrame {
 
         BarraEditarCedula.setForeground(new java.awt.Color(204, 204, 204));
         BarraEditarCedula.setText("Ingrese nueva cedula");
+        BarraEditarCedula.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                BarraEditarCedulaFocusGained(evt);
+            }
+        });
         BarraEditarCedula.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BarraEditarCedulaMouseClicked(evt);
@@ -607,7 +660,7 @@ public class VentanaMain extends javax.swing.JFrame {
 
         TextoEditarCargo.setText("Cargo");
 
-        ComboBoxEditarDatos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ninguno", "Empleado" }));
+        ComboBoxEditarDatos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cliente", "Empleado" }));
         ComboBoxEditarDatos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ComboBoxEditarDatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -656,9 +709,9 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addComponent(ComboBoxEditarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CuadroEditarDatosPersonalesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BotonEditarDatos)
-                .addContainerGap())
+                .addGap(242, 242, 242)
+                .addComponent(BotonEditarDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(87, 87, 87))
         );
         CuadroEditarDatosPersonalesLayout.setVerticalGroup(
             CuadroEditarDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -681,9 +734,9 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addComponent(TextoEditarCargo)
                 .addGap(14, 14, 14)
                 .addComponent(ComboBoxEditarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(BotonEditarDatos)
-                .addContainerGap())
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         TituloVentanaDatosPersonales.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -700,8 +753,8 @@ public class VentanaMain extends javax.swing.JFrame {
                         .addComponent(TituloVentanaDatosPersonales, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
                         .addGap(674, 674, 674))
                     .addGroup(VentanaDatosPersonalesLayout.createSequentialGroup()
-                        .addComponent(CuadroEditarDatosPersonales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(8, 8, 8)
+                        .addComponent(CuadroEditarDatosPersonales, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(PanelTablaDatosPersonales)))
                 .addGap(12, 12, 12))
         );
@@ -731,6 +784,11 @@ public class VentanaMain extends javax.swing.JFrame {
 
         BarraAgregarNombreProductos.setForeground(new java.awt.Color(204, 204, 204));
         BarraAgregarNombreProductos.setText("Ingrese el nombre del Producto");
+        BarraAgregarNombreProductos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                BarraAgregarNombreProductosFocusGained(evt);
+            }
+        });
         BarraAgregarNombreProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BarraAgregarNombreProductosMouseClicked(evt);
@@ -746,6 +804,11 @@ public class VentanaMain extends javax.swing.JFrame {
 
         BarraAgregarCantidadProducto.setForeground(new java.awt.Color(204, 204, 204));
         BarraAgregarCantidadProducto.setText("Ingrese la cantidad");
+        BarraAgregarCantidadProducto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                BarraAgregarCantidadProductoFocusGained(evt);
+            }
+        });
         BarraAgregarCantidadProducto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BarraAgregarCantidadProductoMouseClicked(evt);
@@ -763,6 +826,11 @@ public class VentanaMain extends javax.swing.JFrame {
 
         BarraAgregarPrecioProducto.setForeground(new java.awt.Color(204, 204, 204));
         BarraAgregarPrecioProducto.setText("Ingrese el precio del Producto");
+        BarraAgregarPrecioProducto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                BarraAgregarPrecioProductoFocusGained(evt);
+            }
+        });
         BarraAgregarPrecioProducto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BarraAgregarPrecioProductoMouseClicked(evt);
@@ -841,33 +909,14 @@ public class VentanaMain extends javax.swing.JFrame {
 
         TablaMostrarProductos_VentanaGestionProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "id", "Producto", "Cantidad", "Precio", "Unidad de medida"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -875,6 +924,7 @@ public class VentanaMain extends javax.swing.JFrame {
             }
         });
         PanelTablaVentanaProductos.setViewportView(TablaMostrarProductos_VentanaGestionProductos);
+        MostrarTablas("vistaproductos", TablaMostrarProductos_VentanaGestionProductos);
 
         BotonEditarVentanaProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
@@ -899,32 +949,18 @@ public class VentanaMain extends javax.swing.JFrame {
             .addComponent(TextoBotonEditarProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        BotonEliminarVentanaProductos.setBackground(new java.awt.Color(255, 255, 255));
         BotonEliminarVentanaProductos.setPreferredSize(new java.awt.Dimension(84, 37));
+        BotonEliminarVentanaProductos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        BotonEliminarProductos.setText("Eliminar");
-        BotonEliminarProductos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonEliminarProductosActionPerformed(evt);
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Eliminar");
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
             }
         });
-
-        javax.swing.GroupLayout BotonEliminarVentanaProductosLayout = new javax.swing.GroupLayout(BotonEliminarVentanaProductos);
-        BotonEliminarVentanaProductos.setLayout(BotonEliminarVentanaProductosLayout);
-        BotonEliminarVentanaProductosLayout.setHorizontalGroup(
-            BotonEliminarVentanaProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BotonEliminarVentanaProductosLayout.createSequentialGroup()
-                .addGap(0, 1, Short.MAX_VALUE)
-                .addComponent(BotonEliminarProductos)
-                .addGap(0, 2, Short.MAX_VALUE))
-        );
-        BotonEliminarVentanaProductosLayout.setVerticalGroup(
-            BotonEliminarVentanaProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BotonEliminarVentanaProductosLayout.createSequentialGroup()
-                .addGap(0, 3, Short.MAX_VALUE)
-                .addComponent(BotonEliminarProductos)
-                .addGap(0, 4, Short.MAX_VALUE))
-        );
+        BotonEliminarVentanaProductos.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 30));
 
         javax.swing.GroupLayout VentanaGestionProductoLayout = new javax.swing.GroupLayout(VentanaGestionProducto);
         VentanaGestionProducto.setLayout(VentanaGestionProductoLayout);
@@ -994,7 +1030,7 @@ public class VentanaMain extends javax.swing.JFrame {
 
         TextoTipodepagoCuadro_Factura.setText("Tipo de Pago:");
 
-        TextoNombreTipoPagoCuadro_Factura.setText("Ninguno");
+        TextoNombreTipoPagoCuadro_Factura.setText("Credito");
 
         TextoCedulaCuadro_Factura.setText("Cedula:");
 
@@ -1013,17 +1049,14 @@ public class VentanaMain extends javax.swing.JFrame {
         TablaCuadro_Factura.setBackground(new java.awt.Color(240, 240, 240));
         TablaCuadro_Factura.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Producto", "Cantidad", "Precio"
+                "ID", "Producto", "Cantidad", "Precio"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1034,7 +1067,7 @@ public class VentanaMain extends javax.swing.JFrame {
 
         TextoImpuestoCuadro_Factura.setText("Impuesto:");
 
-        TextoPorcentajeCuadro_Factura.setText("0%");
+        TextoPorcentajeCuadro_Factura.setText("18%");
 
         javax.swing.GroupLayout CuadroInformacion_FacturaLayout = new javax.swing.GroupLayout(CuadroInformacion_Factura);
         CuadroInformacion_Factura.setLayout(CuadroInformacion_FacturaLayout);
@@ -1046,29 +1079,31 @@ public class VentanaMain extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addGroup(CuadroInformacion_FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
-                                .addComponent(TextoEmpreadoCuadro_Factura)
-                                .addGap(14, 14, 14)
-                                .addComponent(TextoNombreEmpleadoCuadro_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
-                                .addComponent(TextoClienteCuadro_Factura)
-                                .addGap(15, 15, 15)
-                                .addComponent(TextoNombreClienteCuadro_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
-                                .addComponent(TextoCedulaCuadro_Factura)
-                                .addGap(10, 10, 10)
-                                .addComponent(TextoNumericoCedulaCuadro_Factura))
-                            .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
-                                .addComponent(TextoNumeroTefonicoCuadro_Factura)
-                                .addGap(7, 7, 7)
-                                .addComponent(TextoNumericoTelefonoCuadro_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(CuadroInformacion_FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
+                                        .addComponent(TextoEmpreadoCuadro_Factura)
+                                        .addGap(14, 14, 14)
+                                        .addComponent(TextoNombreEmpleadoCuadro_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
+                                        .addComponent(TextoClienteCuadro_Factura)
+                                        .addGap(15, 15, 15)
+                                        .addComponent(TextoNombreClienteCuadro_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
+                                        .addComponent(TextoCedulaCuadro_Factura)
+                                        .addGap(10, 10, 10)
+                                        .addComponent(TextoNumericoCedulaCuadro_Factura))
+                                    .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
+                                        .addComponent(TextoNumeroTefonicoCuadro_Factura)
+                                        .addGap(7, 7, 7)
+                                        .addComponent(TextoNumericoTelefonoCuadro_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(90, 90, 90)
+                                .addComponent(TextoFechaCuadro_Factura)
+                                .addGap(12, 12, 12)
+                                .addComponent(TextoNumericoFechaCuadro_Factura))
                             .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
                                 .addComponent(TextoTipodepagoCuadro_Factura)
                                 .addGap(17, 17, 17)
-                                .addComponent(TextoNombreTipoPagoCuadro_Factura)))
-                        .addGap(90, 90, 90)
-                        .addComponent(TextoFechaCuadro_Factura)
-                        .addGap(12, 12, 12)
-                        .addComponent(TextoNumericoFechaCuadro_Factura))
+                                .addComponent(TextoNombreTipoPagoCuadro_Factura))))
                     .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
                         .addGap(110, 110, 110)
                         .addComponent(TituloCuadroInformacion_Factura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1124,7 +1159,7 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addGroup(CuadroInformacion_FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(TextoTipodepagoCuadro_Factura)
                     .addComponent(TextoNombreTipoPagoCuadro_Factura))
-                .addGap(14, 14, 14)
+                .addGap(22, 22, 22)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jScrollTablaCuadro_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1158,7 +1193,7 @@ public class VentanaMain extends javax.swing.JFrame {
         BotonGenerearFactura.setLayout(BotonGenerearFacturaLayout);
         BotonGenerearFacturaLayout.setHorizontalGroup(
             BotonGenerearFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TextoBotonGenerarFactura, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+            .addComponent(TextoBotonGenerarFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
         );
         BotonGenerearFacturaLayout.setVerticalGroup(
             BotonGenerearFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1167,6 +1202,11 @@ public class VentanaMain extends javax.swing.JFrame {
 
         BarraNombreClienteCuadro_DatosFactura.setForeground(new java.awt.Color(204, 204, 204));
         BarraNombreClienteCuadro_DatosFactura.setText("Ingrese el nombre del Cliente");
+        BarraNombreClienteCuadro_DatosFactura.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                BarraNombreClienteCuadro_DatosFacturaFocusGained(evt);
+            }
+        });
         BarraNombreClienteCuadro_DatosFactura.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BarraNombreClienteCuadro_DatosFacturaMouseClicked(evt);
@@ -1177,9 +1217,19 @@ public class VentanaMain extends javax.swing.JFrame {
                 BarraNombreClienteCuadro_DatosFacturaActionPerformed(evt);
             }
         });
+        BarraNombreClienteCuadro_DatosFactura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                BarraNombreClienteCuadro_DatosFacturaKeyReleased(evt);
+            }
+        });
 
         BarraProductoCuadro_DatosFactura.setForeground(new java.awt.Color(204, 204, 204));
-        BarraProductoCuadro_DatosFactura.setText("Ingrese el nombre del producto ");
+        BarraProductoCuadro_DatosFactura.setText("Ingrese el id del producto");
+        BarraProductoCuadro_DatosFactura.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                BarraProductoCuadro_DatosFacturaFocusGained(evt);
+            }
+        });
         BarraProductoCuadro_DatosFactura.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BarraProductoCuadro_DatosFacturaMouseClicked(evt);
@@ -1188,10 +1238,15 @@ public class VentanaMain extends javax.swing.JFrame {
 
         TextoClienteCuadro_DatosFactura.setText("Cliente");
 
-        TextoProductoCuadro__DatosFactura.setText("Producto");
+        TextoProductoCuadro__DatosFactura.setText("ID del producto");
 
         BarraCantidadCuadro__DatosFactura.setForeground(new java.awt.Color(204, 204, 204));
         BarraCantidadCuadro__DatosFactura.setText("Ingrese la cantidad");
+        BarraCantidadCuadro__DatosFactura.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                BarraCantidadCuadro__DatosFacturaFocusGained(evt);
+            }
+        });
         BarraCantidadCuadro__DatosFactura.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BarraCantidadCuadro__DatosFacturaMouseClicked(evt);
@@ -1210,16 +1265,31 @@ public class VentanaMain extends javax.swing.JFrame {
 
         BotonAgregarCuadro__DatosFactura.setText("Agregar");
         BotonAgregarCuadro__DatosFactura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonAgregarCuadro__DatosFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonAgregarCuadro__DatosFacturaActionPerformed(evt);
+            }
+        });
 
         TextoTipodePagoCuadro_DatosFactura.setText("Tipo de Pago");
 
         ComboBoxTipodePagoCuadro_DatosFactura.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Credito", "Efectivo" }));
         ComboBoxTipodePagoCuadro_DatosFactura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ComboBoxTipodePagoCuadro_DatosFactura.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ComboBoxTipodePagoCuadro_DatosFacturaItemStateChanged(evt);
+            }
+        });
 
         TextoCedulaCuadro_DatosFactura.setText("Cedula");
 
         BarraCedulaCuadro_DatosFactura.setForeground(new java.awt.Color(204, 204, 204));
         BarraCedulaCuadro_DatosFactura.setText("Ingrese la Cedula");
+        BarraCedulaCuadro_DatosFactura.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                BarraCedulaCuadro_DatosFacturaFocusGained(evt);
+            }
+        });
         BarraCedulaCuadro_DatosFactura.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BarraCedulaCuadro_DatosFacturaMouseClicked(evt);
@@ -1230,14 +1300,40 @@ public class VentanaMain extends javax.swing.JFrame {
                 BarraCedulaCuadro_DatosFacturaActionPerformed(evt);
             }
         });
+        BarraCedulaCuadro_DatosFactura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                BarraCedulaCuadro_DatosFacturaKeyReleased(evt);
+            }
+        });
 
         TextoTelefonoCuadro_DatosFactura.setText("Numero de Telefono");
 
         BarraTelefonoCuadro_DatosFactura.setForeground(new java.awt.Color(204, 204, 204));
         BarraTelefonoCuadro_DatosFactura.setText("Ingrese el numero");
+        BarraTelefonoCuadro_DatosFactura.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                BarraTelefonoCuadro_DatosFacturaFocusGained(evt);
+            }
+        });
         BarraTelefonoCuadro_DatosFactura.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BarraTelefonoCuadro_DatosFacturaMouseClicked(evt);
+            }
+        });
+        BarraTelefonoCuadro_DatosFactura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                BarraTelefonoCuadro_DatosFacturaKeyReleased(evt);
+            }
+        });
+
+        TituloAgregarProductoCuadro_DatosFactura.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        TituloAgregarProductoCuadro_DatosFactura.setText("Agregar Productos a la Factura");
+
+        BotonEliminarCuadro__DatosFactura.setText("Eliminar");
+        BotonEliminarCuadro__DatosFactura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonEliminarCuadro__DatosFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonEliminarCuadro__DatosFacturaActionPerformed(evt);
             }
         });
 
@@ -1246,9 +1342,15 @@ public class VentanaMain extends javax.swing.JFrame {
         CuadroDatos_FacturaLayout.setHorizontalGroup(
             CuadroDatos_FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CuadroDatos_FacturaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BotonAgregarCuadro__DatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap()
+                .addGroup(CuadroDatos_FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(CuadroDatos_FacturaLayout.createSequentialGroup()
+                        .addGap(140, 140, 140)
+                        .addComponent(BotonEliminarCuadro__DatosFactura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(BotonAgregarCuadro__DatosFactura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(32, 32, 32))
             .addGroup(CuadroDatos_FacturaLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(CuadroDatos_FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1290,7 +1392,10 @@ public class VentanaMain extends javax.swing.JFrame {
                         .addGap(201, 201, 201))
                     .addGroup(CuadroDatos_FacturaLayout.createSequentialGroup()
                         .addComponent(ComboBoxTipodePagoCuadro_DatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(CuadroDatos_FacturaLayout.createSequentialGroup()
+                        .addComponent(TituloAgregarProductoCuadro_DatosFactura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(41, 41, 41))))
         );
         CuadroDatos_FacturaLayout.setVerticalGroup(
             CuadroDatos_FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1309,7 +1414,15 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addComponent(TextoTelefonoCuadro_DatosFactura)
                 .addGap(4, 4, 4)
                 .addComponent(BarraTelefonoCuadro_DatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addGap(18, 18, 18)
+                .addComponent(TextoTipodePagoCuadro_DatosFactura)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ComboBoxTipodePagoCuadro_DatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TituloAgregarProductoCuadro_DatosFactura)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(TextoProductoCuadro__DatosFactura)
                 .addGap(4, 4, 4)
                 .addComponent(BarraProductoCuadro_DatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1317,14 +1430,21 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addComponent(TextoCantidadCuadro_DatosFactura)
                 .addGap(4, 4, 4)
                 .addComponent(BarraCantidadCuadro__DatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(TextoTipodePagoCuadro_DatosFactura)
-                .addGap(4, 4, 4)
-                .addComponent(ComboBoxTipodePagoCuadro_DatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(BotonAgregarCuadro__DatosFactura)
-                .addContainerGap())
+                .addGap(48, 48, 48)
+                .addGroup(CuadroDatos_FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BotonAgregarCuadro__DatosFactura)
+                    .addComponent(BotonEliminarCuadro__DatosFactura))
+                .addGap(18, 18, 18))
         );
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/incono_reset.png"))); // NOI18N
+        jLabel2.setText("Reiniciar");
+        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout VentanaFacturacionLayout = new javax.swing.GroupLayout(VentanaFacturacion);
         VentanaFacturacion.setLayout(VentanaFacturacionLayout);
@@ -1334,32 +1454,36 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(TituloVentanaFacturacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(777, 777, 777))
-            .addGroup(VentanaFacturacionLayout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addComponent(CuadroDatos_Factura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(41, 41, 41)
-                .addComponent(CuadroInformacion_Factura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(50, 50, 50))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VentanaFacturacionLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BotonGenerearFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(VentanaFacturacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(VentanaFacturacionLayout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addComponent(CuadroDatos_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(64, 64, 64)
+                        .addComponent(CuadroInformacion_Factura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(VentanaFacturacionLayout.createSequentialGroup()
+                        .addGap(779, 779, 779)
+                        .addGroup(VentanaFacturacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(VentanaFacturacionLayout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(BotonGenerearFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(50, 50, 50))
         );
         VentanaFacturacionLayout.setVerticalGroup(
             VentanaFacturacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(VentanaFacturacionLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(TituloVentanaFacturacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(34, 34, 34)
+                .addComponent(TituloVentanaFacturacion, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(VentanaFacturacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(VentanaFacturacionLayout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(CuadroDatos_Factura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(107, 107, 107))
+                    .addComponent(CuadroDatos_Factura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(CuadroInformacion_Factura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(17, 17, 17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(BotonGenerearFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13))
+                .addGap(18, 18, 18))
         );
 
         ContenedorPaneles.add(VentanaFacturacion, "card4");
@@ -1371,43 +1495,14 @@ public class VentanaMain extends javax.swing.JFrame {
 
         TablaVentanaVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Numero de Factura", "Cliente", "Venta"
+                "Cedula", "Numero de Factura", "Cliente", "Venta"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1415,6 +1510,7 @@ public class VentanaMain extends javax.swing.JFrame {
             }
         });
         ScrollTabla_VentanaRegistroVentas.setViewportView(TablaVentanaVentas);
+        MostrarTablas("vistahistorialcliente_tablafacturas", TablaVentanaVentas);
 
         TextoTotal_VentanaRegistroVentas.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         TextoTotal_VentanaRegistroVentas.setText("Total:");
@@ -1525,26 +1621,7 @@ public class VentanaMain extends javax.swing.JFrame {
 
         Tabla_CuadroInfomacionFactura__VentanaHistorialCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Producto", "Cantidad", "Precio"
@@ -1697,24 +1774,10 @@ public class VentanaMain extends javax.swing.JFrame {
 
         TablaClientes_VentanaHistorialCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Nombre", "Cedula", "Numero de Telefono"
+                "Cedula", "Nombre", "Numero de Telefono"
             }
         ) {
             Class[] types = new Class [] {
@@ -1726,29 +1789,16 @@ public class VentanaMain extends javax.swing.JFrame {
             }
         });
         ScrollTablaClientes_VentanaHistorialCliente.setViewportView(TablaClientes_VentanaHistorialCliente);
+        MostrarTablas("vistahistorial_tablaclientes", TablaClientes_VentanaHistorialCliente);
 
         ScrollTablaHistorialCliente_VentanaHistorialCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(198, 198, 198), 2));
 
         TablaHistorialCliente_VentanaHistorialCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Numero de Factura", "Tipo de Pago", "Pago"
+                "Numero de Factura", "Pago", "Total"
             }
         ) {
             Class[] types = new Class [] {
@@ -1760,9 +1810,15 @@ public class VentanaMain extends javax.swing.JFrame {
             }
         });
         ScrollTablaHistorialCliente_VentanaHistorialCliente.setViewportView(TablaHistorialCliente_VentanaHistorialCliente);
+        MostrarTablas("vistaregistro_ventas", TablaHistorialCliente_VentanaHistorialCliente);
 
         BarraBusquedaCedula_VentanaHistorialCliente.setForeground(new java.awt.Color(204, 204, 204));
         BarraBusquedaCedula_VentanaHistorialCliente.setText("000-0000000-0");
+        BarraBusquedaCedula_VentanaHistorialCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                BarraBusquedaCedula_VentanaHistorialClienteFocusGained(evt);
+            }
+        });
         BarraBusquedaCedula_VentanaHistorialCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BarraBusquedaCedula_VentanaHistorialClienteMouseClicked(evt);
@@ -1867,9 +1923,12 @@ public class VentanaMain extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
   
-    
-    
-    
+    //Metodos
+    public void mostrarFecha(){
+        LocalDate fechaActual = LocalDate.now();
+        String Fecha = fechaActual.toString();
+        TextoNumericoFechaCuadro_Factura.setText(Fecha);
+    }
     public void animarMenu(JSplitPane splitPane, int inicio, int fin, int paso) {
         Timer timer = new Timer(15, null);
         timer.addActionListener(new ActionListener() {
@@ -1904,9 +1963,124 @@ public class VentanaMain extends javax.swing.JFrame {
         }
         menuVisible = !menuVisible;
     }
-    
-    
+    public void ReiniciarDatos(){
+        
+        String Ninguno = "Ninguno";
+        String Cedula = "000-0000000-0";
+        String Numero = "000-000-0000";
+        
+        DefaultTableModel modelo = (DefaultTableModel)TablaCuadro_Factura.getModel();
+        modelo.setRowCount(0);
+        
+        TextoNombreEmpleadoCuadro_Factura.setText(Ninguno);
+        TextoNombreClienteCuadro_Factura.setText(Ninguno);
+        TextoNumericoCedulaCuadro_Factura.setText(Cedula);
+        TextoNumericoTelefonoCuadro_Factura.setText(Numero);
+        
+        TextoNumericoSubtotalCuadro_Factura.setText("0");
+        TextoNumericoTotalCuadro_Factura.setText("0");
+    }
+    public void aplicarPlaceholder(JTextField campo, String placeholder) {
+    // Color gris claro para placeholder
+    Color colorPlaceholder = new Color(204, 204, 204);
 
+    // Establecer texto y color inicial del placeholder
+    campo.setText(placeholder);
+    campo.setForeground(colorPlaceholder);
+
+    campo.addFocusListener(new FocusAdapter() {
+        @Override
+        public void focusGained(FocusEvent e) {
+            if (campo.getText().equals(placeholder)) {
+                campo.setText("");
+                campo.setForeground(Color.BLACK);
+            }
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            if (campo.getText().isEmpty()) {
+                campo.setText(placeholder);
+                campo.setForeground(colorPlaceholder);
+            }
+        }
+    });
+    }   
+    public void MostrarTablas(String nombreVista,JTable tabla) {
+
+        try {
+            
+            DefaultTableModel modelo = new DefaultTableModel();
+            
+            Statement st = ConexionBD.getInstancia().getConexion().createStatement();
+            
+            ResultSet rs = st.executeQuery("SELECT * FROM "+ nombreVista + ";");
+
+            ResultSetMetaData metaData = rs.getMetaData();
+            int totalColumnas = metaData.getColumnCount();
+
+            // Lista de nombres de columnas
+            String[] nombresColumnas = new String[totalColumnas];
+
+            // Agregar columnas al modelo dinámicamente
+            for (int i = 0; i < totalColumnas; i++) {
+                String nombreColumna = metaData.getColumnLabel(i + 1);
+                nombresColumnas[i] = nombreColumna;
+                modelo.addColumn(nombreColumna);
+            }
+
+            // Agregar filas al modelo
+            while (rs.next()) {
+                Object[] fila = new Object[totalColumnas];
+                for (int i = 0; i < totalColumnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(fila);
+            }
+
+            tabla.setModel(modelo);
+
+            trs = new TableRowSorter<>(modelo);
+            tabla.setRowSorter(trs);
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void SumaFactura(){
+        DefaultTableModel modelo = (DefaultTableModel) TablaCuadro_Factura.getModel();
+
+        modelo.addTableModelListener(e -> {
+            double SubTotal = 0.0;
+            int columna = 3; //Ubicacion de la columna con la que se recolecta el dato
+            double Total = 0.0;
+            for (int i = 0; i < modelo.getRowCount(); i++) {
+                Object valor = modelo.getValueAt(i, columna);
+                if (valor != null) {
+                    try {
+                        double num = 0.0;
+                        if (valor instanceof Number) {
+                            num = ((Number) valor).doubleValue();
+                        } else {
+                            num = Double.parseDouble(valor.toString());
+                        }
+                        SubTotal += num;
+                        Total = SubTotal +(num * 0.18);
+                    } catch (NumberFormatException ex) {
+                        // Ignorar o manejar error
+                    }
+                }
+            }
+
+            
+            String subtotal = String.valueOf(SubTotal);
+            String total = String.valueOf(Total);
+            TextoNumericoSubtotalCuadro_Factura.setText(subtotal);
+            TextoNumericoTotalCuadro_Factura.setText(total);
+        });
+
+    }
     
     
     
@@ -2083,7 +2257,6 @@ public class VentanaMain extends javax.swing.JFrame {
             Boton3 = false;
             Boton4 = false;
         }else{
-        System.out.println("Nada");
         }
     }//GEN-LAST:event_DatosPersonalesBtnMouseClicked
 
@@ -2097,7 +2270,6 @@ public class VentanaMain extends javax.swing.JFrame {
             Boton3 = false;
             Boton4 = false;
         }else{
-        System.out.println("Nada");
         }
     }//GEN-LAST:event_GestionProductosBtnMouseClicked
 
@@ -2111,7 +2283,6 @@ public class VentanaMain extends javax.swing.JFrame {
             Boton3 = false;
             Boton4 = false;
         }else{
-        System.out.println("Nada");
         }
     }//GEN-LAST:event_FacturacionBtnMouseClicked
 
@@ -2125,7 +2296,6 @@ public class VentanaMain extends javax.swing.JFrame {
             Boton2 = false;
             Boton4 = false;
         }else{
-        System.out.println("Nada");
         }
     }//GEN-LAST:event_RegistroVentasBtnMouseClicked
 
@@ -2139,7 +2309,6 @@ public class VentanaMain extends javax.swing.JFrame {
             Boton2 = false;
             Boton3 = false;
         }else{
-        System.out.println("Nada");
         }
     }//GEN-LAST:event_HistorialClienteBtnMouseClicked
 
@@ -2172,6 +2341,7 @@ public class VentanaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_ComboBoxEditarDatosActionPerformed
 
     private void TextoBotonEditarProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextoBotonEditarProductosMouseClicked
+        
         int filaSeleccionada = TablaMostrarProductos_VentanaGestionProductos.getSelectedRow();
         
         if(filaSeleccionada == -1){
@@ -2179,79 +2349,24 @@ public class VentanaMain extends javax.swing.JFrame {
         }else{
         int filaModelo = TablaMostrarProductos_VentanaGestionProductos.convertRowIndexToModel(filaSeleccionada);
         
-        Object id = TablaMostrarProductos_VentanaGestionProductos.getModel().getValueAt(filaModelo, 0);
-        Object NombreProducto = TablaMostrarProductos_VentanaGestionProductos.getModel().getValueAt(filaModelo, 1);
-        Object Cantidad = TablaMostrarProductos_VentanaGestionProductos.getModel().getValueAt(filaModelo, 2);
-        Object Precio = TablaMostrarProductos_VentanaGestionProductos.getModel().getValueAt(filaModelo, 3);
-        Object UnidadMedida = TablaMostrarProductos_VentanaGestionProductos.getModel().getValueAt(filaModelo, 4);
+        int id = Integer.parseInt(TablaMostrarProductos_VentanaGestionProductos.getModel().getValueAt(filaModelo, 0).toString());
+        String nombreProducto = TablaMostrarProductos_VentanaGestionProductos.getModel().getValueAt(filaModelo, 1).toString();
+        int cantidad = Integer.parseInt(TablaMostrarProductos_VentanaGestionProductos.getModel().getValueAt(filaModelo, 2).toString());
+        double precio = Double.parseDouble(TablaMostrarProductos_VentanaGestionProductos.getModel().getValueAt(filaModelo, 3).toString());
+        String unidadMedida = TablaMostrarProductos_VentanaGestionProductos.getModel().getValueAt(filaModelo, 4).toString();
+
+        JFrame ventana = new JFrame("Editor de Usuario");
         
-        VentanaEditarProductos ventana = new VentanaEditarProductos(id, NombreProducto, Cantidad, Precio, UnidadMedida);
+        VentanaEditarProductos ventanaeditar = new VentanaEditarProductos(id, nombreProducto, cantidad, precio, unidadMedida, this, TablaMostrarProductos_VentanaGestionProductos);
+        
+        ventana.setContentPane(ventanaeditar.VentanaEmergenteEditarProductos);
         ventana.setVisible(true);
+        ventana.setSize(450, 550);
         ventana.setLocationRelativeTo(null);
         
         }
         
     }//GEN-LAST:event_TextoBotonEditarProductosMouseClicked
-
-    private void BarraAgregarNombreProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraAgregarNombreProductosMouseClicked
-        BarraAgregarNombreProductos.setText("");
-        BarraAgregarNombreProductos.setForeground(Color.BLACK);
-    }//GEN-LAST:event_BarraAgregarNombreProductosMouseClicked
-
-    private void BarraAgregarCantidadProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraAgregarCantidadProductoMouseClicked
-        BarraAgregarCantidadProducto.setText("");
-        BarraAgregarCantidadProducto.setForeground(Color.BLACK);
-    }//GEN-LAST:event_BarraAgregarCantidadProductoMouseClicked
-
-    private void BarraAgregarPrecioProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraAgregarPrecioProductoMouseClicked
-        BarraAgregarPrecioProducto.setText("");
-        BarraAgregarPrecioProducto.setForeground(Color.BLACK);
-    }//GEN-LAST:event_BarraAgregarPrecioProductoMouseClicked
-
-    private void BarraEditarDatoNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraEditarDatoNombreMouseClicked
-        BarraEditarDatoNombre.setText("");
-        BarraEditarDatoNombre.setForeground(Color.BLACK);
-    }//GEN-LAST:event_BarraEditarDatoNombreMouseClicked
-
-    private void BarraEditarCedulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraEditarCedulaMouseClicked
-        BarraEditarCedula.setText("");
-        BarraEditarCedula.setForeground(Color.BLACK);
-    }//GEN-LAST:event_BarraEditarCedulaMouseClicked
-
-    private void BarraEditarDatos_TelefonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraEditarDatos_TelefonoMouseClicked
-        BarraEditarDatos_Telefono.setText("");
-        BarraEditarDatos_Telefono.setForeground(Color.BLACK);
-    }//GEN-LAST:event_BarraEditarDatos_TelefonoMouseClicked
-
-    private void BarraNombreClienteCuadro_DatosFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraNombreClienteCuadro_DatosFacturaMouseClicked
-        BarraNombreClienteCuadro_DatosFactura.setText("");
-        BarraNombreClienteCuadro_DatosFactura.setForeground(Color.BLACK);
-    }//GEN-LAST:event_BarraNombreClienteCuadro_DatosFacturaMouseClicked
-
-    private void BarraCedulaCuadro_DatosFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraCedulaCuadro_DatosFacturaMouseClicked
-        BarraCedulaCuadro_DatosFactura.setText("");
-        BarraCedulaCuadro_DatosFactura.setForeground(Color.BLACK);
-    }//GEN-LAST:event_BarraCedulaCuadro_DatosFacturaMouseClicked
-
-    private void BarraTelefonoCuadro_DatosFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraTelefonoCuadro_DatosFacturaMouseClicked
-        BarraTelefonoCuadro_DatosFactura.setText("");
-        BarraTelefonoCuadro_DatosFactura.setForeground(Color.BLACK);
-    }//GEN-LAST:event_BarraTelefonoCuadro_DatosFacturaMouseClicked
-
-    private void BarraProductoCuadro_DatosFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraProductoCuadro_DatosFacturaMouseClicked
-        BarraProductoCuadro_DatosFactura.setText("");
-        BarraProductoCuadro_DatosFactura.setForeground(Color.BLACK);
-    }//GEN-LAST:event_BarraProductoCuadro_DatosFacturaMouseClicked
-
-    private void BarraCantidadCuadro__DatosFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraCantidadCuadro__DatosFacturaMouseClicked
-        BarraCantidadCuadro__DatosFactura.setText("");
-        BarraCantidadCuadro__DatosFactura.setForeground(Color.BLACK);
-    }//GEN-LAST:event_BarraCantidadCuadro__DatosFacturaMouseClicked
-
-    private void BarraBusquedaCedula_VentanaHistorialClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraBusquedaCedula_VentanaHistorialClienteMouseClicked
-        BarraBusquedaCedula_VentanaHistorialCliente.setText("");
-        BarraBusquedaCedula_VentanaHistorialCliente.setForeground(Color.BLACK);
-    }//GEN-LAST:event_BarraBusquedaCedula_VentanaHistorialClienteMouseClicked
 
     private void BotonAgregarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAgregarProductosActionPerformed
         // TODO add your handling code here:
@@ -2283,25 +2398,10 @@ public class VentanaMain extends javax.swing.JFrame {
     p = new ProductoColmado();
     
     
-    statement.executeUpdate("Insert into ProductoColmado (id_producto, nombre, precio, cantidad, unidad_medida) values (\"" + p.getId_producto() + "\",\"" + nombre_p + "\", \"" + precio_p + "\", \"" + cantidad_p + "\", \"" + unidad_mp + "\")");
-
-    System.out.println(p.getId_producto());
-                          
-    modelo_mostrar.setRowCount(0);
+    statement.executeUpdate("Insert into ProductoColmado ( nombre, precio, cantidad, unidad_medida) values (\"" + nombre_p + "\", \"" + precio_p + "\", \"" + cantidad_p + "\", \"" + unidad_mp + "\")");
     
-    ResultSet resultset = statement.executeQuery("SELECT * FROM ProductoColmado");
-   
-
-   while(resultset.next()){
-       
-                modelo_mostrar.addRow(new Object[]{p.getId_producto(), resultset.getString("nombre"), resultset.getDouble("precio"), resultset.getInt("cantidad"), resultset.getString("unidad_medida") });
-                
-   }
-
-
+    MostrarTablas("ProductoColmado", TablaMostrarProductos_VentanaGestionProductos);
     
-    
-
 }catch (SQLException el) {
     el.printStackTrace(); 
 }
@@ -2311,22 +2411,296 @@ public class VentanaMain extends javax.swing.JFrame {
         
     }//GEN-LAST:event_BotonAgregarProductosActionPerformed
 
-    private void BotonEliminarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarProductosActionPerformed
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        
+        int filaSeleccionada = TablaMostrarProductos_VentanaGestionProductos.getSelectedRow();
+        
+        if(filaSeleccionada == -1){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+        int filaModelo = TablaMostrarProductos_VentanaGestionProductos.convertRowIndexToModel(filaSeleccionada);
+        
+        int fila = TablaMostrarProductos_VentanaGestionProductos.convertRowIndexToModel(filaSeleccionada);
+        DefaultTableModel modelo = (DefaultTableModel) TablaMostrarProductos_VentanaGestionProductos.getModel();
+        int idproducto = Integer.parseInt(modelo.getValueAt(fila,0).toString());
+        
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de eliminar este producto?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+        
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            
+            try {
+               Statement st = ConexionBD.getInstancia().getConexion().createStatement();
+                   
+               st.executeUpdate("DELETE FROM ProductoColmado WHERE id_producto = "+ idproducto);
+               
+               JOptionPane.showMessageDialog(null, "Producto eliminado exitosamente.");
+               MostrarTablas("ProductoColmado", TablaMostrarProductos_VentanaGestionProductos);
+                        
+            }catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error con la sintaxis");
+                
+            }
+                
+            }
+            
+            
+        }        
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void BarraNombreClienteCuadro_DatosFacturaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BarraNombreClienteCuadro_DatosFacturaKeyReleased
+
+        String texto = BarraNombreClienteCuadro_DatosFactura.getText();
+                
+        TextoNombreClienteCuadro_Factura.setText(texto);
+
+    }//GEN-LAST:event_BarraNombreClienteCuadro_DatosFacturaKeyReleased
+
+    private void BarraCedulaCuadro_DatosFacturaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BarraCedulaCuadro_DatosFacturaKeyReleased
+        String texto = BarraCedulaCuadro_DatosFactura.getText();
+                
+        TextoNumericoCedulaCuadro_Factura.setText(texto);
+    }//GEN-LAST:event_BarraCedulaCuadro_DatosFacturaKeyReleased
+
+    private void BarraTelefonoCuadro_DatosFacturaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BarraTelefonoCuadro_DatosFacturaKeyReleased
+        String texto = BarraTelefonoCuadro_DatosFactura.getText();
+                
+        TextoNumericoTelefonoCuadro_Factura.setText(texto);
+    }//GEN-LAST:event_BarraTelefonoCuadro_DatosFacturaKeyReleased
+
+    private void ComboBoxTipodePagoCuadro_DatosFacturaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboBoxTipodePagoCuadro_DatosFacturaItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            String texto = evt.getItem().toString();
+            TextoNombreTipoPagoCuadro_Factura.setText(texto);
+        }
+    }//GEN-LAST:event_ComboBoxTipodePagoCuadro_DatosFacturaItemStateChanged
+
+    private void BotonAgregarCuadro__DatosFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAgregarCuadro__DatosFacturaActionPerformed
+
+        String textoId = BarraProductoCuadro_DatosFactura.getText();  // ID ingresado
+        String textoCantidad = BarraCantidadCuadro__DatosFactura.getText();
+        
+        int idProducto;
+        int cantidadSolicitada;
+
+        try {
+            idProducto = Integer.parseInt(textoId.trim());
+            cantidadSolicitada = Integer.parseInt(textoCantidad.trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El ID y la cantidad deben ser números enteros.", "Formato incorrecto", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        String nombre = null;
+        double precioUnitario = 0.0;
+        int cantidadDisponible = 0;
+
+
+        // Consulta en la base de datos
+        try {
+            Connection conexion = ConexionBD.getInstancia().getConexion();
+            String sql = "SELECT nombre, precio, cantidad FROM ProductoColmado WHERE id_producto = ?";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idProducto);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                nombre = rs.getString("nombre");
+                precioUnitario = rs.getDouble("precio");
+                cantidadDisponible = rs.getInt("cantidad");
+            } else {
+                JOptionPane.showMessageDialog(null, "Producto no encontrado en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            rs.close();
+            ps.close();
+            
+            // Validar si hay suficiente stock
+            if (cantidadSolicitada > cantidadDisponible) {
+                JOptionPane.showMessageDialog(null,
+                    "Cantidad solicitada excede el stock disponible (" + cantidadDisponible + ").",
+                    "Stock insuficiente", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al consultar el producto: " + ex.getMessage(), "Error de BD", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // Calcular precio total
+        double precioTotal = precioUnitario * cantidadSolicitada;
+
+        // Agregar fila a la tabla de factura
+        DefaultTableModel modelo = (DefaultTableModel) TablaCuadro_Factura.getModel();
+        modelo.addRow(new Object[]{idProducto,nombre, cantidadSolicitada, precioTotal});
+
+        
+        
+    }//GEN-LAST:event_BotonAgregarCuadro__DatosFacturaActionPerformed
+
+    private void BotonEliminarCuadro__DatosFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarCuadro__DatosFacturaActionPerformed
+        int filaSeleccionada = TablaCuadro_Factura.getSelectedRow();
+        
+        if(filaSeleccionada == -1){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            int filaModelo = TablaCuadro_Factura.convertRowIndexToModel(filaSeleccionada);
+
+            int fila = TablaCuadro_Factura.convertRowIndexToModel(filaSeleccionada);
+            DefaultTableModel modelo = (DefaultTableModel) TablaCuadro_Factura.getModel();
+            
+            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de eliminar este producto?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                modelo.removeRow(filaModelo);
+            }   
+        }
+    }//GEN-LAST:event_BotonEliminarCuadro__DatosFacturaActionPerformed
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        
+        ReiniciarDatos();
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    
+    
+    
+    //Efectos Placeholder en los TexField
+    
+    private void BarraEditarDatoNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BarraEditarDatoNombreFocusGained
+        aplicarPlaceholder(BarraEditarDatoNombre,"Ingrese nuevo nombre");
+    }//GEN-LAST:event_BarraEditarDatoNombreFocusGained
+
+    private void BarraEditarCedulaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BarraEditarCedulaFocusGained
+        aplicarPlaceholder(BarraEditarCedula, "Ingrese nueva cedula");
+    }//GEN-LAST:event_BarraEditarCedulaFocusGained
+
+    private void BarraEditarDatos_TelefonoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BarraEditarDatos_TelefonoFocusGained
+        aplicarPlaceholder(BarraEditarDatos_Telefono, "Ingrese el nuevo numero");
+    }//GEN-LAST:event_BarraEditarDatos_TelefonoFocusGained
+
+    private void BarraAgregarNombreProductosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BarraAgregarNombreProductosFocusGained
+        aplicarPlaceholder(BarraAgregarNombreProductos, "Ingrese el nombre del Producto");
+    }//GEN-LAST:event_BarraAgregarNombreProductosFocusGained
+
+    private void BarraAgregarCantidadProductoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BarraAgregarCantidadProductoFocusGained
+        aplicarPlaceholder(BarraAgregarCantidadProducto, "Ingrese la cantidad");
+    }//GEN-LAST:event_BarraAgregarCantidadProductoFocusGained
+
+    private void BarraAgregarPrecioProductoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BarraAgregarPrecioProductoFocusGained
+        aplicarPlaceholder(BarraAgregarPrecioProducto, "Ingrese el precio del Producto");
+    }//GEN-LAST:event_BarraAgregarPrecioProductoFocusGained
+
+    private void BarraNombreClienteCuadro_DatosFacturaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BarraNombreClienteCuadro_DatosFacturaFocusGained
+        aplicarPlaceholder(BarraNombreClienteCuadro_DatosFactura, "Ingrese el nombre del Cliente");
+    }//GEN-LAST:event_BarraNombreClienteCuadro_DatosFacturaFocusGained
+
+    private void BarraCedulaCuadro_DatosFacturaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BarraCedulaCuadro_DatosFacturaFocusGained
+        aplicarPlaceholder(BarraCedulaCuadro_DatosFactura, "Ingrese la Cedula");
+    }//GEN-LAST:event_BarraCedulaCuadro_DatosFacturaFocusGained
+
+    private void BarraTelefonoCuadro_DatosFacturaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BarraTelefonoCuadro_DatosFacturaFocusGained
+        aplicarPlaceholder(BarraTelefonoCuadro_DatosFactura, "Ingrese el numero");
+    }//GEN-LAST:event_BarraTelefonoCuadro_DatosFacturaFocusGained
+
+    private void BarraProductoCuadro_DatosFacturaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BarraProductoCuadro_DatosFacturaFocusGained
+        aplicarPlaceholder(BarraProductoCuadro_DatosFactura, "Ingrese el id del producto");
+    }//GEN-LAST:event_BarraProductoCuadro_DatosFacturaFocusGained
+
+    private void BarraCantidadCuadro__DatosFacturaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BarraCantidadCuadro__DatosFacturaFocusGained
+        aplicarPlaceholder(BarraCantidadCuadro__DatosFactura, "Ingrese la cantidad");
+    }//GEN-LAST:event_BarraCantidadCuadro__DatosFacturaFocusGained
+
+    private void BarraBusquedaCedula_VentanaHistorialClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BarraBusquedaCedula_VentanaHistorialClienteFocusGained
+        aplicarPlaceholder(BarraBusquedaCedula_VentanaHistorialCliente, "000-0000000-0");
+    }//GEN-LAST:event_BarraBusquedaCedula_VentanaHistorialClienteFocusGained
+
+    private void BarraEditarDatoNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraEditarDatoNombreMouseClicked
+        BarraEditarDatoNombre.setText("");
+        BarraEditarDatoNombre.setForeground(Color.BLACK);   
+    }//GEN-LAST:event_BarraEditarDatoNombreMouseClicked
+
+    private void BarraEditarCedulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraEditarCedulaMouseClicked
+        BarraEditarCedula.setText("");
+        BarraEditarCedula.setForeground(Color.BLACK);
+    }//GEN-LAST:event_BarraEditarCedulaMouseClicked
+
+    private void BarraEditarDatos_TelefonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraEditarDatos_TelefonoMouseClicked
+        BarraEditarDatos_Telefono.setText("");
+        BarraEditarDatos_Telefono.setForeground(Color.BLACK);
+    }//GEN-LAST:event_BarraEditarDatos_TelefonoMouseClicked
+
+    private void BarraAgregarNombreProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraAgregarNombreProductosMouseClicked
+        BarraAgregarNombreProductos.setText("");
+        BarraAgregarNombreProductos.setForeground(Color.BLACK);
+    }//GEN-LAST:event_BarraAgregarNombreProductosMouseClicked
+
+    private void BarraAgregarCantidadProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraAgregarCantidadProductoMouseClicked
+        BarraAgregarCantidadProducto.setText("");
+        BarraAgregarCantidadProducto.setForeground(Color.BLACK);
+    }//GEN-LAST:event_BarraAgregarCantidadProductoMouseClicked
+
+    private void BarraAgregarPrecioProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraAgregarPrecioProductoMouseClicked
+        BarraAgregarPrecioProducto.setText("");
+        BarraAgregarPrecioProducto.setForeground(Color.BLACK);
+    }//GEN-LAST:event_BarraAgregarPrecioProductoMouseClicked
+
+    private void BarraNombreClienteCuadro_DatosFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraNombreClienteCuadro_DatosFacturaMouseClicked
+        BarraNombreClienteCuadro_DatosFactura.setText("");
+        BarraNombreClienteCuadro_DatosFactura.setForeground(Color.BLACK);
+    }//GEN-LAST:event_BarraNombreClienteCuadro_DatosFacturaMouseClicked
+
+    private void BarraCedulaCuadro_DatosFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraCedulaCuadro_DatosFacturaMouseClicked
+        BarraCedulaCuadro_DatosFactura.setText("");
+        BarraCedulaCuadro_DatosFactura.setForeground(Color.BLACK);
+    }//GEN-LAST:event_BarraCedulaCuadro_DatosFacturaMouseClicked
+
+    private void BarraTelefonoCuadro_DatosFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraTelefonoCuadro_DatosFacturaMouseClicked
+        BarraTelefonoCuadro_DatosFactura.setText("");
+        BarraTelefonoCuadro_DatosFactura.setForeground(Color.BLACK);
+    }//GEN-LAST:event_BarraTelefonoCuadro_DatosFacturaMouseClicked
+
+    private void BarraProductoCuadro_DatosFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraProductoCuadro_DatosFacturaMouseClicked
+        BarraProductoCuadro_DatosFactura.setText("");
+        BarraProductoCuadro_DatosFactura.setForeground(Color.BLACK);
+    }//GEN-LAST:event_BarraProductoCuadro_DatosFacturaMouseClicked
+
+    private void BarraCantidadCuadro__DatosFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraCantidadCuadro__DatosFacturaMouseClicked
+        BarraCantidadCuadro__DatosFactura.setText("");
+        BarraCantidadCuadro__DatosFactura.setForeground(Color.BLACK);
+    }//GEN-LAST:event_BarraCantidadCuadro__DatosFacturaMouseClicked
+
+    private void BarraBusquedaCedula_VentanaHistorialClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraBusquedaCedula_VentanaHistorialClienteMouseClicked
+        BarraBusquedaCedula_VentanaHistorialCliente.setText("");
+        BarraBusquedaCedula_VentanaHistorialCliente.setForeground(Color.BLACK);
+    }//GEN-LAST:event_BarraBusquedaCedula_VentanaHistorialClienteMouseClicked
+
+    private void BarraEditarDatoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BarraEditarDatoNombreActionPerformed
         // TODO add your handling code here:
-        // aregglar
-
-    
-   
-    }//GEN-LAST:event_BotonEliminarProductosActionPerformed
+    }//GEN-LAST:event_BarraEditarDatoNombreActionPerformed
     
 
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
-
-
-
-
+    private VentanaMain VentanaMain;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.JTextField BarraAgregarCantidadProducto;
@@ -2345,7 +2719,7 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JButton BotonAgregarProductos;
     private javax.swing.JButton BotonEditarDatos;
     private javax.swing.JPanel BotonEditarVentanaProductos;
-    private javax.swing.JButton BotonEliminarProductos;
+    private javax.swing.JButton BotonEliminarCuadro__DatosFactura;
     private javax.swing.JPanel BotonEliminarVentanaProductos;
     private javax.swing.JPanel BotonGenerearFactura;
     private javax.swing.JLabel BtnMenu;
@@ -2391,7 +2765,7 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JTable TablaCuadro_Factura;
     private javax.swing.JTable TablaDatosPersonales;
     private javax.swing.JTable TablaHistorialCliente_VentanaHistorialCliente;
-    private javax.swing.JTable TablaMostrarProductos_VentanaGestionProductos;
+    public javax.swing.JTable TablaMostrarProductos_VentanaGestionProductos;
     private javax.swing.JTable TablaVentanaVentas;
     private javax.swing.JTable Tabla_CuadroInfomacionFactura__VentanaHistorialCliente;
     private javax.swing.JLabel TextoAgregarCantidadProducto;
@@ -2452,6 +2826,7 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JLabel TextoTotalNumerico_VentanaRegistroVentas;
     private javax.swing.JLabel TextoTotal_CuadroInfomacionFactura__VentanaHistorialCliente;
     private javax.swing.JLabel TextoTotal_VentanaRegistroVentas;
+    private javax.swing.JLabel TituloAgregarProductoCuadro_DatosFactura;
     private javax.swing.JLabel TituloCuadroInformacion_Factura;
     private javax.swing.JLabel TituloCuadro_DatosFactura;
     private javax.swing.JLabel TituloVentanaDatosPersonales;
@@ -2468,9 +2843,15 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JPanel VentanaGestionProducto;
     private javax.swing.JPanel VentanaHistorialCliente;
     private javax.swing.JPanel VentanaRegistroVentas;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollTablaCuadro_Factura;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
+    private TableRowSorter<DefaultTableModel> trs;
+
+
 }

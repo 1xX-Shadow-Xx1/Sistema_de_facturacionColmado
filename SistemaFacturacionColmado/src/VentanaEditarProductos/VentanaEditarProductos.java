@@ -4,13 +4,28 @@
  */
 package VentanaEditarProductos;
 
-import java.awt.Color;
 
+import VentanaPrincipal.VentanaMain;
+import java.awt.Color;
+import java.awt.Window;
+import java.sql.SQLException;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import java.sql.Statement;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import logica.producto.ProductoColmado;
+import persistencia.ConexionBD;
 /**
  *
  * @author kevin
  */
-public class VentanaEditarProductos extends javax.swing.JFrame {
+public class VentanaEditarProductos extends JFrame{
+    
+    private int idProducto;
+    private VentanaMain ventanaMain;
+    private JTable TablaMostrarProductos_VentanaGestionProductos;
+   
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaEditarProductos.class.getName());
 
@@ -21,21 +36,27 @@ public class VentanaEditarProductos extends javax.swing.JFrame {
         initComponents();
     }
 
-    public VentanaEditarProductos(Object id, Object nombre, Object cantidad, Object precio, Object unidad) {
+    public VentanaEditarProductos(int id, String nombre, int cantidad, double precio, String unidad, VentanaMain ventanaMain, JTable tablaProductos) {
+        this.idProducto = idProducto;
+        this.ventanaMain = ventanaMain;
+        this.TablaMostrarProductos_VentanaGestionProductos = tablaProductos;
         initComponents();
 
         
-        EditarNombreProductoBarra.setText(nombre.toString());
-        EditarCantidadBarra.setText(cantidad.toString());
-        EditarPrecioBarra.setText(precio.toString());
-        EditarUnidadMedidaItems.setSelectedItem(unidad.toString());
+        EditarNombreProductoBarra.setText(nombre);
+        EditarCantidadBarra.setText(String.valueOf(cantidad));
+        EditarPrecioBarra.setText(String.valueOf(precio));
+        EditarUnidadMedidaItems.setSelectedItem(unidad);
+
+        this.idProducto = (id);
         
-        this.idProducto = id.toString(); 
+        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        VentanaEmergenteEditarProductos = new javax.swing.JPanel();
         EditarNombreProductoBarra = new javax.swing.JTextField();
         EditarNombreProductoTxt = new javax.swing.JLabel();
         EditarCantidadTxt = new javax.swing.JLabel();
@@ -49,8 +70,7 @@ public class VentanaEditarProductos extends javax.swing.JFrame {
         TituloEditarProductos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(400, 400));
-        setSize(new java.awt.Dimension(400, 400));
+        setSize(new java.awt.Dimension(450, 550));
 
         EditarNombreProductoBarra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,6 +111,11 @@ public class VentanaEditarProductos extends javax.swing.JFrame {
         VentanaBotonEditarTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         VentanaBotonEditarTxt.setText("Editar");
         VentanaBotonEditarTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        VentanaBotonEditarTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                VentanaBotonEditarTxtMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout BotonVentanaEditarLayout = new javax.swing.GroupLayout(BotonVentanaEditar);
         BotonVentanaEditar.setLayout(BotonVentanaEditarLayout);
@@ -106,55 +131,62 @@ public class VentanaEditarProductos extends javax.swing.JFrame {
         TituloEditarProductos.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         TituloEditarProductos.setText("Editar Productos");
 
+        javax.swing.GroupLayout VentanaEmergenteEditarProductosLayout = new javax.swing.GroupLayout(VentanaEmergenteEditarProductos);
+        VentanaEmergenteEditarProductos.setLayout(VentanaEmergenteEditarProductosLayout);
+        VentanaEmergenteEditarProductosLayout.setHorizontalGroup(
+            VentanaEmergenteEditarProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(VentanaEmergenteEditarProductosLayout.createSequentialGroup()
+                .addGap(129, 129, 129)
+                .addGroup(VentanaEmergenteEditarProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TituloEditarProductos)
+                    .addComponent(EditarNombreProductoTxt)
+                    .addComponent(EditarNombreProductoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EditarCantidadTxt)
+                    .addComponent(EditarCantidadBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EditarPrecioTxt)
+                    .addComponent(EditarPrecioBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EditarUnidadMedidaTxt)
+                    .addComponent(EditarUnidadMedidaItems, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(VentanaEmergenteEditarProductosLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(BotonVentanaEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(130, Short.MAX_VALUE))
+        );
+        VentanaEmergenteEditarProductosLayout.setVerticalGroup(
+            VentanaEmergenteEditarProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(VentanaEmergenteEditarProductosLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(TituloEditarProductos)
+                .addGap(97, 97, 97)
+                .addComponent(EditarNombreProductoTxt)
+                .addGap(6, 6, 6)
+                .addComponent(EditarNombreProductoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(EditarCantidadTxt)
+                .addGap(6, 6, 6)
+                .addComponent(EditarCantidadBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(EditarPrecioTxt)
+                .addGap(6, 6, 6)
+                .addComponent(EditarPrecioBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(EditarUnidadMedidaTxt)
+                .addGap(6, 6, 6)
+                .addComponent(EditarUnidadMedidaItems, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64)
+                .addComponent(BotonVentanaEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(53, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(124, 124, 124)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(EditarNombreProductoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TituloEditarProductos)
-                            .addComponent(EditarPrecioTxt)
-                            .addComponent(EditarCantidadTxt)
-                            .addComponent(EditarNombreProductoTxt)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(EditarPrecioBarra, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(EditarCantidadBarra, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(EditarUnidadMedidaItems, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(EditarUnidadMedidaTxt, javax.swing.GroupLayout.Alignment.LEADING))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(160, 160, 160)
-                        .addComponent(BotonVentanaEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(124, Short.MAX_VALUE))
+            .addComponent(VentanaEmergenteEditarProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(TituloEditarProductos)
-                .addGap(81, 81, 81)
-                .addComponent(EditarNombreProductoTxt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(EditarNombreProductoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(EditarCantidadTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(EditarCantidadBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(EditarPrecioTxt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(EditarPrecioBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(EditarUnidadMedidaTxt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(EditarUnidadMedidaItems, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
-                .addComponent(BotonVentanaEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
+            .addComponent(VentanaEmergenteEditarProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -179,33 +211,50 @@ public class VentanaEditarProductos extends javax.swing.JFrame {
     private void BotonVentanaEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonVentanaEditarMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_BotonVentanaEditarMouseClicked
-    
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VentanaEditarProductos().setVisible(true));
-    }
-    private String idProducto;
+    private void VentanaBotonEditarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VentanaBotonEditarTxtMouseClicked
+        
+        String nuevoNombre = EditarNombreProductoBarra.getText().trim();
+        String nuevaCantidad = (EditarCantidadBarra.getText().trim());
+        String nuevoPrecio = (EditarPrecioBarra.getText().trim());
+        String nuevaUnidadMedida = (String) EditarUnidadMedidaItems.getSelectedItem();
+
+        if (nuevoNombre.isEmpty() || nuevaCantidad.isEmpty() || nuevoPrecio.isEmpty() || nuevaUnidadMedida == null) {
+            JOptionPane.showMessageDialog(null, "¡Los campos no pueden estar vacíos!");
+        return;
+        } 
+        
+        int NuevaCantidad = Integer.valueOf(nuevaCantidad);
+        double NuevoPrecio = Double.valueOf(nuevoPrecio);
+        
+        
+        try {
+                
+                Statement st = ConexionBD.getInstancia().getConexion().createStatement();
+                
+                st.executeUpdate("UPDATE ProductoColmado SET "
+               + "nombre = '" + nuevoNombre + "', "
+               + "cantidad = " + NuevaCantidad + ", "
+               + "precio = " + NuevoPrecio + ", "
+               + "unidad_medida = '" + nuevaUnidadMedida + "' "
+               + "WHERE id_producto = " + idProducto);
+                
+                ventanaMain.MostrarTablas("vistaproductos", TablaMostrarProductos_VentanaGestionProductos);
+                
+                JOptionPane.showMessageDialog(null, "Producto editado Exitosamente");
+
+                Window ventana = SwingUtilities.getWindowAncestor(VentanaEmergenteEditarProductos);
+                if (ventana != null) {
+                    ventana.dispose();
+                }
+
+        } catch ( SQLException ex) {
+            ex.printStackTrace();    
+        }    
+    }//GEN-LAST:event_VentanaBotonEditarTxtMouseClicked
+    
+    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BotonVentanaEditar;
     private javax.swing.JTextField EditarCantidadBarra;
@@ -218,5 +267,6 @@ public class VentanaEditarProductos extends javax.swing.JFrame {
     private javax.swing.JLabel EditarUnidadMedidaTxt;
     private javax.swing.JLabel TituloEditarProductos;
     private javax.swing.JLabel VentanaBotonEditarTxt;
+    public javax.swing.JPanel VentanaEmergenteEditarProductos;
     // End of variables declaration//GEN-END:variables
 }
