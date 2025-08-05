@@ -26,6 +26,7 @@ import logica.producto.ProductoColmado;
 import persistencia.ConexionBD;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JLabel;
@@ -35,6 +36,7 @@ import javax.swing.RowFilter;
 import static javax.swing.UIManager.getString;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import VentanaPrincipal.EstadoBoton;
 
 
         
@@ -46,21 +48,27 @@ public class VentanaMain extends javax.swing.JFrame {
     
     int xMouse, yMouse;
     boolean menuVisible = true;
-    boolean Boton = true;
-    boolean Boton1 = false;
-    boolean Boton2 = false;
-    boolean Boton3 = false;
-    boolean Boton4 = false;
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaMain.class.getName());
 
+    EstadoBoton[] lista = new EstadoBoton[5];
+    
+
+
+    
     Desface desplace;
     public VentanaMain() {
         initComponents();
         desplace = new Desface();
         mostrarFecha();
         SumaFactura();
+        
+        // Creacion de los Botones [0 al 4]
+        for (int i = 0; i < lista.length; i++) {
+            lista[i] = new EstadoBoton(false);    
+        }
+        lista[0].activo = true;       
     }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1913,7 +1921,7 @@ public class VentanaMain extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Background, javax.swing.GroupLayout.PREFERRED_SIZE, 1202, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, 1202, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1954,6 +1962,18 @@ public class VentanaMain extends javax.swing.JFrame {
         });
         timer.start();
     }
+    
+    void Botones(int Btn){
+        
+        lista[Btn].activo = true;
+        
+        for(int i = 0; i < lista.length; i++ ){   
+            if( i != Btn){
+                lista[i].activo = false;
+            }  
+        }    
+    }
+    
     private void MetodoBtnMenu() {
         int actual = jSplitPane1.getDividerLocation();
         if (menuVisible) {
@@ -2132,49 +2152,49 @@ public class VentanaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_MinimizarTxtMouseExited
 
     private void GestionProductosBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestionProductosBtnMouseEntered
-        if(Boton1 == false){
+        if(lista[1].activo == false){
         GestionProductosBtn.setBackground(new Color(220,220,220));
         }
     }//GEN-LAST:event_GestionProductosBtnMouseEntered
 
     private void GestionProductosBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestionProductosBtnMouseExited
-        if(Boton1 == false){
+        if(lista[1].activo == false){
         GestionProductosBtn.setBackground(new Color(198,198,198));
         }
     }//GEN-LAST:event_GestionProductosBtnMouseExited
 
     private void FacturacionBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FacturacionBtnMouseEntered
-        if(Boton2 == false){
+        if(lista[2].activo == false){
             FacturacionBtn.setBackground(new Color(220,220,220));
         }
     }//GEN-LAST:event_FacturacionBtnMouseEntered
 
     private void FacturacionBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FacturacionBtnMouseExited
-        if(Boton2 == false){
+        if(lista[2].activo == false){
             FacturacionBtn.setBackground(new Color(198,198,198));
         }
     }//GEN-LAST:event_FacturacionBtnMouseExited
 
     private void RegistroVentasBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistroVentasBtnMouseEntered
-        if(Boton3 == false){
+        if(lista[3].activo == false){
             RegistroVentasBtn.setBackground(new Color(220,220,220));
         }
     }//GEN-LAST:event_RegistroVentasBtnMouseEntered
 
     private void RegistroVentasBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistroVentasBtnMouseExited
-        if(Boton3 == false){
+        if(lista[3].activo == false){
             RegistroVentasBtn.setBackground(new Color(198,198,198));
         }
     }//GEN-LAST:event_RegistroVentasBtnMouseExited
 
     private void HistorialClienteBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialClienteBtnMouseEntered
-        if(Boton4 == false){
+        if(lista[4].activo == false){
             HistorialClienteBtn.setBackground(new Color(220,220,220));
         }
     }//GEN-LAST:event_HistorialClienteBtnMouseEntered
 
     private void HistorialClienteBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialClienteBtnMouseExited
-        if(Boton4 == false){
+        if(lista[4].activo == false){
             HistorialClienteBtn.setBackground(new Color(198,198,198));
         }
     }//GEN-LAST:event_HistorialClienteBtnMouseExited
@@ -2185,37 +2205,37 @@ public class VentanaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_formComponentResized
 
     private void GestionProductosBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestionProductosBtnMousePressed
-        if(Boton1 == false){
+        if(lista[1].activo == false){
         GestionProductosBtn.setBackground(new Color(210,210,210));
         }
     }//GEN-LAST:event_GestionProductosBtnMousePressed
 
     private void FacturacionBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FacturacionBtnMousePressed
-        if(Boton2 == false){
+        if(lista[2].activo == false){
         FacturacionBtn.setBackground(new Color(210,210,210));
         }
     }//GEN-LAST:event_FacturacionBtnMousePressed
 
     private void RegistroVentasBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistroVentasBtnMousePressed
-        if(Boton3 == false){
+        if(lista[3].activo == false){
         RegistroVentasBtn.setBackground(new Color(210,210,210));
         }
     }//GEN-LAST:event_RegistroVentasBtnMousePressed
 
     private void HistorialClienteBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialClienteBtnMousePressed
-        if (Boton4 == false){
+        if (lista[4].activo == false){
         HistorialClienteBtn.setBackground(new Color(210,210,210));
         }
     }//GEN-LAST:event_HistorialClienteBtnMousePressed
 
     private void DatosPersonalesBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DatosPersonalesBtnMousePressed
-        if(Boton == false){
+        if(lista[0].activo == false){
         DatosPersonalesBtn.setBackground(new Color(210,210,210));
         }
     }//GEN-LAST:event_DatosPersonalesBtnMousePressed
 
     private void DatosPersonalesBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DatosPersonalesBtnMouseEntered
-        if(Boton == false){
+        if(lista[0].activo == false){
         DatosPersonalesBtn.setBackground(new Color(220,220,220));
         }
     }//GEN-LAST:event_DatosPersonalesBtnMouseEntered
@@ -2230,7 +2250,7 @@ public class VentanaMain extends javax.swing.JFrame {
     }
     
     private void DatosPersonalesBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DatosPersonalesBtnMouseExited
-        if(Boton == false){
+        if(lista[0].activo == false){
         DatosPersonalesBtn.setBackground(new Color(198,198,198));
         }
     }//GEN-LAST:event_DatosPersonalesBtnMouseExited
@@ -2248,66 +2268,48 @@ public class VentanaMain extends javax.swing.JFrame {
     }
 
     private void DatosPersonalesBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DatosPersonalesBtnMouseClicked
-        if (Boton == false){
+        if (lista[0].activo == false){
             mostrarVentana("VnDatosPersonales");
             setBotonActivo(DatosPersonalesBtn);
-            Boton = true;
-            Boton1 = false;
-            Boton2 = false;
-            Boton3 = false;
-            Boton4 = false;
+            Botones(0);
         }else{
         }
     }//GEN-LAST:event_DatosPersonalesBtnMouseClicked
 
     private void GestionProductosBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestionProductosBtnMouseClicked
-        if(Boton1 == false){
+        if(lista[1].activo == false){
             mostrarVentana("VnGestionProductos");
             setBotonActivo(GestionProductosBtn);
-            Boton1 = true;
-            Boton = false;
-            Boton2 = false;
-            Boton3 = false;
-            Boton4 = false;
+            Botones(1);
         }else{
         }
     }//GEN-LAST:event_GestionProductosBtnMouseClicked
 
     private void FacturacionBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FacturacionBtnMouseClicked
-        if(Boton2 == false){
+        if(lista[2].activo == false){
             mostrarVentana("VnFacturacion");
             setBotonActivo(FacturacionBtn);
-            Boton2 = true;
-            Boton = false;
-            Boton1 = false;
-            Boton3 = false;
-            Boton4 = false;
+            Botones(2);
         }else{
         }
     }//GEN-LAST:event_FacturacionBtnMouseClicked
 
     private void RegistroVentasBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistroVentasBtnMouseClicked
-        if(Boton3 == false){
+        
+        
+        if(lista[3].activo == false){
             mostrarVentana("VnRegistroVentas");
             setBotonActivo(RegistroVentasBtn);
-            Boton3 = true;
-            Boton = false;
-            Boton1 = false;
-            Boton2 = false;
-            Boton4 = false;
+            Botones(3);
         }else{
         }
     }//GEN-LAST:event_RegistroVentasBtnMouseClicked
 
     private void HistorialClienteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialClienteBtnMouseClicked
-        if(Boton4 == false){
+        if(lista[4].activo == false){
             mostrarVentana("VnHistorialCliente");
             setBotonActivo(HistorialClienteBtn);
-            Boton4 = true;
-            Boton = false;
-            Boton1 = false;
-            Boton2 = false;
-            Boton3 = false;
+            Botones(4);
         }else{
         }
     }//GEN-LAST:event_HistorialClienteBtnMouseClicked
@@ -2514,7 +2516,7 @@ public class VentanaMain extends javax.swing.JFrame {
             }
 
             rs.close();
-            ps.close();
+
             
             // Validar si hay suficiente stock
             if (cantidadSolicitada > cantidadDisponible) {
