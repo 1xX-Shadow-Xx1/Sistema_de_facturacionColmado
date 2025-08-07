@@ -35,7 +35,9 @@ import javax.swing.RowFilter;
 import static javax.swing.UIManager.getString;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-
+import logica.factura.Factura;
+import logica.persona.Cliente;
+import logica.persona.Empleado;
 
         
 /**
@@ -1188,6 +1190,11 @@ public class VentanaMain extends javax.swing.JFrame {
         TextoBotonGenerarFactura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         TextoBotonGenerarFactura.setText("Generar Factura");
         TextoBotonGenerarFactura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TextoBotonGenerarFactura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TextoBotonGenerarFacturaMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout BotonGenerearFacturaLayout = new javax.swing.GroupLayout(BotonGenerearFactura);
         BotonGenerearFactura.setLayout(BotonGenerearFacturaLayout);
@@ -2008,6 +2015,7 @@ public class VentanaMain extends javax.swing.JFrame {
     }   
     public void MostrarTablas(String nombreVista,JTable tabla) {
 
+        
         try {
             
             DefaultTableModel modelo = new DefaultTableModel();
@@ -2374,11 +2382,7 @@ public class VentanaMain extends javax.swing.JFrame {
         // nombre, cantidad precio y unidad de medida.
         // BarraAgregarNombreProductos / BarraAgregarCantidadProducto / BarraAgregarPrecioProducto
         
-        BarraAgregarNombreProductos.getText();
-        BarraAgregarCantidadProducto.getText();
-        BarraAgregarPrecioProducto.getText();
-        ComboBoxAgregarUnidadMedidaProducto.getSelectedItem();
-        
+      
         ProductoColmado p;
         
 
@@ -2514,7 +2518,6 @@ public class VentanaMain extends javax.swing.JFrame {
             }
 
             rs.close();
-            ps.close();
             
             // Validar si hay suficiente stock
             if (cantidadSolicitada > cantidadDisponible) {
@@ -2533,6 +2536,7 @@ public class VentanaMain extends javax.swing.JFrame {
         double precioTotal = precioUnitario * cantidadSolicitada;
 
         // Agregar fila a la tabla de factura
+        
         DefaultTableModel modelo = (DefaultTableModel) TablaCuadro_Factura.getModel();
         modelo.addRow(new Object[]{idProducto,nombre, cantidadSolicitada, precioTotal});
 
@@ -2680,6 +2684,56 @@ public class VentanaMain extends javax.swing.JFrame {
     private void BarraEditarDatoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BarraEditarDatoNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BarraEditarDatoNombreActionPerformed
+
+    private void TextoBotonGenerarFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextoBotonGenerarFacturaMouseClicked
+        // TODO add your handling code here:
+        
+        // Generar factura EDDY
+    
+  //   DefaultTableModel modelo = (DefaultTableModel) TablaCuadro_Factura.getModel();
+
+     Factura f;   
+//    DefaultTableModel modelo_mostrar = (DefaultTableModel) TablaMostrarProductos_VentanaGestionProductos.getModel();
+                      try {
+   
+    Statement statement = ConexionBD.getInstancia().getConexion().createStatement();
+
+    String nombre_emp = TextoNombreEmpleadoCuadro_Factura.getText();
+    String nombre_cli = TextoNombreClienteCuadro_Factura.getText();
+    String cedula_cli = TextoNumericoCedulaCuadro_Factura.getText();
+    String numero_cli = TextoNumericoTelefonoCuadro_Factura.getText();
+    String tipo_pago_cli = TextoNombreTipoPagoCuadro_Factura.getText();
+    String fecha_compra = String.valueOf(TextoNumericoFechaCuadro_Factura.getText());
+    String subtotal_cli = String.valueOf(TextoNumericoSubtotalCuadro_Factura.getText());
+    String total_cli = String.valueOf(TextoNumericoTotalCuadro_Factura.getText());
+    String impuesto_cli = TextoPorcentajeCuadro_Factura.getText();
+    
+    int cedula_emp = 0;
+    String cargo_emp = "No tiene";
+   
+    Cliente c;
+    Empleado e;
+    
+   // FALTA OBTEN
+    
+    statement.executeUpdate("Insert into Cliente (cedula_cliente, tipo_pago, nombre_cliente, numero_cliente) values (\"" + cedula_cli + "\", \"" + tipo_pago_cli + "\",\"" + nombre_cli + "\", \"" + numero_cli + "\")");
+
+    c = new Cliente(Cliente.getId_cliente(), tipo_pago_cli, nombre_cli, cedula_cli);
+
+   statement.executeUpdate("Insert into Empleado (cedula_empleado, cargo, nombre_empleado) values (\"" + cedula_emp + "\", \"" + cargo_emp + "\", \"" + nombre_emp + "\")");
+   e = new Empleado(); 
+
+   
+  
+  statement.executeUpdate("Insert into Factura (id_cliente,id_empleado, fecha, tipo_pago, subtotal, impuesto, total) values (\"" + Cliente.getId_cliente() + "\", \"" + Empleado.getId_empleado() + "\", \"" + fecha_compra + "\", \"" + tipo_pago_cli + "\", \"" + subtotal_cli + "\", \"" + impuesto_cli + "\", \"" + total_cli + "\")");
+    
+    
+}catch (SQLException el) {
+    el.printStackTrace(); 
+}
+   
+        
+    }//GEN-LAST:event_TextoBotonGenerarFacturaMouseClicked
     
 
 

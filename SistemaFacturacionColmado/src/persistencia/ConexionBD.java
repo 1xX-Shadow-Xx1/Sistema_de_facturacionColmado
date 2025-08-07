@@ -14,7 +14,7 @@ public class ConexionBD {
 
     private final String URL = "jdbc:mysql://localhost:3306/colmadodatosgenerales"; 
     private final String USUARIO = "root";
-    private final String CLAVE = "Karma-Deflector1-Enchilada"; 
+    private final String CLAVE = "mysql123456"; 
 
     private ConexionBD() {
         try {
