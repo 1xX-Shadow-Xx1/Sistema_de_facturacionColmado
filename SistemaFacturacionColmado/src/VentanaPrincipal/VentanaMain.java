@@ -229,6 +229,7 @@ public class VentanaMain extends javax.swing.JFrame {
         TextoAnualFiltro_VentanaHistorialCliente = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(450, 200));
         setLocationByPlatform(true);
         setUndecorated(true);
         setSize(new java.awt.Dimension(1200, 800));
