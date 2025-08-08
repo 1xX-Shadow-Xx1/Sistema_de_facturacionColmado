@@ -239,10 +239,9 @@ public class VentanaEditarProductos extends JFrame{
                + "unidad_medida = '" + nuevaUnidadMedida + "' "
                + "WHERE id_producto = " + idProducto);
                 
-                ventanaMain.MostrarTablas("vistaproductos", TablaMostrarProductos_VentanaGestionProductos);
-                
                 JOptionPane.showMessageDialog(null, "Producto editado Exitosamente");
-
+                ventanaMain.tablas.TablaGestionProductos();
+                
                 Window ventana = SwingUtilities.getWindowAncestor(VentanaEmergenteEditarProductos);
                 if (ventana != null) {
                     ventana.dispose();

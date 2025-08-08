@@ -1,6 +1,9 @@
 package VentanaPrincipal;
 
+import Tablas.Tablas;
 import VentanaEditarProductos.VentanaEditarProductos;
+import VentanaLogin.Sesion;
+import VentanaLogin.VentanaLogin;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import javax.swing.JFrame;
@@ -12,34 +15,21 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
-
 import logica.producto.ProductoColmado;
 import persistencia.ConexionBD;
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.RowFilter;
-import static javax.swing.UIManager.getString;
-import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import VentanaPrincipal.EstadoBoton;
-import logica.factura.Factura;
-import logica.persona.Cliente;
-import logica.persona.Empleado;
+
+
 
 
         
@@ -51,10 +41,11 @@ public class VentanaMain extends javax.swing.JFrame {
     
     int xMouse, yMouse;
     boolean menuVisible = true;
-
+    public Tablas tablas;
     EstadoBoton[] lista = new EstadoBoton[5];
+    VentanaLogin ventanalogin = new VentanaLogin();
     
-
+    
 
     
     Desface desplace;
@@ -63,6 +54,16 @@ public class VentanaMain extends javax.swing.JFrame {
         desplace = new Desface();
         mostrarFecha();
         SumaFactura();
+        this.dispose();
+        
+        this.tablas = new Tablas(this); 
+        tablas.TablaDatosPersonales();
+
+        
+        
+        
+        Nombre_empleadoMenu.setText(Sesion.Empleado);
+        TextoNombreEmpleadoCuadro_Factura.setText(Sesion.Empleado);
         
         // Creacion de los Botones [0 al 4]
         for (int i = 0; i < lista.length; i++) {
@@ -83,12 +84,6 @@ public class VentanaMain extends javax.swing.JFrame {
     private void initComponents() {
 
         Background = new javax.swing.JPanel();
-        Header = new javax.swing.JPanel();
-        BtnMinimizar = new javax.swing.JPanel();
-        MinimizarTxt = new javax.swing.JLabel();
-        ExitBtn = new javax.swing.JPanel();
-        ExitTxt = new javax.swing.JLabel();
-        BtnMenu = new javax.swing.JLabel();
         jSplitPane1 = new javax.swing.JSplitPane();
         Menu = new javax.swing.JPanel();
         JavaIcon = new javax.swing.JLabel();
@@ -102,6 +97,8 @@ public class VentanaMain extends javax.swing.JFrame {
         RegistroVentasTxt = new javax.swing.JLabel();
         HistorialClienteBtn = new javax.swing.JPanel();
         HistorialClienteTxt = new javax.swing.JLabel();
+        Nombre_empleadoMenu = new javax.swing.JLabel();
+        CerrarSesionBtn = new javax.swing.JLabel();
         ContenedorPaneles = new javax.swing.JPanel();
         VentanaDatosPersonales = new javax.swing.JPanel();
         PanelTablaDatosPersonales = new javax.swing.JScrollPane();
@@ -230,6 +227,12 @@ public class VentanaMain extends javax.swing.JFrame {
         ComboBoxAnual_VentanaHistorialCliente = new javax.swing.JComboBox<>();
         TextoMesFiltro_VentanaHistorialCliente = new javax.swing.JLabel();
         TextoAnualFiltro_VentanaHistorialCliente = new javax.swing.JLabel();
+        Header = new javax.swing.JPanel();
+        BtnMinimizar = new javax.swing.JPanel();
+        MinimizarTxt = new javax.swing.JLabel();
+        ExitBtn = new javax.swing.JPanel();
+        ExitTxt = new javax.swing.JLabel();
+        BtnMenu = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(450, 200));
@@ -244,103 +247,17 @@ public class VentanaMain extends javax.swing.JFrame {
 
         Background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Header.setBackground(new java.awt.Color(228, 228, 228));
-        Header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                HeaderMouseDragged(evt);
-            }
-        });
-        Header.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                HeaderMousePressed(evt);
-            }
-        });
-
-        BtnMinimizar.setBackground(new java.awt.Color(228, 228, 228));
-        BtnMinimizar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        MinimizarTxt.setBackground(new java.awt.Color(228, 228, 228));
-        MinimizarTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        MinimizarTxt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/minimizar-ventana .png"))); // NOI18N
-        MinimizarTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        MinimizarTxt.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MinimizarTxtMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                MinimizarTxtMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                MinimizarTxtMouseExited(evt);
-            }
-        });
-        BtnMinimizar.add(MinimizarTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 80, 30));
-
-        ExitBtn.setBackground(new java.awt.Color(228, 228, 228));
-        ExitBtn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        ExitTxt.setBackground(new java.awt.Color(228, 228, 228));
-        ExitTxt.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        ExitTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ExitTxt.setText("X");
-        ExitTxt.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ExitTxtMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ExitTxtMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ExitTxtMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                ExitTxtMousePressed(evt);
-            }
-        });
-        ExitBtn.add(ExitTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 0, 70, -1));
-
-        BtnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/menu.png"))); // NOI18N
-        BtnMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BtnMenu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnMenuMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
-        Header.setLayout(HeaderLayout);
-        HeaderLayout.setHorizontalGroup(
-            HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeaderLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(BtnMenu)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1024, Short.MAX_VALUE)
-                .addComponent(BtnMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ExitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66))
-        );
-        HeaderLayout.setVerticalGroup(
-            HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(HeaderLayout.createSequentialGroup()
-                .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(BtnMenu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BtnMinimizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ExitBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        Background.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 30));
-
         jSplitPane1.setDividerLocation(270);
         jSplitPane1.setDividerSize(0);
 
-        Menu.setBackground(new java.awt.Color(198, 198, 198));
+        Menu.setBackground(new java.awt.Color(220, 220, 220));
+        Menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         JavaIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        JavaIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/java.png"))); // NOI18N
+        JavaIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Logo.png"))); // NOI18N
+        Menu.add(JavaIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 280, 155));
 
-        DatosPersonalesBtn.setBackground(new java.awt.Color(234, 234, 234));
+        DatosPersonalesBtn.setBackground(new java.awt.Color(223, 223, 223));
         DatosPersonalesBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         DatosPersonalesBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -357,7 +274,8 @@ public class VentanaMain extends javax.swing.JFrame {
             }
         });
 
-        DatosPersonalesTxt.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        DatosPersonalesTxt.setFont(new java.awt.Font("Segoe UI Symbol", 1, 20)); // NOI18N
+        DatosPersonalesTxt.setForeground(new java.awt.Color(255, 255, 255));
         DatosPersonalesTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         DatosPersonalesTxt.setText("Datos Personales");
 
@@ -378,7 +296,9 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        GestionProductosBtn.setBackground(new java.awt.Color(198, 198, 198));
+        Menu.add(DatosPersonalesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 259, -1, -1));
+
+        GestionProductosBtn.setBackground(new java.awt.Color(227, 227, 227));
         GestionProductosBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GestionProductosBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -396,7 +316,8 @@ public class VentanaMain extends javax.swing.JFrame {
         });
 
         GestionProductosTxt.setBackground(new java.awt.Color(198, 198, 198));
-        GestionProductosTxt.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        GestionProductosTxt.setFont(new java.awt.Font("Segoe UI Symbol", 1, 20)); // NOI18N
+        GestionProductosTxt.setForeground(new java.awt.Color(255, 255, 255));
         GestionProductosTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         GestionProductosTxt.setText("Gestión de productos");
 
@@ -414,10 +335,12 @@ public class VentanaMain extends javax.swing.JFrame {
             .addGroup(GestionProductosBtnLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(GestionProductosTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        FacturacionBtn.setBackground(new java.awt.Color(198, 198, 198));
+        Menu.add(GestionProductosBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 342, 270, 80));
+
+        FacturacionBtn.setBackground(new java.awt.Color(228, 228, 228));
         FacturacionBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         FacturacionBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -434,7 +357,8 @@ public class VentanaMain extends javax.swing.JFrame {
             }
         });
 
-        FacturacionTxt.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        FacturacionTxt.setFont(new java.awt.Font("Segoe UI Symbol", 1, 20)); // NOI18N
+        FacturacionTxt.setForeground(new java.awt.Color(255, 255, 255));
         FacturacionTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         FacturacionTxt.setText("Facturación");
 
@@ -455,7 +379,9 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        RegistroVentasBtn.setBackground(new java.awt.Color(198, 198, 198));
+        Menu.add(FacturacionBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 419, -1, -1));
+
+        RegistroVentasBtn.setBackground(new java.awt.Color(229, 229, 229));
         RegistroVentasBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         RegistroVentasBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -473,7 +399,8 @@ public class VentanaMain extends javax.swing.JFrame {
         });
 
         RegistroVentasTxt.setBackground(new java.awt.Color(198, 198, 198));
-        RegistroVentasTxt.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        RegistroVentasTxt.setFont(new java.awt.Font("Segoe UI Symbol", 1, 20)); // NOI18N
+        RegistroVentasTxt.setForeground(new java.awt.Color(255, 255, 255));
         RegistroVentasTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         RegistroVentasTxt.setText("Registro de ventas");
 
@@ -494,7 +421,9 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        HistorialClienteBtn.setBackground(new java.awt.Color(198, 198, 198));
+        Menu.add(RegistroVentasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 499, -1, -1));
+
+        HistorialClienteBtn.setBackground(new java.awt.Color(230, 230, 230));
         HistorialClienteBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         HistorialClienteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -512,7 +441,8 @@ public class VentanaMain extends javax.swing.JFrame {
         });
 
         HistorialClienteTxt.setBackground(new java.awt.Color(198, 198, 198));
-        HistorialClienteTxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        HistorialClienteTxt.setFont(new java.awt.Font("Segoe UI Symbol", 1, 18)); // NOI18N
+        HistorialClienteTxt.setForeground(new java.awt.Color(255, 255, 255));
         HistorialClienteTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         HistorialClienteTxt.setText("Historial del Cliente");
 
@@ -533,53 +463,33 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
-        Menu.setLayout(MenuLayout);
-        MenuLayout.setHorizontalGroup(
-            MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(GestionProductosBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(MenuLayout.createSequentialGroup()
-                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MenuLayout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(JavaIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(DatosPersonalesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(HistorialClienteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RegistroVentasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FacturacionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        MenuLayout.setVerticalGroup(
-            MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MenuLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(JavaIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MenuLayout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(DatosPersonalesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(MenuLayout.createSequentialGroup()
-                                .addGap(320, 320, 320)
-                                .addComponent(HistorialClienteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(MenuLayout.createSequentialGroup()
-                                .addGap(240, 240, 240)
-                                .addComponent(RegistroVentasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(MenuLayout.createSequentialGroup()
-                                .addGap(160, 160, 160)
-                                .addComponent(FacturacionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(MenuLayout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(GestionProductosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-        );
+        Menu.add(HistorialClienteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 579, -1, -1));
+
+        Nombre_empleadoMenu.setBackground(new java.awt.Color(102, 102, 102));
+        Nombre_empleadoMenu.setFont(new java.awt.Font("Segoe UI Symbol", 1, 18)); // NOI18N
+        Nombre_empleadoMenu.setForeground(new java.awt.Color(102, 102, 102));
+        Nombre_empleadoMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Nombre_empleadoMenu.setText("jLabel3");
+        Nombre_empleadoMenu.setMaximumSize(new java.awt.Dimension(59, 50));
+        Menu.add(Nombre_empleadoMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 173, 230, -1));
+
+        CerrarSesionBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar-sesion.png"))); // NOI18N
+        CerrarSesionBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CerrarSesionBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CerrarSesionBtnMouseClicked(evt);
+            }
+        });
+        Menu.add(CerrarSesionBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 700, -1, -1));
 
         jSplitPane1.setLeftComponent(Menu);
 
         ContenedorPaneles.setBackground(new java.awt.Color(255, 255, 255));
+        ContenedorPaneles.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 204, 204)));
         ContenedorPaneles.setPreferredSize(new java.awt.Dimension(53, 559));
         ContenedorPaneles.setLayout(new java.awt.CardLayout());
 
-        VentanaDatosPersonales.setBackground(new java.awt.Color(255, 255, 255));
+        VentanaDatosPersonales.setBackground(new java.awt.Color(250, 250, 250));
 
         PanelTablaDatosPersonales.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(198, 198, 198), 2));
 
@@ -600,7 +510,6 @@ public class VentanaMain extends javax.swing.JFrame {
             }
         });
         PanelTablaDatosPersonales.setViewportView(TablaDatosPersonales);
-        MostrarTablas("vistadatospersonales", TablaDatosPersonales);
 
         CuadroEditarDatosPersonales.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(198, 198, 198), 2));
 
@@ -762,7 +671,7 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(VentanaDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(VentanaDatosPersonalesLayout.createSequentialGroup()
-                        .addComponent(TituloVentanaDatosPersonales, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                        .addComponent(TituloVentanaDatosPersonales, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
                         .addGap(674, 674, 674))
                     .addGroup(VentanaDatosPersonalesLayout.createSequentialGroup()
                         .addComponent(CuadroEditarDatosPersonales, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -774,7 +683,7 @@ public class VentanaMain extends javax.swing.JFrame {
             VentanaDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(VentanaDatosPersonalesLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(TituloVentanaDatosPersonales, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                .addComponent(TituloVentanaDatosPersonales, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
                 .addGap(49, 49, 49)
                 .addGroup(VentanaDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(VentanaDatosPersonalesLayout.createSequentialGroup()
@@ -782,12 +691,12 @@ public class VentanaMain extends javax.swing.JFrame {
                         .addGap(10, 10, 10))
                     .addGroup(VentanaDatosPersonalesLayout.createSequentialGroup()
                         .addComponent(CuadroEditarDatosPersonales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(183, Short.MAX_VALUE))))
+                        .addContainerGap(182, Short.MAX_VALUE))))
         );
 
         ContenedorPaneles.add(VentanaDatosPersonales, "card2");
 
-        VentanaGestionProducto.setBackground(new java.awt.Color(255, 255, 255));
+        VentanaGestionProducto.setBackground(new java.awt.Color(250, 250, 250));
 
         TituloVentanaGestionProductos.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         TituloVentanaGestionProductos.setText("Gestion de Productos");
@@ -936,7 +845,6 @@ public class VentanaMain extends javax.swing.JFrame {
             }
         });
         PanelTablaVentanaProductos.setViewportView(TablaMostrarProductos_VentanaGestionProductos);
-        MostrarTablas("vistaproductos", TablaMostrarProductos_VentanaGestionProductos);
 
         BotonEditarVentanaProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
@@ -1012,7 +920,7 @@ public class VentanaMain extends javax.swing.JFrame {
 
         ContenedorPaneles.add(VentanaGestionProducto, "card3");
 
-        VentanaFacturacion.setBackground(new java.awt.Color(255, 255, 255));
+        VentanaFacturacion.setBackground(new java.awt.Color(250, 250, 250));
 
         TituloVentanaFacturacion.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         TituloVentanaFacturacion.setText("Facturación");
@@ -1491,7 +1399,7 @@ public class VentanaMain extends javax.swing.JFrame {
             VentanaFacturacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(VentanaFacturacionLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(TituloVentanaFacturacion, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                .addComponent(TituloVentanaFacturacion, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                 .addGap(12, 12, 12)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1505,7 +1413,7 @@ public class VentanaMain extends javax.swing.JFrame {
 
         ContenedorPaneles.add(VentanaFacturacion, "card4");
 
-        VentanaRegistroVentas.setBackground(new java.awt.Color(255, 255, 255));
+        VentanaRegistroVentas.setBackground(new java.awt.Color(250, 250, 250));
 
         Titulo_VentanaRegistroVentas.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         Titulo_VentanaRegistroVentas.setText("Registro de Ventas");
@@ -1527,7 +1435,6 @@ public class VentanaMain extends javax.swing.JFrame {
             }
         });
         ScrollTabla_VentanaRegistroVentas.setViewportView(TablaVentanaVentas);
-        MostrarTablas("vistahistorialcliente_tablafacturas", TablaVentanaVentas);
 
         TextoTotal_VentanaRegistroVentas.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         TextoTotal_VentanaRegistroVentas.setText("Total:");
@@ -1593,7 +1500,7 @@ public class VentanaMain extends javax.swing.JFrame {
                             .addComponent(ComboBoxAnual_VentanaRegistroVentas))
                         .addGap(8, 8, 8)))
                 .addGap(20, 20, 20)
-                .addComponent(ScrollTabla_VentanaRegistroVentas, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                .addComponent(ScrollTabla_VentanaRegistroVentas, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
                 .addGap(82, 82, 82)
                 .addGroup(VentanaRegistroVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TextoTotalNumerico_VentanaRegistroVentas)
@@ -1603,7 +1510,7 @@ public class VentanaMain extends javax.swing.JFrame {
 
         ContenedorPaneles.add(VentanaRegistroVentas, "card5");
 
-        VentanaHistorialCliente.setBackground(new java.awt.Color(255, 255, 255));
+        VentanaHistorialCliente.setBackground(new java.awt.Color(250, 250, 250));
         VentanaHistorialCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         Titulo_VentanaHistorialCliente.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -1705,7 +1612,7 @@ public class VentanaMain extends javax.swing.JFrame {
                         .addComponent(TextoTipodePago_CuadroInfomacionFactura__VentanaHistorialCliente)
                         .addGap(14, 14, 14)
                         .addComponent(TextoTipodePagoNombre_CuadroInfomacionFactura__VentanaHistorialCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addContainerGap(189, Short.MAX_VALUE))
             .addGroup(CuadroInformacionFactura_VentanaHistorialClienteLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(SeparatorSuperior_CuadroInfomacionFactura__VentanaHistorialCliente)
@@ -1806,7 +1713,6 @@ public class VentanaMain extends javax.swing.JFrame {
             }
         });
         ScrollTablaClientes_VentanaHistorialCliente.setViewportView(TablaClientes_VentanaHistorialCliente);
-        MostrarTablas("vistahistorial_tablaclientes", TablaClientes_VentanaHistorialCliente);
 
         ScrollTablaHistorialCliente_VentanaHistorialCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(198, 198, 198), 2));
 
@@ -1827,7 +1733,6 @@ public class VentanaMain extends javax.swing.JFrame {
             }
         });
         ScrollTablaHistorialCliente_VentanaHistorialCliente.setViewportView(TablaHistorialCliente_VentanaHistorialCliente);
-        MostrarTablas("vistaregistro_ventas", TablaHistorialCliente_VentanaHistorialCliente);
 
         BarraBusquedaCedula_VentanaHistorialCliente.setForeground(new java.awt.Color(204, 204, 204));
         BarraBusquedaCedula_VentanaHistorialCliente.setText("000-0000000-0");
@@ -1861,7 +1766,7 @@ public class VentanaMain extends javax.swing.JFrame {
             .addGroup(VentanaHistorialClienteLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(VentanaHistorialClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ScrollTablaClientes_VentanaHistorialCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                    .addComponent(ScrollTablaClientes_VentanaHistorialCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
                     .addComponent(ScrollTablaHistorialCliente_VentanaHistorialCliente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(CuadroInformacionFactura_VentanaHistorialCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1893,7 +1798,7 @@ public class VentanaMain extends javax.swing.JFrame {
             .addGroup(VentanaHistorialClienteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Titulo_VentanaHistorialCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(VentanaHistorialClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(TextoCedulaFiltro_VentanaHistorialCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BarraBusquedaCedula_VentanaHistorialCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1924,13 +1829,120 @@ public class VentanaMain extends javax.swing.JFrame {
         ContenedorPaneles.add(VentanaRegistroVentas, "VnRegistroVentas");
         ContenedorPaneles.add(VentanaHistorialCliente, "VnHistorialCliente");
 
-        Background.add(jSplitPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 32, 1200, 740));
+        Background.add(jSplitPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 32, 1210, 740));
+
+        Header.setBackground(new java.awt.Color(228, 228, 228));
+        Header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                HeaderMouseDragged(evt);
+            }
+        });
+        Header.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                HeaderMousePressed(evt);
+            }
+        });
+
+        BtnMinimizar.setBackground(new java.awt.Color(228, 228, 228));
+
+        MinimizarTxt.setBackground(new java.awt.Color(228, 228, 228));
+        MinimizarTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        MinimizarTxt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/menos.png"))); // NOI18N
+        MinimizarTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MinimizarTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MinimizarTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                MinimizarTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                MinimizarTxtMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout BtnMinimizarLayout = new javax.swing.GroupLayout(BtnMinimizar);
+        BtnMinimizar.setLayout(BtnMinimizarLayout);
+        BtnMinimizarLayout.setHorizontalGroup(
+            BtnMinimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(MinimizarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+        );
+        BtnMinimizarLayout.setVerticalGroup(
+            BtnMinimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BtnMinimizarLayout.createSequentialGroup()
+                .addComponent(MinimizarTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        ExitBtn.setBackground(new java.awt.Color(228, 228, 228));
+
+        ExitTxt.setBackground(new java.awt.Color(228, 228, 228));
+        ExitTxt.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        ExitTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ExitTxt.setText("x");
+        ExitTxt.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        ExitTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ExitTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ExitTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ExitTxtMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ExitTxtMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ExitBtnLayout = new javax.swing.GroupLayout(ExitBtn);
+        ExitBtn.setLayout(ExitBtnLayout);
+        ExitBtnLayout.setHorizontalGroup(
+            ExitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ExitTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        ExitBtnLayout.setVerticalGroup(
+            ExitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ExitBtnLayout.createSequentialGroup()
+                .addComponent(ExitTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        BtnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/menu.png"))); // NOI18N
+        BtnMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnMenuMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
+        Header.setLayout(HeaderLayout);
+        HeaderLayout.setHorizontalGroup(
+            HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(HeaderLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(BtnMenu)
+                .addGap(1032, 1032, 1032)
+                .addComponent(BtnMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(ExitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        HeaderLayout.setVerticalGroup(
+            HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(BtnMenu)
+            .addComponent(BtnMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(ExitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        Background.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, 1202, Short.MAX_VALUE)
+            .addComponent(Background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2001,6 +2013,12 @@ public class VentanaMain extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel)TablaCuadro_Factura.getModel();
         modelo.setRowCount(0);
         
+        BarraNombreClienteCuadro_DatosFactura.setText("");
+        BarraCedulaCuadro_DatosFactura.setText("");
+        BarraTelefonoCuadro_DatosFactura.setText("");
+        BarraProductoCuadro_DatosFactura.setText("");
+        BarraCantidadCuadro__DatosFactura.setText("");
+        
         TextoNombreEmpleadoCuadro_Factura.setText(Ninguno);
         TextoNombreClienteCuadro_Factura.setText(Ninguno);
         TextoNumericoCedulaCuadro_Factura.setText(Cedula);
@@ -2035,48 +2053,7 @@ public class VentanaMain extends javax.swing.JFrame {
         }
     });
     }   
-    public void MostrarTablas(String nombreVista,JTable tabla) {
-
-        try {
-            
-            DefaultTableModel modelo = new DefaultTableModel();
-            
-            Statement st = ConexionBD.getInstancia().getConexion().createStatement();
-            
-            ResultSet rs = st.executeQuery("SELECT * FROM "+ nombreVista + ";");
-
-            ResultSetMetaData metaData = rs.getMetaData();
-            int totalColumnas = metaData.getColumnCount();
-
-            // Lista de nombres de columnas
-            String[] nombresColumnas = new String[totalColumnas];
-
-            // Agregar columnas al modelo dinámicamente
-            for (int i = 0; i < totalColumnas; i++) {
-                String nombreColumna = metaData.getColumnLabel(i + 1);
-                nombresColumnas[i] = nombreColumna;
-                modelo.addColumn(nombreColumna);
-            }
-
-            // Agregar filas al modelo
-            while (rs.next()) {
-                Object[] fila = new Object[totalColumnas];
-                for (int i = 0; i < totalColumnas; i++) {
-                    fila[i] = rs.getObject(i + 1);
-                }
-                modelo.addRow(fila);
-            }
-
-            tabla.setModel(modelo);
-
-            trs = new TableRowSorter<>(modelo);
-            tabla.setRowSorter(trs);
-
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
+    
     public void SumaFactura(){
         DefaultTableModel modelo = (DefaultTableModel) TablaCuadro_Factura.getModel();
 
@@ -2110,7 +2087,27 @@ public class VentanaMain extends javax.swing.JFrame {
         });
 
     }
-    
+    private void IluminacionBotonesMenu(JPanel botonActivo) {
+    JPanel[] botones = {DatosPersonalesBtn, GestionProductosBtn, FacturacionBtn, RegistroVentasBtn, HistorialClienteBtn};
+
+        for (JPanel boton : botones) {
+            if (boton == botonActivo) {
+                boton.setBackground(new Color(232,232,232)); // activo            
+            }
+            else if (boton != botonActivo && boton == FacturacionBtn) {
+                boton.setBackground(new Color(228,228,228)); // inactivo
+            }
+            else if (boton != botonActivo && boton == RegistroVentasBtn) {
+                boton.setBackground(new Color(229,229,229)); // inactivo
+            }
+            else if (boton != botonActivo && boton == HistorialClienteBtn) {
+                boton.setBackground(new Color(230,230,230)); // inactivo
+            }else {
+                boton.setBackground(new Color(227,227,227)); // inactivo
+            }
+        }
+    }
+
     
     
     private void BtnMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnMenuMouseClicked
@@ -2162,49 +2159,54 @@ public class VentanaMain extends javax.swing.JFrame {
 
     private void GestionProductosBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestionProductosBtnMouseEntered
         if(lista[1].activo == false){
-        GestionProductosBtn.setBackground(new Color(220,220,220));
+        GestionProductosBtn.setBackground(new Color(232,232,232));
         }
     }//GEN-LAST:event_GestionProductosBtnMouseEntered
 
     private void GestionProductosBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestionProductosBtnMouseExited
         if(lista[1].activo == false){
-        GestionProductosBtn.setBackground(new Color(198,198,198));
+        GestionProductosBtn.setBackground(new Color(227,227,227));
+        GestionProductosTxt.setForeground(new Color(255,255,255));
         }
     }//GEN-LAST:event_GestionProductosBtnMouseExited
 
     private void FacturacionBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FacturacionBtnMouseEntered
         if(lista[2].activo == false){
-            FacturacionBtn.setBackground(new Color(220,220,220));
+            FacturacionBtn.setBackground(new Color(232,232,232));
         }
     }//GEN-LAST:event_FacturacionBtnMouseEntered
 
     private void FacturacionBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FacturacionBtnMouseExited
         if(lista[2].activo == false){
-            FacturacionBtn.setBackground(new Color(198,198,198));
+            FacturacionBtn.setBackground(new Color(228,228,228));
+            FacturacionTxt.setForeground(new Color(255,255,255));
         }
     }//GEN-LAST:event_FacturacionBtnMouseExited
 
     private void RegistroVentasBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistroVentasBtnMouseEntered
         if(lista[3].activo == false){
-            RegistroVentasBtn.setBackground(new Color(220,220,220));
+            RegistroVentasBtn.setBackground(new Color(232,232,232));
         }
     }//GEN-LAST:event_RegistroVentasBtnMouseEntered
 
     private void RegistroVentasBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistroVentasBtnMouseExited
         if(lista[3].activo == false){
-            RegistroVentasBtn.setBackground(new Color(198,198,198));
+            RegistroVentasBtn.setBackground(new Color(229,229,229));
+            RegistroVentasTxt.setForeground(new Color(255,255,255));
         }
     }//GEN-LAST:event_RegistroVentasBtnMouseExited
 
     private void HistorialClienteBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialClienteBtnMouseEntered
         if(lista[4].activo == false){
-            HistorialClienteBtn.setBackground(new Color(220,220,220));
+            HistorialClienteBtn.setBackground(new Color(232,232,232));
+            
         }
     }//GEN-LAST:event_HistorialClienteBtnMouseEntered
 
     private void HistorialClienteBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialClienteBtnMouseExited
         if(lista[4].activo == false){
-            HistorialClienteBtn.setBackground(new Color(198,198,198));
+            HistorialClienteBtn.setBackground(new Color(230,230,230));
+            HistorialClienteTxt.setForeground(new Color(255,255,255));
         }
     }//GEN-LAST:event_HistorialClienteBtnMouseExited
 
@@ -2215,37 +2217,41 @@ public class VentanaMain extends javax.swing.JFrame {
 
     private void GestionProductosBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestionProductosBtnMousePressed
         if(lista[1].activo == false){
-        GestionProductosBtn.setBackground(new Color(210,210,210));
+        GestionProductosBtn.setBackground(new Color(223,223,223));
         }
     }//GEN-LAST:event_GestionProductosBtnMousePressed
 
     private void FacturacionBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FacturacionBtnMousePressed
         if(lista[2].activo == false){
-        FacturacionBtn.setBackground(new Color(210,210,210));
+        FacturacionBtn.setBackground(new Color(223,223,223));
+
         }
     }//GEN-LAST:event_FacturacionBtnMousePressed
 
     private void RegistroVentasBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistroVentasBtnMousePressed
         if(lista[3].activo == false){
-        RegistroVentasBtn.setBackground(new Color(210,210,210));
+        RegistroVentasBtn.setBackground(new Color(223,223,223));
+
         }
     }//GEN-LAST:event_RegistroVentasBtnMousePressed
 
     private void HistorialClienteBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialClienteBtnMousePressed
         if (lista[4].activo == false){
-        HistorialClienteBtn.setBackground(new Color(210,210,210));
+        HistorialClienteBtn.setBackground(new Color(223,223,223));
+
         }
     }//GEN-LAST:event_HistorialClienteBtnMousePressed
 
     private void DatosPersonalesBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DatosPersonalesBtnMousePressed
         if(lista[0].activo == false){
-        DatosPersonalesBtn.setBackground(new Color(210,210,210));
+        DatosPersonalesBtn.setBackground(new Color(223,223,223));
+ 
         }
     }//GEN-LAST:event_DatosPersonalesBtnMousePressed
 
     private void DatosPersonalesBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DatosPersonalesBtnMouseEntered
         if(lista[0].activo == false){
-        DatosPersonalesBtn.setBackground(new Color(220,220,220));
+        DatosPersonalesBtn.setBackground(new Color(232,232,232));
         }
     }//GEN-LAST:event_DatosPersonalesBtnMouseEntered
 
@@ -2260,26 +2266,18 @@ public class VentanaMain extends javax.swing.JFrame {
     
     private void DatosPersonalesBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DatosPersonalesBtnMouseExited
         if(lista[0].activo == false){
-        DatosPersonalesBtn.setBackground(new Color(198,198,198));
+        DatosPersonalesBtn.setBackground(new Color(227,227,227));
+        DatosPersonalesTxt.setForeground(new Color(255,255,255));
         }
     }//GEN-LAST:event_DatosPersonalesBtnMouseExited
 
-    private void setBotonActivo(JPanel botonActivo) {
-    JPanel[] botones = {DatosPersonalesBtn, GestionProductosBtn, FacturacionBtn, RegistroVentasBtn, HistorialClienteBtn};
-
-        for (JPanel boton : botones) {
-            if (boton == botonActivo) {
-                boton.setBackground(new Color(238,238,238)); // activo
-            } else {
-                boton.setBackground(new Color(198,198,198)); // inactivo
-            }
-        }
-    }
+    
 
     private void DatosPersonalesBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DatosPersonalesBtnMouseClicked
         if (lista[0].activo == false){
+            tablas.TablaDatosPersonales();
             mostrarVentana("VnDatosPersonales");
-            setBotonActivo(DatosPersonalesBtn);
+            IluminacionBotonesMenu(DatosPersonalesBtn);
             Botones(0);
         }else{
         }
@@ -2287,8 +2285,9 @@ public class VentanaMain extends javax.swing.JFrame {
 
     private void GestionProductosBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestionProductosBtnMouseClicked
         if(lista[1].activo == false){
+            tablas.TablaGestionProductos();
             mostrarVentana("VnGestionProductos");
-            setBotonActivo(GestionProductosBtn);
+            IluminacionBotonesMenu(GestionProductosBtn);
             Botones(1);
         }else{
         }
@@ -2297,18 +2296,17 @@ public class VentanaMain extends javax.swing.JFrame {
     private void FacturacionBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FacturacionBtnMouseClicked
         if(lista[2].activo == false){
             mostrarVentana("VnFacturacion");
-            setBotonActivo(FacturacionBtn);
+            IluminacionBotonesMenu(FacturacionBtn);
             Botones(2);
         }else{
         }
     }//GEN-LAST:event_FacturacionBtnMouseClicked
 
     private void RegistroVentasBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistroVentasBtnMouseClicked
-        
-        
         if(lista[3].activo == false){
+            tablas.TablaRegistroVentas();
             mostrarVentana("VnRegistroVentas");
-            setBotonActivo(RegistroVentasBtn);
+            IluminacionBotonesMenu(RegistroVentasBtn);
             Botones(3);
         }else{
         }
@@ -2316,8 +2314,10 @@ public class VentanaMain extends javax.swing.JFrame {
 
     private void HistorialClienteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialClienteBtnMouseClicked
         if(lista[4].activo == false){
+            tablas.TablaClientesHistorial();
+            tablas.TablaFacturaHistorial();
             mostrarVentana("VnHistorialCliente");
-            setBotonActivo(HistorialClienteBtn);
+            IluminacionBotonesMenu(HistorialClienteBtn);
             Botones(4);
         }else{
         }
@@ -2411,7 +2411,7 @@ public class VentanaMain extends javax.swing.JFrame {
     
     statement.executeUpdate("Insert into ProductoColmado ( nombre, precio, cantidad, unidad_medida) values (\"" + nombre_p + "\", \"" + precio_p + "\", \"" + cantidad_p + "\", \"" + unidad_mp + "\")");
     
-    MostrarTablas("ProductoColmado", TablaMostrarProductos_VentanaGestionProductos);
+    tablas.TablaGestionProductos();
     
 }catch (SQLException el) {
     el.printStackTrace(); 
@@ -2445,7 +2445,7 @@ public class VentanaMain extends javax.swing.JFrame {
                st.executeUpdate("DELETE FROM ProductoColmado WHERE id_producto = "+ idproducto);
                
                JOptionPane.showMessageDialog(null, "Producto eliminado exitosamente.");
-               MostrarTablas("ProductoColmado", TablaMostrarProductos_VentanaGestionProductos);
+               tablas.TablaGestionProductos();
                         
             }catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Error con la sintaxis");
@@ -2693,52 +2693,64 @@ public class VentanaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_BarraEditarDatoNombreActionPerformed
 
     private void TextoBotonGenerarFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextoBotonGenerarFacturaMouseClicked
-                // TODO add your handling code here:
+        // TODO add your handling code here:
         
         // Generar factura EDDY
     
-  //   DefaultTableModel modelo = (DefaultTableModel) TablaCuadro_Factura.getModel();
+        int id_empleado = Sesion.idEmpleado;
+        String Empleado = Sesion.Empleado;
 
-        Factura f;   
-   //    DefaultTableModel modelo_mostrar = (DefaultTableModel) TablaMostrarProductos_VentanaGestionProductos.getModel();
         try {
-
             Statement statement = ConexionBD.getInstancia().getConexion().createStatement();
 
-            String nombre_emp = TextoNombreEmpleadoCuadro_Factura.getText();
             String nombre_cli = TextoNombreClienteCuadro_Factura.getText();
             String cedula_cli = TextoNumericoCedulaCuadro_Factura.getText();
             String numero_cli = TextoNumericoTelefonoCuadro_Factura.getText();
             String tipo_pago_cli = TextoNombreTipoPagoCuadro_Factura.getText();
-            String fecha_compra = String.valueOf(TextoNumericoFechaCuadro_Factura.getText());
-            String subtotal_cli = String.valueOf(TextoNumericoSubtotalCuadro_Factura.getText());
-            String total_cli = String.valueOf(TextoNumericoTotalCuadro_Factura.getText());
+            String fecha_compra = TextoNumericoFechaCuadro_Factura.getText();
+            String subtotal_cli = TextoNumericoSubtotalCuadro_Factura.getText();
+            String total_cli = TextoNumericoTotalCuadro_Factura.getText();
             String impuesto_cli = TextoPorcentajeCuadro_Factura.getText();
 
-            int cedula_emp = 0;
-            String cargo_emp = "No tiene";
+            // Verificar si el cliente ya existe
+            ResultSet rs = statement.executeQuery("SELECT id_cliente FROM cliente WHERE cedula_cliente = '" + cedula_cli + "'");
+            int id_cliente = -1;
+            System.out.println("Hola ");
+            if (rs.next()) {
+                // Si existe, obtener su id
+                id_cliente = rs.getInt("id_cliente");
+            } else {
+                // Si no existe, insertarlo
+                statement.executeUpdate("INSERT INTO Cliente (cedula_cliente, tipo_pago, nombre_cliente, numero_cliente) VALUES ('" + cedula_cli + "', '" + tipo_pago_cli + "', '" + nombre_cli + "', '" + numero_cli + "')");
 
-            Cliente c;
-            Empleado e;
+                // Obtener el ID recién insertado
+                ResultSet rs2 = statement.executeQuery("SELECT LAST_INSERT_ID() AS id_cliente");
+                if (rs2.next()) {
+                    id_cliente = rs2.getInt("id_cliente");
+                }
+            }
 
-           // FALTA OBTEN
+            // Crear la factura con el id_cliente obtenido
+            statement.executeUpdate("INSERT INTO Factura (id_cliente, id_empleado, fecha, tipo_pago, subtotal, impuesto, total) " +
+                "VALUES ('" + id_cliente + "', '" + id_empleado + "', '" + fecha_compra + "', '" + tipo_pago_cli + "', '" + subtotal_cli + "', '" + impuesto_cli + "', '" + total_cli + "')");
+            JOptionPane.showMessageDialog(null, "Factura creada correctamente");
 
-            statement.executeUpdate("Insert into Cliente (cedula_cliente, tipo_pago, nombre_cliente, numero_cliente) values (\"" + cedula_cli + "\", \"" + tipo_pago_cli + "\",\"" + nombre_cli + "\", \"" + numero_cli + "\")");
-
-            c = new Cliente(Cliente.getId_cliente(), tipo_pago_cli, nombre_cli, cedula_cli);
-
-            statement.executeUpdate("Insert into Empleado (cedula_empleado, cargo, nombre_empleado) values (\"" + cedula_emp + "\", \"" + cargo_emp + "\", \"" + nombre_emp + "\")");
-            e = new Empleado(); 
-
-
-
-            statement.executeUpdate("Insert into Factura (id_cliente,id_empleado, fecha, tipo_pago, subtotal, impuesto, total) values (\"" + Cliente.getId_cliente() + "\", \"" + Empleado.getId_empleado() + "\", \"" + fecha_compra + "\", \"" + tipo_pago_cli + "\", \"" + subtotal_cli + "\", \"" + impuesto_cli + "\", \"" + total_cli + "\")");
-
-
-        }catch (SQLException el) {
-        el.printStackTrace(); 
-   }
+            
+        } catch (SQLException el) {
+            el.printStackTrace();
+        }
     }//GEN-LAST:event_TextoBotonGenerarFacturaMouseClicked
+
+    private void CerrarSesionBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarSesionBtnMouseClicked
+        
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de querer salir de la Sesion?", "Cerrar Sesion", JOptionPane.YES_NO_OPTION);
+        
+        if(confirmacion == JOptionPane.YES_OPTION){
+            ventanalogin.setVisible(true);
+            dispose();
+        }
+        
+    }//GEN-LAST:event_CerrarSesionBtnMouseClicked
     
 
 
@@ -2783,6 +2795,7 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JPanel BotonGenerearFactura;
     private javax.swing.JLabel BtnMenu;
     private javax.swing.JPanel BtnMinimizar;
+    private javax.swing.JLabel CerrarSesionBtn;
     private javax.swing.JComboBox<String> ComboBoxAgregarUnidadMedidaProducto;
     private javax.swing.JComboBox<String> ComboBoxAnual_VentanaHistorialCliente;
     private javax.swing.JComboBox<String> ComboBoxAnual_VentanaRegistroVentas;
@@ -2810,22 +2823,23 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JLabel JavaIcon;
     private javax.swing.JPanel Menu;
     private javax.swing.JLabel MinimizarTxt;
-    private javax.swing.JScrollPane PanelTablaDatosPersonales;
+    private javax.swing.JLabel Nombre_empleadoMenu;
+    public javax.swing.JScrollPane PanelTablaDatosPersonales;
     private javax.swing.JScrollPane PanelTablaVentanaProductos;
     private javax.swing.JPanel RegistroVentasBtn;
     private javax.swing.JLabel RegistroVentasTxt;
     private javax.swing.JScrollPane ScrollTablaClientes_VentanaHistorialCliente;
     private javax.swing.JScrollPane ScrollTablaHistorialCliente_VentanaHistorialCliente;
     private javax.swing.JScrollPane ScrollTabla_CuadroInfomacionFactura__VentanaHistorialCliente;
-    private javax.swing.JScrollPane ScrollTabla_VentanaRegistroVentas;
+    public javax.swing.JScrollPane ScrollTabla_VentanaRegistroVentas;
     private javax.swing.JSeparator SeparadorInferior_CuadroInfomacionFactura__VentanaHistorialCliente;
     private javax.swing.JSeparator SeparatorSuperior_CuadroInfomacionFactura__VentanaHistorialCliente;
-    private javax.swing.JTable TablaClientes_VentanaHistorialCliente;
+    public javax.swing.JTable TablaClientes_VentanaHistorialCliente;
     private javax.swing.JTable TablaCuadro_Factura;
-    private javax.swing.JTable TablaDatosPersonales;
-    private javax.swing.JTable TablaHistorialCliente_VentanaHistorialCliente;
+    public javax.swing.JTable TablaDatosPersonales;
+    public javax.swing.JTable TablaHistorialCliente_VentanaHistorialCliente;
     public javax.swing.JTable TablaMostrarProductos_VentanaGestionProductos;
-    private javax.swing.JTable TablaVentanaVentas;
+    public javax.swing.JTable TablaVentanaVentas;
     private javax.swing.JTable Tabla_CuadroInfomacionFactura__VentanaHistorialCliente;
     private javax.swing.JLabel TextoAgregarCantidadProducto;
     private javax.swing.JLabel TextoAgregarNombreProductos;
