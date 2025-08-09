@@ -7,7 +7,6 @@ import VentanaLogin.VentanaLogin;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import javax.swing.JFrame;
-import desplazable.Desface;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -48,10 +47,9 @@ public class VentanaMain extends javax.swing.JFrame {
     
 
     
-    Desface desplace;
+
     public VentanaMain() {
         initComponents();
-        desplace = new Desface();
         mostrarFecha();
         SumaFactura();
         this.dispose();
@@ -1869,9 +1867,7 @@ public class VentanaMain extends javax.swing.JFrame {
         );
         BtnMinimizarLayout.setVerticalGroup(
             BtnMinimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BtnMinimizarLayout.createSequentialGroup()
-                .addComponent(MinimizarTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(MinimizarTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
         );
 
         ExitBtn.setBackground(new java.awt.Color(228, 228, 228));
@@ -1879,8 +1875,7 @@ public class VentanaMain extends javax.swing.JFrame {
         ExitTxt.setBackground(new java.awt.Color(228, 228, 228));
         ExitTxt.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         ExitTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ExitTxt.setText("x");
-        ExitTxt.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        ExitTxt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x.png"))); // NOI18N
         ExitTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ExitTxtMouseClicked(evt);
@@ -1905,8 +1900,8 @@ public class VentanaMain extends javax.swing.JFrame {
         ExitBtnLayout.setVerticalGroup(
             ExitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ExitBtnLayout.createSequentialGroup()
-                .addComponent(ExitTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(ExitTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 8, Short.MAX_VALUE))
         );
 
         BtnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/menu.png"))); // NOI18N
@@ -1932,11 +1927,11 @@ public class VentanaMain extends javax.swing.JFrame {
         HeaderLayout.setVerticalGroup(
             HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(BtnMenu)
-            .addComponent(BtnMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(BtnMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(ExitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        Background.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        Background.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -6,13 +6,14 @@ package VentanaLogin;
 
 import VentanaPrincipal.VentanaMain;
 import com.mysql.cj.protocol.Message;
-import java.awt.Color;
-import java.awt.Window;
+import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.io.ByteArrayInputStream;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -21,58 +22,66 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import persistencia.ConexionBD;
-
+import VentanaLogin.IniciarSesion;
 /**
  *
  * @author kevin
  */
 public class VentanaLogin extends javax.swing.JFrame {
-    
+
+    private IniciarSesion iniciarSesion;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaLogin.class.getName());
 
     /**
      * Creates new form VentanaLogin
      */
-    
-    JFrame frame = new JFrame();
-    
+
+    public JFrame frame = new JFrame();
+
     public VentanaLogin() {
         initComponents();
+        iniciarSesion = new IniciarSesion(this); // le pasamos la ventana
+        barraslister();
+
+
     }
-    
-    private void abrirVentanaPrincipal() {
+    public void abrirVentanaPrincipal() {
         VentanaMain ventana = new VentanaMain();
         ventana.setVisible(true);
         this.dispose(); // Cierra la ventana actual si quieres
     }
 
     public void aplicarPlaceholder(JTextField campo, String placeholder) {
-    // Color gris claro para placeholder
-    Color colorPlaceholder = Color.WHITE;
 
-    // Establecer texto y color inicial del placeholder
-    campo.setText(placeholder);
-    campo.setForeground(colorPlaceholder);
 
-    campo.addFocusListener(new FocusAdapter() {
-        @Override
-        public void focusGained(FocusEvent e) {
-            if (campo.getText().equals(placeholder)) {
-                campo.setText("");
-                campo.setForeground(new Color(130,130,130));
+        // Color gris claro para placeholder
+        Color colorPlaceholder = Color.WHITE;
+
+        // Establecer texto y color inicial del placeholder
+        campo.setText(placeholder);
+        campo.setForeground(colorPlaceholder);
+
+        campo.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (campo.getText().equals(placeholder)) {
+                    campo.setText("");
+                    campo.setForeground(new Color(130,130,130));
+                }
             }
-        }
 
-        @Override
-        public void focusLost(FocusEvent e) {
-            if (campo.getText().isEmpty()) {
-                campo.setText(placeholder);
-                campo.setForeground(colorPlaceholder);
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (campo.getText().isEmpty()) {
+                    campo.setText(placeholder);
+                    campo.setForeground(colorPlaceholder);
+                }
             }
-        }
-    });
-    } 
-    
+        });
+
+
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -243,7 +252,8 @@ public class VentanaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_BarraIngresarCorreoFocusGained
 
     private void BarraIngresarContraseñaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BarraIngresarContraseñaFocusGained
-        BarraIngresarContraseña.addFocusListener(new FocusAdapter() {
+        BarraIngresarContraseña.addFocusListener(new FocusAdapter()
+        {
             @Override
             public void focusGained(FocusEvent e) {
                 if (BarraIngresarContraseña.getText().equals("••••••••••••••••")) {
@@ -263,54 +273,21 @@ public class VentanaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_BarraIngresarContraseñaFocusGained
 
     private void TxtBotonIniciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtBotonIniciarMouseClicked
-        
-        String correo = BarraIngresarCorreo.getText();
-        String password = String.valueOf(BarraIngresarContraseña.getText());
-        int id_empleadologin = -1;
-        
-        if(correo.equals("Ingrese su correo electronico") || password.equals("••••••••••••••••")){
-            JOptionPane.showMessageDialog(null, "ingresa contraseña y correo", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        else if(correo == "" || password == ""){
-            JOptionPane.showMessageDialog(null, "ingresa contraseña y correo", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        try{
-            Statement st = ConexionBD.getInstancia().getConexion().createStatement();
-        
-            ResultSet rs = st.executeQuery("SELECT * FROM vista_empleado_correo_simple ;");
-            
-            
-            boolean loginExitoso = false;
-
-            
-            while (rs.next()) {
-                String Correo = rs.getString("correo");
-                String Password = rs.getString("contraseña");
-                String nombreEmpleado = rs.getString("nombre_empleado");
-                id_empleadologin = Integer.valueOf(rs.getString("id_empleado"));
-
-                
-                if (correo.equals(Correo) && password.equals(Password)) {
-                    loginExitoso = true;
-                    System.out.println("Login correcto. ID Empleado: " + rs.getInt("id_empleado"));
-                    Sesion.idEmpleado = id_empleadologin;
-                    Sesion.Empleado = nombreEmpleado;
-                    break;   
-                }                 
-            }
-            if (loginExitoso) {
-            abrirVentanaPrincipal(); 
-            frame.setVisible(false);
-            } else {
-                JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }  
+        iniciarSesion.Login();
     }//GEN-LAST:event_TxtBotonIniciarMouseClicked
+
+    public String getCorreoText() {
+        return BarraIngresarCorreo.getText();
+    }
+
+    public String getPasswordText() {
+        return new String(BarraIngresarContraseña.getPassword());
+    }
+
+    void barraslister(){
+        BarraIngresarCorreo.addActionListener(iniciarSesion.Login());
+        BarraIngresarContraseña.addActionListener(iniciarSesion.Login());
+    }
 
     /**
      * @param args the command line arguments
