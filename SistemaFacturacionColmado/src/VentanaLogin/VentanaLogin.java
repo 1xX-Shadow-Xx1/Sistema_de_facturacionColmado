@@ -3,26 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package VentanaLogin;
-
 import VentanaPrincipal.VentanaMain;
-import com.mysql.cj.protocol.Message;
+
 import java.awt.*;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.io.ByteArrayInputStream;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
+import java.awt.event.*;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.table.DefaultTableModel;
-import persistencia.ConexionBD;
-import VentanaLogin.IniciarSesion;
+
 /**
  *
  * @author kevin
@@ -31,18 +18,17 @@ public class VentanaLogin extends javax.swing.JFrame {
 
     private IniciarSesion iniciarSesion;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaLogin.class.getName());
-
     /**
      * Creates new form VentanaLogin
      */
-
+    
     public JFrame frame = new JFrame();
 
     public VentanaLogin() {
         initComponents();
         iniciarSesion = new IniciarSesion(this); // le pasamos la ventana
         barraslister();
-
+        
 
     }
     public void abrirVentanaPrincipal() {
@@ -99,7 +85,7 @@ public class VentanaLogin extends javax.swing.JFrame {
         TextoIniciarSesion = new javax.swing.JLabel();
         BarraIngresarCorreo = new javax.swing.JTextField();
         BarraIngresarContraseña = new javax.swing.JPasswordField();
-        BtnIniciarSesion = new javax.swing.JPanel();
+        BtnIniciarSesion = new BordesSuaves.PanelRound();
         TxtBotonIniciar = new javax.swing.JLabel();
         FondoLogin = new javax.swing.JLabel();
 
@@ -170,6 +156,11 @@ public class VentanaLogin extends javax.swing.JFrame {
         PanelLogin.add(BarraIngresarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 380, 310, 40));
 
         BtnIniciarSesion.setBackground(new java.awt.Color(227, 227, 227));
+        BtnIniciarSesion.setPreferredSize(new java.awt.Dimension(46, 25));
+        BtnIniciarSesion.setRoundBottomLeft(30);
+        BtnIniciarSesion.setRoundBottomRight(30);
+        BtnIniciarSesion.setRoundTopLeft(30);
+        BtnIniciarSesion.setRoundTopRight(30);
 
         TxtBotonIniciar.setBackground(new java.awt.Color(227, 227, 227));
         TxtBotonIniciar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -196,14 +187,18 @@ public class VentanaLogin extends javax.swing.JFrame {
         BtnIniciarSesion.setLayout(BtnIniciarSesionLayout);
         BtnIniciarSesionLayout.setHorizontalGroup(
             BtnIniciarSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TxtBotonIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(BtnIniciarSesionLayout.createSequentialGroup()
+                .addComponent(TxtBotonIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 2, Short.MAX_VALUE))
         );
         BtnIniciarSesionLayout.setVerticalGroup(
             BtnIniciarSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TxtBotonIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BtnIniciarSesionLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(TxtBotonIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        PanelLogin.add(BtnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 470, 130, 30));
+        PanelLogin.add(BtnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 470, 150, 40));
 
         FondoLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoLogingris.png"))); // NOI18N
         FondoLogin.setMaximumSize(new java.awt.Dimension(1900, 1200));
@@ -223,6 +218,7 @@ public class VentanaLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void TxtBotonIniciarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtBotonIniciarMouseEntered
         BtnIniciarSesion.setBackground(new Color(232,232,232));
     }//GEN-LAST:event_TxtBotonIniciarMouseEntered
@@ -285,10 +281,12 @@ public class VentanaLogin extends javax.swing.JFrame {
     }
 
     void barraslister(){
-        BarraIngresarCorreo.addActionListener(iniciarSesion.Login());
-        BarraIngresarContraseña.addActionListener(iniciarSesion.Login());
+        BarraIngresarCorreo.addActionListener(e ->iniciarSesion.Login());
+        BarraIngresarContraseña.addActionListener(e ->iniciarSesion.Login());
     }
 
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -309,7 +307,7 @@ public class VentanaLogin extends javax.swing.JFrame {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         
         java.awt.EventQueue.invokeLater(() -> new VentanaLogin().setVisible(true));
@@ -318,7 +316,7 @@ public class VentanaLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField BarraIngresarContraseña;
     private javax.swing.JTextField BarraIngresarCorreo;
-    private javax.swing.JPanel BtnIniciarSesion;
+    private BordesSuaves.PanelRound BtnIniciarSesion;
     private javax.swing.JLabel FondoLogin;
     private javax.swing.JLabel IconoUser;
     private javax.swing.JPanel PanelLogin;

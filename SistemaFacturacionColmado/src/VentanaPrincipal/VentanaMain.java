@@ -27,7 +27,8 @@ import java.time.LocalDate;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableRowSorter;
-
+import BordesSuaves.PanelRound;
+import javax.swing.JLabel;
 
 
 
@@ -41,33 +42,27 @@ public class VentanaMain extends javax.swing.JFrame {
     int xMouse, yMouse;
     boolean menuVisible = true;
     public Tablas tablas;
-    EstadoBoton[] lista = new EstadoBoton[5];
     VentanaLogin ventanalogin = new VentanaLogin();
-    
+    private Botones Botones;
     
 
     
 
     public VentanaMain() {
         initComponents();
+        Botones = new Botones(this);
         mostrarFecha();
         SumaFactura();
         this.dispose();
         
         this.tablas = new Tablas(this); 
         tablas.TablaDatosPersonales();
-
-        
-        
         
         Nombre_empleadoMenu.setText(Sesion.Empleado);
         TextoNombreEmpleadoCuadro_Factura.setText(Sesion.Empleado);
-        
-        // Creacion de los Botones [0 al 4]
-        for (int i = 0; i < lista.length; i++) {
-            lista[i] = new EstadoBoton(false);    
-        }
-        lista[0].activo = true;       
+
+        botonesescucha();
+
     }
 
 
@@ -85,18 +80,18 @@ public class VentanaMain extends javax.swing.JFrame {
         jSplitPane1 = new javax.swing.JSplitPane();
         Menu = new javax.swing.JPanel();
         JavaIcon = new javax.swing.JLabel();
-        DatosPersonalesBtn = new javax.swing.JPanel();
-        DatosPersonalesTxt = new javax.swing.JLabel();
-        GestionProductosBtn = new javax.swing.JPanel();
-        GestionProductosTxt = new javax.swing.JLabel();
-        FacturacionBtn = new javax.swing.JPanel();
-        FacturacionTxt = new javax.swing.JLabel();
-        RegistroVentasBtn = new javax.swing.JPanel();
-        RegistroVentasTxt = new javax.swing.JLabel();
-        HistorialClienteBtn = new javax.swing.JPanel();
-        HistorialClienteTxt = new javax.swing.JLabel();
         Nombre_empleadoMenu = new javax.swing.JLabel();
         CerrarSesionBtn = new javax.swing.JLabel();
+        DatosPersonalesBtn = new BordesSuaves.PanelRound();
+        DatosPersonalesTxt = new javax.swing.JLabel();
+        GestionProductosBtn = new BordesSuaves.PanelRound();
+        GestionProductosTxt = new javax.swing.JLabel();
+        FacturacionBtn = new BordesSuaves.PanelRound();
+        FacturacionTxt = new javax.swing.JLabel();
+        HistorialClienteBtn = new BordesSuaves.PanelRound();
+        HistorialClienteTxt = new javax.swing.JLabel();
+        RegistroVentasBtn = new BordesSuaves.PanelRound();
+        RegistroVentasTxt = new javax.swing.JLabel();
         ContenedorPaneles = new javax.swing.JPanel();
         VentanaDatosPersonales = new javax.swing.JPanel();
         PanelTablaDatosPersonales = new javax.swing.JScrollPane();
@@ -255,214 +250,6 @@ public class VentanaMain extends javax.swing.JFrame {
         JavaIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Logo.png"))); // NOI18N
         Menu.add(JavaIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 280, 155));
 
-        DatosPersonalesBtn.setBackground(new java.awt.Color(223, 223, 223));
-        DatosPersonalesBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        DatosPersonalesBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                DatosPersonalesBtnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                DatosPersonalesBtnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                DatosPersonalesBtnMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                DatosPersonalesBtnMousePressed(evt);
-            }
-        });
-
-        DatosPersonalesTxt.setFont(new java.awt.Font("Segoe UI Symbol", 1, 20)); // NOI18N
-        DatosPersonalesTxt.setForeground(new java.awt.Color(255, 255, 255));
-        DatosPersonalesTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        DatosPersonalesTxt.setText("Datos Personales");
-
-        javax.swing.GroupLayout DatosPersonalesBtnLayout = new javax.swing.GroupLayout(DatosPersonalesBtn);
-        DatosPersonalesBtn.setLayout(DatosPersonalesBtnLayout);
-        DatosPersonalesBtnLayout.setHorizontalGroup(
-            DatosPersonalesBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DatosPersonalesBtnLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(DatosPersonalesTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
-        );
-        DatosPersonalesBtnLayout.setVerticalGroup(
-            DatosPersonalesBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DatosPersonalesBtnLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(DatosPersonalesTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-
-        Menu.add(DatosPersonalesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 259, -1, -1));
-
-        GestionProductosBtn.setBackground(new java.awt.Color(227, 227, 227));
-        GestionProductosBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        GestionProductosBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                GestionProductosBtnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                GestionProductosBtnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                GestionProductosBtnMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                GestionProductosBtnMousePressed(evt);
-            }
-        });
-
-        GestionProductosTxt.setBackground(new java.awt.Color(198, 198, 198));
-        GestionProductosTxt.setFont(new java.awt.Font("Segoe UI Symbol", 1, 20)); // NOI18N
-        GestionProductosTxt.setForeground(new java.awt.Color(255, 255, 255));
-        GestionProductosTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        GestionProductosTxt.setText("Gestión de productos");
-
-        javax.swing.GroupLayout GestionProductosBtnLayout = new javax.swing.GroupLayout(GestionProductosBtn);
-        GestionProductosBtn.setLayout(GestionProductosBtnLayout);
-        GestionProductosBtnLayout.setHorizontalGroup(
-            GestionProductosBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GestionProductosBtnLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(GestionProductosTxt)
-                .addGap(31, 31, 31))
-        );
-        GestionProductosBtnLayout.setVerticalGroup(
-            GestionProductosBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GestionProductosBtnLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(GestionProductosTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-
-        Menu.add(GestionProductosBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 342, 270, 80));
-
-        FacturacionBtn.setBackground(new java.awt.Color(228, 228, 228));
-        FacturacionBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        FacturacionBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                FacturacionBtnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                FacturacionBtnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                FacturacionBtnMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                FacturacionBtnMousePressed(evt);
-            }
-        });
-
-        FacturacionTxt.setFont(new java.awt.Font("Segoe UI Symbol", 1, 20)); // NOI18N
-        FacturacionTxt.setForeground(new java.awt.Color(255, 255, 255));
-        FacturacionTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        FacturacionTxt.setText("Facturación");
-
-        javax.swing.GroupLayout FacturacionBtnLayout = new javax.swing.GroupLayout(FacturacionBtn);
-        FacturacionBtn.setLayout(FacturacionBtnLayout);
-        FacturacionBtnLayout.setHorizontalGroup(
-            FacturacionBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FacturacionBtnLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(FacturacionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
-        );
-        FacturacionBtnLayout.setVerticalGroup(
-            FacturacionBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FacturacionBtnLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(FacturacionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-
-        Menu.add(FacturacionBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 419, -1, -1));
-
-        RegistroVentasBtn.setBackground(new java.awt.Color(229, 229, 229));
-        RegistroVentasBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        RegistroVentasBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                RegistroVentasBtnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                RegistroVentasBtnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                RegistroVentasBtnMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                RegistroVentasBtnMousePressed(evt);
-            }
-        });
-
-        RegistroVentasTxt.setBackground(new java.awt.Color(198, 198, 198));
-        RegistroVentasTxt.setFont(new java.awt.Font("Segoe UI Symbol", 1, 20)); // NOI18N
-        RegistroVentasTxt.setForeground(new java.awt.Color(255, 255, 255));
-        RegistroVentasTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        RegistroVentasTxt.setText("Registro de ventas");
-
-        javax.swing.GroupLayout RegistroVentasBtnLayout = new javax.swing.GroupLayout(RegistroVentasBtn);
-        RegistroVentasBtn.setLayout(RegistroVentasBtnLayout);
-        RegistroVentasBtnLayout.setHorizontalGroup(
-            RegistroVentasBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(RegistroVentasBtnLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(RegistroVentasTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
-        );
-        RegistroVentasBtnLayout.setVerticalGroup(
-            RegistroVentasBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(RegistroVentasBtnLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(RegistroVentasTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-
-        Menu.add(RegistroVentasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 499, -1, -1));
-
-        HistorialClienteBtn.setBackground(new java.awt.Color(230, 230, 230));
-        HistorialClienteBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        HistorialClienteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                HistorialClienteBtnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                HistorialClienteBtnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                HistorialClienteBtnMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                HistorialClienteBtnMousePressed(evt);
-            }
-        });
-
-        HistorialClienteTxt.setBackground(new java.awt.Color(198, 198, 198));
-        HistorialClienteTxt.setFont(new java.awt.Font("Segoe UI Symbol", 1, 18)); // NOI18N
-        HistorialClienteTxt.setForeground(new java.awt.Color(255, 255, 255));
-        HistorialClienteTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        HistorialClienteTxt.setText("Historial del Cliente");
-
-        javax.swing.GroupLayout HistorialClienteBtnLayout = new javax.swing.GroupLayout(HistorialClienteBtn);
-        HistorialClienteBtn.setLayout(HistorialClienteBtnLayout);
-        HistorialClienteBtnLayout.setHorizontalGroup(
-            HistorialClienteBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HistorialClienteBtnLayout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
-                .addComponent(HistorialClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-        HistorialClienteBtnLayout.setVerticalGroup(
-            HistorialClienteBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(HistorialClienteBtnLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(HistorialClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
-
-        Menu.add(HistorialClienteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 579, -1, -1));
-
         Nombre_empleadoMenu.setBackground(new java.awt.Color(102, 102, 102));
         Nombre_empleadoMenu.setFont(new java.awt.Font("Segoe UI Symbol", 1, 18)); // NOI18N
         Nombre_empleadoMenu.setForeground(new java.awt.Color(102, 102, 102));
@@ -479,6 +266,129 @@ public class VentanaMain extends javax.swing.JFrame {
             }
         });
         Menu.add(CerrarSesionBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 700, -1, -1));
+
+        DatosPersonalesBtn.setBackground(new java.awt.Color(230, 230, 230));
+        DatosPersonalesBtn.setRoundBottomLeft(20);
+        DatosPersonalesBtn.setRoundBottomRight(20);
+        DatosPersonalesBtn.setRoundTopLeft(20);
+        DatosPersonalesBtn.setRoundTopRight(20);
+
+        DatosPersonalesTxt.setFont(new java.awt.Font("Segoe UI Symbol", 1, 20)); // NOI18N
+        DatosPersonalesTxt.setForeground(new java.awt.Color(255, 255, 255));
+        DatosPersonalesTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        DatosPersonalesTxt.setText("Datos Personales");
+
+        javax.swing.GroupLayout DatosPersonalesBtnLayout = new javax.swing.GroupLayout(DatosPersonalesBtn);
+        DatosPersonalesBtn.setLayout(DatosPersonalesBtnLayout);
+        DatosPersonalesBtnLayout.setHorizontalGroup(
+            DatosPersonalesBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(DatosPersonalesTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+        );
+        DatosPersonalesBtnLayout.setVerticalGroup(
+            DatosPersonalesBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(DatosPersonalesTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+
+        Menu.add(DatosPersonalesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 250, 60));
+
+        GestionProductosBtn.setBackground(new java.awt.Color(220, 220, 220));
+        GestionProductosBtn.setRoundBottomLeft(20);
+        GestionProductosBtn.setRoundBottomRight(20);
+        GestionProductosBtn.setRoundTopLeft(20);
+        GestionProductosBtn.setRoundTopRight(20);
+
+        GestionProductosTxt.setBackground(new java.awt.Color(198, 198, 198));
+        GestionProductosTxt.setFont(new java.awt.Font("Segoe UI Symbol", 1, 20)); // NOI18N
+        GestionProductosTxt.setForeground(new java.awt.Color(102, 102, 102));
+        GestionProductosTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        GestionProductosTxt.setText("Gestión de productos");
+
+        javax.swing.GroupLayout GestionProductosBtnLayout = new javax.swing.GroupLayout(GestionProductosBtn);
+        GestionProductosBtn.setLayout(GestionProductosBtnLayout);
+        GestionProductosBtnLayout.setHorizontalGroup(
+            GestionProductosBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(GestionProductosTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+        );
+        GestionProductosBtnLayout.setVerticalGroup(
+            GestionProductosBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(GestionProductosTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+
+        Menu.add(GestionProductosBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 250, 60));
+
+        FacturacionBtn.setBackground(new java.awt.Color(220, 220, 220));
+        FacturacionBtn.setRoundBottomLeft(20);
+        FacturacionBtn.setRoundBottomRight(20);
+        FacturacionBtn.setRoundTopLeft(20);
+        FacturacionBtn.setRoundTopRight(20);
+
+        FacturacionTxt.setFont(new java.awt.Font("Segoe UI Symbol", 1, 20)); // NOI18N
+        FacturacionTxt.setForeground(new java.awt.Color(102, 102, 102));
+        FacturacionTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FacturacionTxt.setText("Facturación");
+
+        javax.swing.GroupLayout FacturacionBtnLayout = new javax.swing.GroupLayout(FacturacionBtn);
+        FacturacionBtn.setLayout(FacturacionBtnLayout);
+        FacturacionBtnLayout.setHorizontalGroup(
+            FacturacionBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(FacturacionTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+        );
+        FacturacionBtnLayout.setVerticalGroup(
+            FacturacionBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(FacturacionTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+
+        Menu.add(FacturacionBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
+
+        HistorialClienteBtn.setBackground(new java.awt.Color(220, 220, 220));
+        HistorialClienteBtn.setRoundBottomLeft(20);
+        HistorialClienteBtn.setRoundBottomRight(20);
+        HistorialClienteBtn.setRoundTopLeft(20);
+        HistorialClienteBtn.setRoundTopRight(20);
+
+        HistorialClienteTxt.setBackground(new java.awt.Color(198, 198, 198));
+        HistorialClienteTxt.setFont(new java.awt.Font("Segoe UI Symbol", 1, 18)); // NOI18N
+        HistorialClienteTxt.setForeground(new java.awt.Color(102, 102, 102));
+        HistorialClienteTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        HistorialClienteTxt.setText("Historial del Cliente");
+
+        javax.swing.GroupLayout HistorialClienteBtnLayout = new javax.swing.GroupLayout(HistorialClienteBtn);
+        HistorialClienteBtn.setLayout(HistorialClienteBtnLayout);
+        HistorialClienteBtnLayout.setHorizontalGroup(
+            HistorialClienteBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(HistorialClienteTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+        );
+        HistorialClienteBtnLayout.setVerticalGroup(
+            HistorialClienteBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(HistorialClienteTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+
+        Menu.add(HistorialClienteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 590, 250, -1));
+
+        RegistroVentasBtn.setBackground(new java.awt.Color(220, 220, 220));
+        RegistroVentasBtn.setRoundBottomLeft(20);
+        RegistroVentasBtn.setRoundBottomRight(20);
+        RegistroVentasBtn.setRoundTopLeft(20);
+        RegistroVentasBtn.setRoundTopRight(20);
+
+        RegistroVentasTxt.setBackground(new java.awt.Color(198, 198, 198));
+        RegistroVentasTxt.setFont(new java.awt.Font("Segoe UI Symbol", 1, 20)); // NOI18N
+        RegistroVentasTxt.setForeground(new java.awt.Color(102, 102, 102));
+        RegistroVentasTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        RegistroVentasTxt.setText("Registro de ventas");
+
+        javax.swing.GroupLayout RegistroVentasBtnLayout = new javax.swing.GroupLayout(RegistroVentasBtn);
+        RegistroVentasBtn.setLayout(RegistroVentasBtnLayout);
+        RegistroVentasBtnLayout.setHorizontalGroup(
+            RegistroVentasBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(RegistroVentasTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+        );
+        RegistroVentasBtnLayout.setVerticalGroup(
+            RegistroVentasBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(RegistroVentasTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+
+        Menu.add(RegistroVentasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 250, 60));
 
         jSplitPane1.setLeftComponent(Menu);
 
@@ -1946,8 +1856,19 @@ public class VentanaMain extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-  
+
+
     //Metodos
+    void botonesescucha(){
+
+        Botones.botones(DatosPersonalesBtn,DatosPersonalesTxt,0,"VnDatosPersonales");
+        Botones.botones(GestionProductosBtn,GestionProductosTxt,1,"VnGestionProductos");
+        Botones.botones(FacturacionBtn,FacturacionTxt,2,"VnFacturacion");
+        Botones.botones(RegistroVentasBtn,RegistroVentasTxt,3,"VnRegistroVentas");
+        Botones.botones(HistorialClienteBtn,HistorialClienteTxt,4,"VnHistorialCliente");
+    }
+
+
     public void mostrarFecha(){
         LocalDate fechaActual = LocalDate.now();
         String Fecha = fechaActual.toString();
@@ -1979,16 +1900,7 @@ public class VentanaMain extends javax.swing.JFrame {
         timer.start();
     }
     
-    void Botones(int Btn){
-        
-        lista[Btn].activo = true;
-        
-        for(int i = 0; i < lista.length; i++ ){   
-            if( i != Btn){
-                lista[i].activo = false;
-            }  
-        }    
-    }
+
     
     private void MetodoBtnMenu() {
         int actual = jSplitPane1.getDividerLocation();
@@ -2047,8 +1959,7 @@ public class VentanaMain extends javax.swing.JFrame {
             }
         }
     });
-    }   
-    
+    }
     public void SumaFactura(){
         DefaultTableModel modelo = (DefaultTableModel) TablaCuadro_Factura.getModel();
 
@@ -2082,23 +1993,26 @@ public class VentanaMain extends javax.swing.JFrame {
         });
 
     }
-    private void IluminacionBotonesMenu(JPanel botonActivo) {
-    JPanel[] botones = {DatosPersonalesBtn, GestionProductosBtn, FacturacionBtn, RegistroVentasBtn, HistorialClienteBtn};
-
+    public void IluminacionBotonesMenu(JPanel botonActivo, JLabel Txt) {
+        JPanel[] botones = {DatosPersonalesBtn, GestionProductosBtn, FacturacionBtn, RegistroVentasBtn, HistorialClienteBtn};
+        JLabel[] botonetxt = {DatosPersonalesTxt, GestionProductosTxt, FacturacionTxt, RegistroVentasTxt, HistorialClienteTxt};
+        
         for (JPanel boton : botones) {
+            // activo
             if (boton == botonActivo) {
-                boton.setBackground(new Color(232,232,232)); // activo            
+                boton.setBackground(new Color(230,230,230));
             }
-            else if (boton != botonActivo && boton == FacturacionBtn) {
-                boton.setBackground(new Color(228,228,228)); // inactivo
+            // inactivo
+            else if (boton != botonActivo) {
+                boton.setBackground(new Color(220,220,220));             
             }
-            else if (boton != botonActivo && boton == RegistroVentasBtn) {
-                boton.setBackground(new Color(229,229,229)); // inactivo
+        }
+        for (JLabel Texto : botonetxt){
+            if(Texto == Txt){
+                Texto.setForeground(new Color(255,255,255));
             }
-            else if (boton != botonActivo && boton == HistorialClienteBtn) {
-                boton.setBackground(new Color(230,230,230)); // inactivo
-            }else {
-                boton.setBackground(new Color(227,227,227)); // inactivo
+            else if(Texto != Txt){
+                Texto.setForeground(new Color(102,102,102));
             }
         }
     }
@@ -2152,171 +2066,19 @@ public class VentanaMain extends javax.swing.JFrame {
         BtnMinimizar.setBackground(new Color(228,228,228));
     }//GEN-LAST:event_MinimizarTxtMouseExited
 
-    private void GestionProductosBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestionProductosBtnMouseEntered
-        if(lista[1].activo == false){
-        GestionProductosBtn.setBackground(new Color(232,232,232));
-        }
-    }//GEN-LAST:event_GestionProductosBtnMouseEntered
-
-    private void GestionProductosBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestionProductosBtnMouseExited
-        if(lista[1].activo == false){
-        GestionProductosBtn.setBackground(new Color(227,227,227));
-        GestionProductosTxt.setForeground(new Color(255,255,255));
-        }
-    }//GEN-LAST:event_GestionProductosBtnMouseExited
-
-    private void FacturacionBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FacturacionBtnMouseEntered
-        if(lista[2].activo == false){
-            FacturacionBtn.setBackground(new Color(232,232,232));
-        }
-    }//GEN-LAST:event_FacturacionBtnMouseEntered
-
-    private void FacturacionBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FacturacionBtnMouseExited
-        if(lista[2].activo == false){
-            FacturacionBtn.setBackground(new Color(228,228,228));
-            FacturacionTxt.setForeground(new Color(255,255,255));
-        }
-    }//GEN-LAST:event_FacturacionBtnMouseExited
-
-    private void RegistroVentasBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistroVentasBtnMouseEntered
-        if(lista[3].activo == false){
-            RegistroVentasBtn.setBackground(new Color(232,232,232));
-        }
-    }//GEN-LAST:event_RegistroVentasBtnMouseEntered
-
-    private void RegistroVentasBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistroVentasBtnMouseExited
-        if(lista[3].activo == false){
-            RegistroVentasBtn.setBackground(new Color(229,229,229));
-            RegistroVentasTxt.setForeground(new Color(255,255,255));
-        }
-    }//GEN-LAST:event_RegistroVentasBtnMouseExited
-
-    private void HistorialClienteBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialClienteBtnMouseEntered
-        if(lista[4].activo == false){
-            HistorialClienteBtn.setBackground(new Color(232,232,232));
-            
-        }
-    }//GEN-LAST:event_HistorialClienteBtnMouseEntered
-
-    private void HistorialClienteBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialClienteBtnMouseExited
-        if(lista[4].activo == false){
-            HistorialClienteBtn.setBackground(new Color(230,230,230));
-            HistorialClienteTxt.setForeground(new Color(255,255,255));
-        }
-    }//GEN-LAST:event_HistorialClienteBtnMouseExited
-
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
         Menu.setSize(new Dimension(Menu.getWidth(), this.getHeight()));
         ContenedorPaneles.setSize(new Dimension(ContenedorPaneles.getWidth(), this.getHeight()));
     }//GEN-LAST:event_formComponentResized
 
-    private void GestionProductosBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestionProductosBtnMousePressed
-        if(lista[1].activo == false){
-        GestionProductosBtn.setBackground(new Color(223,223,223));
-        }
-    }//GEN-LAST:event_GestionProductosBtnMousePressed
-
-    private void FacturacionBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FacturacionBtnMousePressed
-        if(lista[2].activo == false){
-        FacturacionBtn.setBackground(new Color(223,223,223));
-
-        }
-    }//GEN-LAST:event_FacturacionBtnMousePressed
-
-    private void RegistroVentasBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistroVentasBtnMousePressed
-        if(lista[3].activo == false){
-        RegistroVentasBtn.setBackground(new Color(223,223,223));
-
-        }
-    }//GEN-LAST:event_RegistroVentasBtnMousePressed
-
-    private void HistorialClienteBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialClienteBtnMousePressed
-        if (lista[4].activo == false){
-        HistorialClienteBtn.setBackground(new Color(223,223,223));
-
-        }
-    }//GEN-LAST:event_HistorialClienteBtnMousePressed
-
-    private void DatosPersonalesBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DatosPersonalesBtnMousePressed
-        if(lista[0].activo == false){
-        DatosPersonalesBtn.setBackground(new Color(223,223,223));
- 
-        }
-    }//GEN-LAST:event_DatosPersonalesBtnMousePressed
-
-    private void DatosPersonalesBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DatosPersonalesBtnMouseEntered
-        if(lista[0].activo == false){
-        DatosPersonalesBtn.setBackground(new Color(232,232,232));
-        }
-    }//GEN-LAST:event_DatosPersonalesBtnMouseEntered
-
     private void BotonEditarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEditarDatosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BotonEditarDatosActionPerformed
 
-    private void mostrarVentana(String nombreVista) {
+    public void mostrarVentana(String nombreVista) {
         CardLayout cardLayout = (CardLayout) ContenedorPaneles.getLayout();
         cardLayout.show(ContenedorPaneles, nombreVista);
     }
-    
-    private void DatosPersonalesBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DatosPersonalesBtnMouseExited
-        if(lista[0].activo == false){
-        DatosPersonalesBtn.setBackground(new Color(227,227,227));
-        DatosPersonalesTxt.setForeground(new Color(255,255,255));
-        }
-    }//GEN-LAST:event_DatosPersonalesBtnMouseExited
-
-    
-
-    private void DatosPersonalesBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DatosPersonalesBtnMouseClicked
-        if (lista[0].activo == false){
-            tablas.TablaDatosPersonales();
-            mostrarVentana("VnDatosPersonales");
-            IluminacionBotonesMenu(DatosPersonalesBtn);
-            Botones(0);
-        }else{
-        }
-    }//GEN-LAST:event_DatosPersonalesBtnMouseClicked
-
-    private void GestionProductosBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestionProductosBtnMouseClicked
-        if(lista[1].activo == false){
-            tablas.TablaGestionProductos();
-            mostrarVentana("VnGestionProductos");
-            IluminacionBotonesMenu(GestionProductosBtn);
-            Botones(1);
-        }else{
-        }
-    }//GEN-LAST:event_GestionProductosBtnMouseClicked
-
-    private void FacturacionBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FacturacionBtnMouseClicked
-        if(lista[2].activo == false){
-            mostrarVentana("VnFacturacion");
-            IluminacionBotonesMenu(FacturacionBtn);
-            Botones(2);
-        }else{
-        }
-    }//GEN-LAST:event_FacturacionBtnMouseClicked
-
-    private void RegistroVentasBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistroVentasBtnMouseClicked
-        if(lista[3].activo == false){
-            tablas.TablaRegistroVentas();
-            mostrarVentana("VnRegistroVentas");
-            IluminacionBotonesMenu(RegistroVentasBtn);
-            Botones(3);
-        }else{
-        }
-    }//GEN-LAST:event_RegistroVentasBtnMouseClicked
-
-    private void HistorialClienteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialClienteBtnMouseClicked
-        if(lista[4].activo == false){
-            tablas.TablaClientesHistorial();
-            tablas.TablaFacturaHistorial();
-            mostrarVentana("VnHistorialCliente");
-            IluminacionBotonesMenu(HistorialClienteBtn);
-            Botones(4);
-        }else{
-        }
-    }//GEN-LAST:event_HistorialClienteBtnMouseClicked
 
     private void BarraAgregarNombreProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BarraAgregarNombreProductosActionPerformed
         // TODO add your handling code here:
@@ -2376,41 +2138,42 @@ public class VentanaMain extends javax.swing.JFrame {
 
     private void BotonAgregarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAgregarProductosActionPerformed
         // TODO add your handling code here:
-        
+
         // nombre, cantidad precio y unidad de medida.
         // BarraAgregarNombreProductos / BarraAgregarCantidadProducto / BarraAgregarPrecioProducto
-        
+
         BarraAgregarNombreProductos.getText();
         BarraAgregarCantidadProducto.getText();
         BarraAgregarPrecioProducto.getText();
         ComboBoxAgregarUnidadMedidaProducto.getSelectedItem();
-        
+
         ProductoColmado p;
-        
 
-       // Statement statement = c1.createStatement();
 
-    DefaultTableModel modelo_mostrar = (DefaultTableModel) TablaMostrarProductos_VentanaGestionProductos.getModel();
-                      try {
-   
-    Statement statement = ConexionBD.getInstancia().getConexion().createStatement();
+        // Statement statement = c1.createStatement();
 
-    String nombre_p = BarraAgregarNombreProductos.getText();
-    int cantidad_p = Integer.parseInt(BarraAgregarCantidadProducto.getText());
-    double precio_p = Double.parseDouble(BarraAgregarPrecioProducto.getText());
-    String unidad_mp = String.valueOf(ComboBoxAgregarUnidadMedidaProducto.getSelectedItem());
+        DefaultTableModel modelo_mostrar = (DefaultTableModel) TablaMostrarProductos_VentanaGestionProductos.getModel();
+        try {
 
-    
-    p = new ProductoColmado();
-    
-    
-    statement.executeUpdate("Insert into ProductoColmado ( nombre, precio, cantidad, unidad_medida) values (\"" + nombre_p + "\", \"" + precio_p + "\", \"" + cantidad_p + "\", \"" + unidad_mp + "\")");
-    
-    tablas.TablaGestionProductos();
-    
-}catch (SQLException el) {
-    el.printStackTrace(); 
-}
+            Statement statement = ConexionBD.getInstancia().getConexion().createStatement();
+
+            String nombre_p = BarraAgregarNombreProductos.getText();
+            int cantidad_p = Integer.parseInt(BarraAgregarCantidadProducto.getText());
+            double precio_p = Double.parseDouble(BarraAgregarPrecioProducto.getText());
+            String unidad_mp = String.valueOf(ComboBoxAgregarUnidadMedidaProducto.getSelectedItem());
+
+
+            p = new ProductoColmado();
+
+
+            statement.executeUpdate("Insert into ProductoColmado ( nombre, precio, cantidad, unidad_medida) values (\"" + nombre_p + "\", \"" + precio_p + "\", \"" + cantidad_p + "\", \"" + unidad_mp + "\")");
+
+            tablas.TablaGestionProductos();
+
+        } catch (SQLException el) {
+            el.printStackTrace();
+        }
+
    
         
         
@@ -2746,18 +2509,7 @@ public class VentanaMain extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_CerrarSesionBtnMouseClicked
-    
 
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -2804,16 +2556,16 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JPanel CuadroEditarDatosPersonales;
     private javax.swing.JPanel CuadroInformacionFactura_VentanaHistorialCliente;
     private javax.swing.JPanel CuadroInformacion_Factura;
-    private javax.swing.JPanel DatosPersonalesBtn;
+    private BordesSuaves.PanelRound DatosPersonalesBtn;
     private javax.swing.JLabel DatosPersonalesTxt;
     private javax.swing.JPanel ExitBtn;
     private javax.swing.JLabel ExitTxt;
-    private javax.swing.JPanel FacturacionBtn;
+    private BordesSuaves.PanelRound FacturacionBtn;
     private javax.swing.JLabel FacturacionTxt;
-    private javax.swing.JPanel GestionProductosBtn;
+    private BordesSuaves.PanelRound GestionProductosBtn;
     private javax.swing.JLabel GestionProductosTxt;
     private javax.swing.JPanel Header;
-    private javax.swing.JPanel HistorialClienteBtn;
+    private BordesSuaves.PanelRound HistorialClienteBtn;
     private javax.swing.JLabel HistorialClienteTxt;
     private javax.swing.JLabel JavaIcon;
     private javax.swing.JPanel Menu;
@@ -2821,7 +2573,7 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JLabel Nombre_empleadoMenu;
     public javax.swing.JScrollPane PanelTablaDatosPersonales;
     private javax.swing.JScrollPane PanelTablaVentanaProductos;
-    private javax.swing.JPanel RegistroVentasBtn;
+    private BordesSuaves.PanelRound RegistroVentasBtn;
     private javax.swing.JLabel RegistroVentasTxt;
     private javax.swing.JScrollPane ScrollTablaClientes_VentanaHistorialCliente;
     private javax.swing.JScrollPane ScrollTablaHistorialCliente_VentanaHistorialCliente;

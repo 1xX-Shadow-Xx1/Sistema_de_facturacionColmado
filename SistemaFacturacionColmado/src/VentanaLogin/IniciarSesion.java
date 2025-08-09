@@ -24,66 +24,54 @@ public class IniciarSesion {
         this.vn = ventana;
     }
     
-    public ActionListener Login(){
+    public void Login() {
+
+        String correo = "Kevin@gmail.com";  //vn.getCorreoText();
+        String password = "Admin123"; //vn.getPasswordText();
+        int id_empleadologin = -1;
+
+        if (correo.equals("Ingrese su correo electronico") || password.equals("••••••••••••••••")) {
+            JOptionPane.showMessageDialog(null, "ingresa contraseña y correo", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (correo == "" || password == "") {
+            JOptionPane.showMessageDialog(null, "ingresa contraseña y correo", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            Statement st = ConexionBD.getInstancia().getConexion().createStatement();
+
+            ResultSet rs = st.executeQuery("SELECT * FROM vista_empleado_correo_simple ;");
 
 
-
-        ActionListener loginAction = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                String correo =  "Kevin@gmail.com";  //vn.getCorreoText();
-                String password =   "Admin123"; //vn.getPasswordText();
-                int id_empleadologin = -1;
-
-                if(correo.equals("Ingrese su correo electronico") || password.equals("••••••••••••••••")){
-                    JOptionPane.showMessageDialog(null, "ingresa contraseña y correo", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                else if(correo == "" || password == ""){
-                    JOptionPane.showMessageDialog(null, "ingresa contraseña y correo", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                try{
-                    Statement st = ConexionBD.getInstancia().getConexion().createStatement();
-
-                    ResultSet rs = st.executeQuery("SELECT * FROM vista_empleado_correo_simple ;");
+            boolean loginExitoso = false;
 
 
-                    boolean loginExitoso = false;
+            while (rs.next()) {
+                String Correo = rs.getString("correo");
+                String Password = rs.getString("contraseña");
+                String nombreEmpleado = rs.getString("nombre_empleado");
+                id_empleadologin = Integer.valueOf(rs.getString("id_empleado"));
 
 
-                    while (rs.next()) {
-                        String Correo = rs.getString("correo");
-                        String Password = rs.getString("contraseña");
-                        String nombreEmpleado = rs.getString("nombre_empleado");
-                        id_empleadologin = Integer.valueOf(rs.getString("id_empleado"));
-
-
-                        if (correo.equals(Correo) && password.equals(Password)) {
-                            loginExitoso = true;
-                            System.out.println("Login correcto. ID Empleado: " + rs.getInt("id_empleado"));
-                            Sesion.idEmpleado = id_empleadologin;
-                            Sesion.Empleado = nombreEmpleado;
-                            break;
-                        }
-                    }
-                    if (loginExitoso) {
-                        vn.abrirVentanaPrincipal();
-                        vn.frame.setVisible(false);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }catch(Exception ex){
-                    ex.printStackTrace();
+                if (correo.equals(Correo) && password.equals(Password)) {
+                    loginExitoso = true;
+                    System.out.println("Login correcto. ID Empleado: " + rs.getInt("id_empleado"));
+                    Sesion.idEmpleado = id_empleadologin;
+                    Sesion.Empleado = nombreEmpleado;
+                    break;
                 }
             }
-        };
-
-        return loginAction;
+            if (loginExitoso) {
+                vn.abrirVentanaPrincipal();
+                vn.frame.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
-    
 }
 
 
