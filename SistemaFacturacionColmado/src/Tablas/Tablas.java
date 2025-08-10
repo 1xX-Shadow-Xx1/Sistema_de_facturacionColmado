@@ -115,8 +115,8 @@ public class Tablas{
     public void TablaClientesHistorial(){
         
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("Cedula");
         modelo.addColumn("Nombre");
+        modelo.addColumn("Cedula");
         modelo.addColumn("Numero de telefono");
         
         String[] datos = new String[3];
@@ -143,9 +143,12 @@ public class Tablas{
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Numero de factura");
         modelo.addColumn("Tipo de pago");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Impuesto");
+        modelo.addColumn("Subtotal"); 
         modelo.addColumn("Total");
         
-        String[] datos = new String[3];
+        String[] datos = new String[6];
         try{
             
             Statement st = ConexionBD.getInstancia().getConexion().createStatement();
