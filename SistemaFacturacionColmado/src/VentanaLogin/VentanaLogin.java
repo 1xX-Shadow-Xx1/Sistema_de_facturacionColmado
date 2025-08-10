@@ -3,47 +3,122 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package VentanaLogin;
+import BordesSuaves.BordesFrame;
+import Tablas.Tablas;
 import VentanaPrincipal.VentanaMain;
+import com.formdev.flatlaf.FlatLightLaf;
 
 import java.awt.*;
 import javax.swing.JFrame;
 import java.awt.event.*;
+import java.awt.geom.RoundRectangle2D;
 import javax.swing.JTextField;
+import BordesSuaves.PanelRound;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 /**
  *
  * @author kevin
  */
 public class VentanaLogin extends javax.swing.JFrame {
+    
 
     private IniciarSesion iniciarSesion;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaLogin.class.getName());
     /**
      * Creates new form VentanaLogin
      */
-    
-    public JFrame frame = new JFrame();
+    int xMouse,yMouse;
 
     public VentanaLogin() {
-        initComponents();
-        iniciarSesion = new IniciarSesion(this); // le pasamos la ventana
-        barraslister();
+        setUndecorated(true);
         
+        initComponents();
+        
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf()); // Cambiar a FlatLightLaf() si quieres claro
+        } catch (Exception ex) {
+            System.err.println("No se pudo aplicar el tema.");
+        }
+        
+        BordesFrame bordes = new BordesFrame();
+        bordes.bordeFrame(this, 1110, 650, 30, 30);
+        
+        iniciarSesion = new IniciarSesion(this); 
+        barraslister();
+        iluminacionBtn(BtnExit,TxtExit);
+        iluminacionBtn(BtnMinimizar,TxtMinimizar);
 
+        
+    }
+    
+    public void iluminacionBtn(JPanel Btn, JLabel Txt){
+        Btn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+
+                if(Btn == BtnExit){
+                    System.exit(0);
+                }
+                else if(Btn == BtnMinimizar) {
+                    setState(JFrame.ICONIFIED);
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                if(Btn == BtnExit){
+                    Btn.setBackground(new Color(255,102,102));
+                    Txt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x.png")));
+                }
+                else if(Btn == BtnMinimizar) {
+                    BtnMinimizar.setBackground(new Color(140,140,140));
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                if(Btn == BtnExit){
+                    Btn.setBackground(new Color(255,0,0));
+                    Txt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x.png")));
+                }
+                else if(Btn == BtnMinimizar) {
+                    Btn.setBackground(new Color(165,165,165));
+                }
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                if(Btn == BtnExit){
+                    Btn.setBackground(new Color(199,199,199));   
+                    Txt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x2.png")));
+                }
+                else if(Btn == BtnMinimizar) {
+                    Btn.setBackground(new Color(199,199,199));
+                }
+            }
+        });
     }
     public void abrirVentanaPrincipal() {
         VentanaMain ventana = new VentanaMain();
         ventana.setVisible(true);
-        this.dispose(); // Cierra la ventana actual si quieres
+        this.dispose(); 
     }
 
     public void aplicarPlaceholder(JTextField campo, String placeholder) {
 
 
-        // Color gris claro para placeholder
+        // Color gris claro 
         Color colorPlaceholder = Color.WHITE;
 
-        // Establecer texto y color inicial del placeholder
+        // Establecer texto y color inicial 
         campo.setText(placeholder);
         campo.setForeground(colorPlaceholder);
 
@@ -79,6 +154,10 @@ public class VentanaLogin extends javax.swing.JFrame {
     private void initComponents() {
 
         PanelLogin = new javax.swing.JPanel();
+        BtnExit = new BordesSuaves.PanelRound();
+        TxtExit = new javax.swing.JLabel();
+        BtnMinimizar = new BordesSuaves.PanelRound();
+        TxtMinimizar = new javax.swing.JLabel();
         TextoContraseña = new javax.swing.JLabel();
         TextoCorreo_electroinco = new javax.swing.JLabel();
         IconoUser = new javax.swing.JLabel();
@@ -87,42 +166,87 @@ public class VentanaLogin extends javax.swing.JFrame {
         BarraIngresarContraseña = new javax.swing.JPasswordField();
         BtnIniciarSesion = new BordesSuaves.PanelRound();
         TxtBotonIniciar = new javax.swing.JLabel();
+        Head = new javax.swing.JLabel();
         FondoLogin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
-        setMaximumSize(new java.awt.Dimension(900, 800));
-        setPreferredSize(new java.awt.Dimension(1000, 600));
+        setMaximumSize(new java.awt.Dimension(2000, 2000));
+        setUndecorated(true);
         setResizable(false);
 
         PanelLogin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        TextoContraseña.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        TextoContraseña.setForeground(new java.awt.Color(255, 255, 255));
-        TextoContraseña.setText("Contraseña:");
-        PanelLogin.add(TextoContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 340, -1, -1));
+        BtnExit.setBackground(new java.awt.Color(199, 199, 199));
+        BtnExit.setRoundBottomLeft(30);
+        BtnExit.setRoundBottomRight(30);
+        BtnExit.setRoundTopLeft(30);
+        BtnExit.setRoundTopRight(30);
 
-        TextoCorreo_electroinco.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        TextoCorreo_electroinco.setForeground(new java.awt.Color(255, 255, 255));
+        TxtExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TxtExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x2.png"))); // NOI18N
+
+        javax.swing.GroupLayout BtnExitLayout = new javax.swing.GroupLayout(BtnExit);
+        BtnExit.setLayout(BtnExitLayout);
+        BtnExitLayout.setHorizontalGroup(
+            BtnExitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TxtExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        BtnExitLayout.setVerticalGroup(
+            BtnExitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TxtExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        PanelLogin.add(BtnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 0, 60, 30));
+
+        BtnMinimizar.setBackground(new java.awt.Color(199, 199, 199));
+        BtnMinimizar.setRoundBottomLeft(30);
+        BtnMinimizar.setRoundBottomRight(30);
+        BtnMinimizar.setRoundTopLeft(30);
+        BtnMinimizar.setRoundTopRight(30);
+
+        TxtMinimizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TxtMinimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/menos.png"))); // NOI18N
+
+        javax.swing.GroupLayout BtnMinimizarLayout = new javax.swing.GroupLayout(BtnMinimizar);
+        BtnMinimizar.setLayout(BtnMinimizarLayout);
+        BtnMinimizarLayout.setHorizontalGroup(
+            BtnMinimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TxtMinimizar, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+        BtnMinimizarLayout.setVerticalGroup(
+            BtnMinimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TxtMinimizar, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        PanelLogin.add(BtnMinimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 0, 60, 30));
+
+        TextoContraseña.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        TextoContraseña.setForeground(new java.awt.Color(102, 102, 102));
+        TextoContraseña.setText("Contraseña:");
+        PanelLogin.add(TextoContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 410, -1, -1));
+
+        TextoCorreo_electroinco.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        TextoCorreo_electroinco.setForeground(new java.awt.Color(102, 102, 102));
         TextoCorreo_electroinco.setText("Correo electronico:");
-        PanelLogin.add(TextoCorreo_electroinco, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, -1, -1));
+        PanelLogin.add(TextoCorreo_electroinco, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 310, -1, -1));
 
         IconoUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         IconoUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/perfil-de-usuario .png"))); // NOI18N
-        PanelLogin.add(IconoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 1010, 160));
+        PanelLogin.add(IconoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 1110, 160));
 
-        TextoIniciarSesion.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        TextoIniciarSesion.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
         TextoIniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
         TextoIniciarSesion.setText("INICIAR SESIÓN");
-        PanelLogin.add(TextoIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, 150, 30));
+        PanelLogin.add(TextoIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, 150, 30));
 
-        BarraIngresarCorreo.setBackground(new java.awt.Color(227, 227, 227));
-        BarraIngresarCorreo.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        BarraIngresarCorreo.setBackground(new java.awt.Color(216, 216, 216));
+        BarraIngresarCorreo.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         BarraIngresarCorreo.setForeground(new java.awt.Color(255, 255, 255));
         BarraIngresarCorreo.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         BarraIngresarCorreo.setText("Ingrese su correo electronico");
         BarraIngresarCorreo.setToolTipText("");
-        BarraIngresarCorreo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        BarraIngresarCorreo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(180, 180, 180)));
         BarraIngresarCorreo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BarraIngresarCorreo.setOpaque(true);
         BarraIngresarCorreo.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -135,13 +259,13 @@ public class VentanaLogin extends javax.swing.JFrame {
                 BarraIngresarCorreoMouseClicked(evt);
             }
         });
-        PanelLogin.add(BarraIngresarCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 310, 40));
+        PanelLogin.add(BarraIngresarCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 340, 310, 40));
 
-        BarraIngresarContraseña.setBackground(new java.awt.Color(227, 227, 227));
+        BarraIngresarContraseña.setBackground(new java.awt.Color(216, 216, 216));
         BarraIngresarContraseña.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BarraIngresarContraseña.setForeground(new java.awt.Color(255, 255, 255));
         BarraIngresarContraseña.setText("••••••••••••••••");
-        BarraIngresarContraseña.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        BarraIngresarContraseña.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(180, 180, 180)));
         BarraIngresarContraseña.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BarraIngresarContraseña.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -153,17 +277,17 @@ public class VentanaLogin extends javax.swing.JFrame {
                 BarraIngresarContraseñaMouseClicked(evt);
             }
         });
-        PanelLogin.add(BarraIngresarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 380, 310, 40));
+        PanelLogin.add(BarraIngresarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 440, 310, 40));
 
-        BtnIniciarSesion.setBackground(new java.awt.Color(227, 227, 227));
+        BtnIniciarSesion.setBackground(new java.awt.Color(216, 216, 216));
         BtnIniciarSesion.setPreferredSize(new java.awt.Dimension(46, 25));
         BtnIniciarSesion.setRoundBottomLeft(30);
         BtnIniciarSesion.setRoundBottomRight(30);
         BtnIniciarSesion.setRoundTopLeft(30);
         BtnIniciarSesion.setRoundTopRight(30);
 
-        TxtBotonIniciar.setBackground(new java.awt.Color(227, 227, 227));
-        TxtBotonIniciar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        TxtBotonIniciar.setBackground(new java.awt.Color(215, 215, 215));
+        TxtBotonIniciar.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
         TxtBotonIniciar.setForeground(new java.awt.Color(255, 255, 255));
         TxtBotonIniciar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         TxtBotonIniciar.setText("Iniciar");
@@ -187,22 +311,30 @@ public class VentanaLogin extends javax.swing.JFrame {
         BtnIniciarSesion.setLayout(BtnIniciarSesionLayout);
         BtnIniciarSesionLayout.setHorizontalGroup(
             BtnIniciarSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BtnIniciarSesionLayout.createSequentialGroup()
-                .addComponent(TxtBotonIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE))
+            .addComponent(TxtBotonIniciar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
         );
         BtnIniciarSesionLayout.setVerticalGroup(
             BtnIniciarSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BtnIniciarSesionLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(TxtBotonIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(TxtBotonIniciar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        PanelLogin.add(BtnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 470, 150, 40));
+        PanelLogin.add(BtnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 520, 150, 40));
 
-        FondoLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoLogingris.png"))); // NOI18N
+        Head.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                HeadMouseDragged(evt);
+            }
+        });
+        Head.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                HeadMousePressed(evt);
+            }
+        });
+        PanelLogin.add(Head, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 30));
+
+        FondoLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/2.png"))); // NOI18N
         FondoLogin.setMaximumSize(new java.awt.Dimension(1900, 1200));
-        PanelLogin.add(FondoLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1074, 600));
+        PanelLogin.add(FondoLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1110, 650));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -272,6 +404,18 @@ public class VentanaLogin extends javax.swing.JFrame {
         iniciarSesion.Login();
     }//GEN-LAST:event_TxtBotonIniciarMouseClicked
 
+    private void HeadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeadMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_HeadMousePressed
+
+    private void HeadMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeadMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+
+        this.setLocation(x-xMouse,y-yMouse);
+    }//GEN-LAST:event_HeadMouseDragged
+
     public String getCorreoText() {
         return BarraIngresarCorreo.getText();
     }
@@ -316,13 +460,18 @@ public class VentanaLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField BarraIngresarContraseña;
     private javax.swing.JTextField BarraIngresarCorreo;
+    private BordesSuaves.PanelRound BtnExit;
     private BordesSuaves.PanelRound BtnIniciarSesion;
+    private BordesSuaves.PanelRound BtnMinimizar;
     private javax.swing.JLabel FondoLogin;
+    private javax.swing.JLabel Head;
     private javax.swing.JLabel IconoUser;
     private javax.swing.JPanel PanelLogin;
     private javax.swing.JLabel TextoContraseña;
     private javax.swing.JLabel TextoCorreo_electroinco;
     private javax.swing.JLabel TextoIniciarSesion;
     private javax.swing.JLabel TxtBotonIniciar;
+    private javax.swing.JLabel TxtExit;
+    private javax.swing.JLabel TxtMinimizar;
     // End of variables declaration//GEN-END:variables
 }

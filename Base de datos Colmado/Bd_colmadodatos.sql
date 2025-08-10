@@ -14,7 +14,8 @@ CREATE TABLE Cliente (
 CREATE TABLE Correo (
     id_correo INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100),
-    contraseña VARCHAR(100)
+    contraseña VARCHAR(100),
+    nivelacceso INT
 );
 
 -- Tabla Empleado actualizada
@@ -80,12 +81,21 @@ SELECT * FROM vista_facturas_resumen;
 SELECT * FROM vista_empleado_correo_simple;
 
 -- Insertar un correo primero
-INSERT INTO Correo (nombre, contraseña) 
-VALUES ('Kevin@gmail.com', 'Admin123');
+INSERT INTO correo (nombre, contraseña,nivelacceso) 
+VALUES ('Kevin@gmail.com', 'Admin123',2);
 
 -- Ahora insertar un empleado con ese id_correo (supongamos que fue 1)
 INSERT INTO Empleado (id_correo, nombre_empleado, cedula_empleado, numero_empleado, cargo) 
 VALUES (1, 'Kevin Liriano Ramirez', '402-9234264-8', '809-123-4567', 'Administrador');
+
+
+
+INSERT INTO correo (nombre, contraseña,nivelacceso) 
+VALUES ('Ramona@gmail.com', 'Admin123',1);
+
+-- Ahora insertar un empleado con ese id_correo (supongamos que fue 1)
+INSERT INTO Empleado (id_correo, nombre_empleado, cedula_empleado, numero_empleado, cargo) 
+VALUES (2, 'Ramona Liriano Ramirez', '402-9254264-8', '809-133-4567', 'Empleado');
 
 /*ALTER TABLE Empleado
 ADD COLUMN id_correo INT;

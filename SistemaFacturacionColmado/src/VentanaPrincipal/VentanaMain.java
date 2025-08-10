@@ -1,5 +1,6 @@
 package VentanaPrincipal;
 
+import BordesSuaves.BordesFrame;
 import Tablas.Tablas;
 import VentanaEditarProductos.VentanaEditarProductos;
 import VentanaLogin.Sesion;
@@ -28,8 +29,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableRowSorter;
 import BordesSuaves.PanelRound;
+import java.awt.BorderLayout;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-
+import javax.swing.UIManager;
 
 
         
@@ -39,30 +43,49 @@ import javax.swing.JLabel;
  */
 public class VentanaMain extends javax.swing.JFrame {
     
+    private PanelRound panelRound;
+    private MenuEmpleado menuEmpleado;
+    JFrame frame = new JFrame();
     int xMouse, yMouse;
     boolean menuVisible = true;
     public Tablas tablas;
     VentanaLogin ventanalogin = new VentanaLogin();
     private Botones Botones;
-    
-
+    private CerrarSesion sesion;    
     
 
     public VentanaMain() {
+        setUndecorated(true);
+
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("No se pudo aplicar el tema.");
+        }
+
         initComponents();
-        Botones = new Botones(this);
+
+        sesion = new CerrarSesion(this);
+        menuEmpleado = new MenuEmpleado(this);
+
+        BordesFrame bordes = new BordesFrame();
+        bordes.bordeFrame(this, 1210, 772, 30, 30);
+
+        Botones = new Botones(this, menuEmpleado);
         mostrarFecha();
         SumaFactura();
-        this.dispose();
-        
+
         this.tablas = new Tablas(this); 
         tablas.TablaDatosPersonales();
-        
+
         Nombre_empleadoMenu.setText(Sesion.Empleado);
         TextoNombreEmpleadoCuadro_Factura.setText(Sesion.Empleado);
 
         botonesescucha();
 
+        MenuAcceso();
+
+        //this.dispose();
     }
 
 
@@ -76,9 +99,10 @@ public class VentanaMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Background = new javax.swing.JPanel();
+        Background = new BordesSuaves.PanelRound();
         jSplitPane1 = new javax.swing.JSplitPane();
         Menu = new javax.swing.JPanel();
+        MenuAdministrador = new javax.swing.JPanel();
         JavaIcon = new javax.swing.JLabel();
         Nombre_empleadoMenu = new javax.swing.JLabel();
         CerrarSesionBtn = new javax.swing.JLabel();
@@ -92,6 +116,7 @@ public class VentanaMain extends javax.swing.JFrame {
         HistorialClienteTxt = new javax.swing.JLabel();
         RegistroVentasBtn = new BordesSuaves.PanelRound();
         RegistroVentasTxt = new javax.swing.JLabel();
+        FondoCrom = new javax.swing.JLabel();
         ContenedorPaneles = new javax.swing.JPanel();
         VentanaDatosPersonales = new javax.swing.JPanel();
         PanelTablaDatosPersonales = new javax.swing.JScrollPane();
@@ -231,32 +256,40 @@ public class VentanaMain extends javax.swing.JFrame {
         setLocation(new java.awt.Point(450, 200));
         setLocationByPlatform(true);
         setUndecorated(true);
+        setResizable(false);
         setSize(new java.awt.Dimension(1200, 800));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);
             }
         });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        Background.setRoundBottomLeft(100);
+        Background.setRoundBottomRight(100);
+        Background.setRoundTopLeft(100);
+        Background.setRoundTopRight(100);
         Background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jSplitPane1.setDividerLocation(270);
         jSplitPane1.setDividerSize(0);
 
         Menu.setBackground(new java.awt.Color(220, 220, 220));
-        Menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        Menu.setLayout(new java.awt.CardLayout());
+
+        MenuAdministrador.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         JavaIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         JavaIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Logo.png"))); // NOI18N
-        Menu.add(JavaIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 280, 155));
+        MenuAdministrador.add(JavaIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 155));
 
         Nombre_empleadoMenu.setBackground(new java.awt.Color(102, 102, 102));
-        Nombre_empleadoMenu.setFont(new java.awt.Font("Segoe UI Symbol", 1, 18)); // NOI18N
+        Nombre_empleadoMenu.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         Nombre_empleadoMenu.setForeground(new java.awt.Color(102, 102, 102));
         Nombre_empleadoMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Nombre_empleadoMenu.setText("jLabel3");
+        Nombre_empleadoMenu.setText("Nombre admin");
         Nombre_empleadoMenu.setMaximumSize(new java.awt.Dimension(59, 50));
-        Menu.add(Nombre_empleadoMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 173, 230, -1));
+        MenuAdministrador.add(Nombre_empleadoMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 230, -1));
 
         CerrarSesionBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar-sesion.png"))); // NOI18N
         CerrarSesionBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -265,7 +298,7 @@ public class VentanaMain extends javax.swing.JFrame {
                 CerrarSesionBtnMouseClicked(evt);
             }
         });
-        Menu.add(CerrarSesionBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 700, -1, -1));
+        MenuAdministrador.add(CerrarSesionBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 690, -1, -1));
 
         DatosPersonalesBtn.setBackground(new java.awt.Color(230, 230, 230));
         DatosPersonalesBtn.setRoundBottomLeft(20);
@@ -273,10 +306,11 @@ public class VentanaMain extends javax.swing.JFrame {
         DatosPersonalesBtn.setRoundTopLeft(20);
         DatosPersonalesBtn.setRoundTopRight(20);
 
-        DatosPersonalesTxt.setFont(new java.awt.Font("Segoe UI Symbol", 1, 20)); // NOI18N
+        DatosPersonalesTxt.setFont(new java.awt.Font("Century Gothic", 1, 20)); // NOI18N
         DatosPersonalesTxt.setForeground(new java.awt.Color(255, 255, 255));
         DatosPersonalesTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         DatosPersonalesTxt.setText("Datos Personales");
+        DatosPersonalesTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout DatosPersonalesBtnLayout = new javax.swing.GroupLayout(DatosPersonalesBtn);
         DatosPersonalesBtn.setLayout(DatosPersonalesBtnLayout);
@@ -289,7 +323,7 @@ public class VentanaMain extends javax.swing.JFrame {
             .addComponent(DatosPersonalesTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        Menu.add(DatosPersonalesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 250, 60));
+        MenuAdministrador.add(DatosPersonalesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, -1, -1));
 
         GestionProductosBtn.setBackground(new java.awt.Color(220, 220, 220));
         GestionProductosBtn.setRoundBottomLeft(20);
@@ -298,10 +332,11 @@ public class VentanaMain extends javax.swing.JFrame {
         GestionProductosBtn.setRoundTopRight(20);
 
         GestionProductosTxt.setBackground(new java.awt.Color(198, 198, 198));
-        GestionProductosTxt.setFont(new java.awt.Font("Segoe UI Symbol", 1, 20)); // NOI18N
+        GestionProductosTxt.setFont(new java.awt.Font("Century Gothic", 1, 20)); // NOI18N
         GestionProductosTxt.setForeground(new java.awt.Color(102, 102, 102));
         GestionProductosTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         GestionProductosTxt.setText("Gestión de productos");
+        GestionProductosTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout GestionProductosBtnLayout = new javax.swing.GroupLayout(GestionProductosBtn);
         GestionProductosBtn.setLayout(GestionProductosBtnLayout);
@@ -314,7 +349,7 @@ public class VentanaMain extends javax.swing.JFrame {
             .addComponent(GestionProductosTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        Menu.add(GestionProductosBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 250, 60));
+        MenuAdministrador.add(GestionProductosBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
 
         FacturacionBtn.setBackground(new java.awt.Color(220, 220, 220));
         FacturacionBtn.setRoundBottomLeft(20);
@@ -322,10 +357,11 @@ public class VentanaMain extends javax.swing.JFrame {
         FacturacionBtn.setRoundTopLeft(20);
         FacturacionBtn.setRoundTopRight(20);
 
-        FacturacionTxt.setFont(new java.awt.Font("Segoe UI Symbol", 1, 20)); // NOI18N
+        FacturacionTxt.setFont(new java.awt.Font("Century Gothic", 1, 20)); // NOI18N
         FacturacionTxt.setForeground(new java.awt.Color(102, 102, 102));
         FacturacionTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         FacturacionTxt.setText("Facturación");
+        FacturacionTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout FacturacionBtnLayout = new javax.swing.GroupLayout(FacturacionBtn);
         FacturacionBtn.setLayout(FacturacionBtnLayout);
@@ -338,7 +374,7 @@ public class VentanaMain extends javax.swing.JFrame {
             .addComponent(FacturacionTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        Menu.add(FacturacionBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
+        MenuAdministrador.add(FacturacionBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
 
         HistorialClienteBtn.setBackground(new java.awt.Color(220, 220, 220));
         HistorialClienteBtn.setRoundBottomLeft(20);
@@ -347,10 +383,11 @@ public class VentanaMain extends javax.swing.JFrame {
         HistorialClienteBtn.setRoundTopRight(20);
 
         HistorialClienteTxt.setBackground(new java.awt.Color(198, 198, 198));
-        HistorialClienteTxt.setFont(new java.awt.Font("Segoe UI Symbol", 1, 18)); // NOI18N
+        HistorialClienteTxt.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         HistorialClienteTxt.setForeground(new java.awt.Color(102, 102, 102));
         HistorialClienteTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         HistorialClienteTxt.setText("Historial del Cliente");
+        HistorialClienteTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout HistorialClienteBtnLayout = new javax.swing.GroupLayout(HistorialClienteBtn);
         HistorialClienteBtn.setLayout(HistorialClienteBtnLayout);
@@ -363,7 +400,7 @@ public class VentanaMain extends javax.swing.JFrame {
             .addComponent(HistorialClienteTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        Menu.add(HistorialClienteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 590, 250, -1));
+        MenuAdministrador.add(HistorialClienteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 580, -1, -1));
 
         RegistroVentasBtn.setBackground(new java.awt.Color(220, 220, 220));
         RegistroVentasBtn.setRoundBottomLeft(20);
@@ -372,10 +409,11 @@ public class VentanaMain extends javax.swing.JFrame {
         RegistroVentasBtn.setRoundTopRight(20);
 
         RegistroVentasTxt.setBackground(new java.awt.Color(198, 198, 198));
-        RegistroVentasTxt.setFont(new java.awt.Font("Segoe UI Symbol", 1, 20)); // NOI18N
+        RegistroVentasTxt.setFont(new java.awt.Font("Century Gothic", 1, 20)); // NOI18N
         RegistroVentasTxt.setForeground(new java.awt.Color(102, 102, 102));
         RegistroVentasTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         RegistroVentasTxt.setText("Registro de ventas");
+        RegistroVentasTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout RegistroVentasBtnLayout = new javax.swing.GroupLayout(RegistroVentasBtn);
         RegistroVentasBtn.setLayout(RegistroVentasBtnLayout);
@@ -388,9 +426,19 @@ public class VentanaMain extends javax.swing.JFrame {
             .addComponent(RegistroVentasTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        Menu.add(RegistroVentasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 250, 60));
+        MenuAdministrador.add(RegistroVentasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, -1, -1));
+
+        FondoCrom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/2.png"))); // NOI18N
+        FondoCrom.setMaximumSize(new java.awt.Dimension(280, 732));
+        FondoCrom.setMinimumSize(new java.awt.Dimension(280, 732));
+        FondoCrom.setPreferredSize(new java.awt.Dimension(280, 732));
+        MenuAdministrador.add(FondoCrom, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1210, 740));
+
+        Menu.add(MenuAdministrador, "card2");
 
         jSplitPane1.setLeftComponent(Menu);
+        Menu.setLayout(new CardLayout());
+        Menu.add(MenuAdministrador, "MenuAdmin");
 
         ContenedorPaneles.setBackground(new java.awt.Color(255, 255, 255));
         ContenedorPaneles.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 204, 204)));
@@ -400,7 +448,9 @@ public class VentanaMain extends javax.swing.JFrame {
         VentanaDatosPersonales.setBackground(new java.awt.Color(250, 250, 250));
 
         PanelTablaDatosPersonales.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(198, 198, 198), 2));
+        PanelTablaDatosPersonales.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
 
+        TablaDatosPersonales.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         TablaDatosPersonales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -410,7 +460,7 @@ public class VentanaMain extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -484,7 +534,7 @@ public class VentanaMain extends javax.swing.JFrame {
             }
         });
 
-        Titulo_CuadroEditarDatos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Titulo_CuadroEditarDatos.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
         Titulo_CuadroEditarDatos.setText("Editar datos");
 
         TextoEditarCargo.setText("Cargo");
@@ -568,7 +618,7 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
-        TituloVentanaDatosPersonales.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TituloVentanaDatosPersonales.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         TituloVentanaDatosPersonales.setText("Datos Personales");
 
         javax.swing.GroupLayout VentanaDatosPersonalesLayout = new javax.swing.GroupLayout(VentanaDatosPersonales);
@@ -591,7 +641,7 @@ public class VentanaMain extends javax.swing.JFrame {
             VentanaDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(VentanaDatosPersonalesLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(TituloVentanaDatosPersonales, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                .addComponent(TituloVentanaDatosPersonales, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                 .addGap(49, 49, 49)
                 .addGroup(VentanaDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(VentanaDatosPersonalesLayout.createSequentialGroup()
@@ -796,7 +846,7 @@ public class VentanaMain extends javax.swing.JFrame {
             VentanaGestionProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(VentanaGestionProductoLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(TituloVentanaGestionProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(TituloVentanaGestionProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
                 .addGap(664, 664, 664))
             .addGroup(VentanaGestionProductoLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
@@ -1368,7 +1418,7 @@ public class VentanaMain extends javax.swing.JFrame {
             VentanaRegistroVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(VentanaRegistroVentasLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(Titulo_VentanaRegistroVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Titulo_VentanaRegistroVentas, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
                 .addGap(695, 695, 695))
             .addGroup(VentanaRegistroVentasLayout.createSequentialGroup()
                 .addGap(90, 90, 90)
@@ -1404,11 +1454,11 @@ public class VentanaMain extends javax.swing.JFrame {
                     .addGroup(VentanaRegistroVentasLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(VentanaRegistroVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ComboBoxMes_VentanaRegistroVentas)
+                            .addComponent(ComboBoxMes_VentanaRegistroVentas, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
                             .addComponent(ComboBoxAnual_VentanaRegistroVentas))
                         .addGap(8, 8, 8)))
                 .addGap(20, 20, 20)
-                .addComponent(ScrollTabla_VentanaRegistroVentas, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+                .addComponent(ScrollTabla_VentanaRegistroVentas, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
                 .addGap(82, 82, 82)
                 .addGroup(VentanaRegistroVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TextoTotalNumerico_VentanaRegistroVentas)
@@ -1520,7 +1570,7 @@ public class VentanaMain extends javax.swing.JFrame {
                         .addComponent(TextoTipodePago_CuadroInfomacionFactura__VentanaHistorialCliente)
                         .addGap(14, 14, 14)
                         .addComponent(TextoTipodePagoNombre_CuadroInfomacionFactura__VentanaHistorialCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(189, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(CuadroInformacionFactura_VentanaHistorialClienteLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(SeparatorSuperior_CuadroInfomacionFactura__VentanaHistorialCliente)
@@ -1553,7 +1603,7 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
             .addGroup(CuadroInformacionFactura_VentanaHistorialClienteLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addComponent(Titulo_CuadroInfomacionFactura__VentanaHistorialCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Titulo_CuadroInfomacionFactura__VentanaHistorialCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
                 .addGap(74, 74, 74))
         );
         CuadroInformacionFactura_VentanaHistorialClienteLayout.setVerticalGroup(
@@ -1674,8 +1724,8 @@ public class VentanaMain extends javax.swing.JFrame {
             .addGroup(VentanaHistorialClienteLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(VentanaHistorialClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ScrollTablaClientes_VentanaHistorialCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
-                    .addComponent(ScrollTablaHistorialCliente_VentanaHistorialCliente))
+                    .addComponent(ScrollTablaClientes_VentanaHistorialCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                    .addComponent(ScrollTablaHistorialCliente_VentanaHistorialCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(CuadroInformacionFactura_VentanaHistorialCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
@@ -1739,7 +1789,7 @@ public class VentanaMain extends javax.swing.JFrame {
 
         Background.add(jSplitPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 32, 1210, 740));
 
-        Header.setBackground(new java.awt.Color(228, 228, 228));
+        Header.setBackground(new java.awt.Color(219, 219, 219));
         Header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 HeaderMouseDragged(evt);
@@ -1750,8 +1800,9 @@ public class VentanaMain extends javax.swing.JFrame {
                 HeaderMousePressed(evt);
             }
         });
+        Header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        BtnMinimizar.setBackground(new java.awt.Color(228, 228, 228));
+        BtnMinimizar.setBackground(new java.awt.Color(219, 219, 219));
 
         MinimizarTxt.setBackground(new java.awt.Color(228, 228, 228));
         MinimizarTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1773,19 +1824,21 @@ public class VentanaMain extends javax.swing.JFrame {
         BtnMinimizar.setLayout(BtnMinimizarLayout);
         BtnMinimizarLayout.setHorizontalGroup(
             BtnMinimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MinimizarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+            .addComponent(MinimizarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
         BtnMinimizarLayout.setVerticalGroup(
             BtnMinimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MinimizarTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+            .addComponent(MinimizarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        ExitBtn.setBackground(new java.awt.Color(228, 228, 228));
+        Header.add(BtnMinimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1067, 0, 80, 30));
+
+        ExitBtn.setBackground(new java.awt.Color(219, 219, 219));
 
         ExitTxt.setBackground(new java.awt.Color(228, 228, 228));
         ExitTxt.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         ExitTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ExitTxt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x.png"))); // NOI18N
+        ExitTxt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x2.png"))); // NOI18N
         ExitTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ExitTxtMouseClicked(evt);
@@ -1805,54 +1858,33 @@ public class VentanaMain extends javax.swing.JFrame {
         ExitBtn.setLayout(ExitBtnLayout);
         ExitBtnLayout.setHorizontalGroup(
             ExitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ExitTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(ExitBtnLayout.createSequentialGroup()
+                .addComponent(ExitTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         ExitBtnLayout.setVerticalGroup(
             ExitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ExitBtnLayout.createSequentialGroup()
                 .addComponent(ExitTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        Header.add(ExitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1147, 0, -1, 30));
+
+        BtnMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         BtnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/menu.png"))); // NOI18N
+        BtnMenu.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         BtnMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BtnMenuMouseClicked(evt);
             }
         });
+        Header.add(BtnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, -1, 44));
 
-        javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
-        Header.setLayout(HeaderLayout);
-        HeaderLayout.setHorizontalGroup(
-            HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(HeaderLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(BtnMenu)
-                .addGap(1032, 1032, 1032)
-                .addComponent(BtnMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(ExitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        HeaderLayout.setVerticalGroup(
-            HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(BtnMenu)
-            .addComponent(BtnMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(ExitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        Background.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1220, 40));
 
-        Background.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 30));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1220, 770));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1867,8 +1899,17 @@ public class VentanaMain extends javax.swing.JFrame {
         Botones.botones(RegistroVentasBtn,RegistroVentasTxt,3,"VnRegistroVentas");
         Botones.botones(HistorialClienteBtn,HistorialClienteTxt,4,"VnHistorialCliente");
     }
-
-
+    void MenuAcceso(){
+        if(Sesion.nivelAcceso == 1){  
+            Menu.add(menuEmpleado, "MenuEmpleados");
+            mostrarMenu("MenuEmpleados");
+            
+        }
+        else if(Sesion.nivelAcceso == 2){
+            mostrarVentana("MenuAdmin");
+        }
+    }
+    
     public void mostrarFecha(){
         LocalDate fechaActual = LocalDate.now();
         String Fecha = fechaActual.toString();
@@ -1900,7 +1941,14 @@ public class VentanaMain extends javax.swing.JFrame {
         timer.start();
     }
     
-
+    public void mostrarVentana(String nombreVista) {
+        CardLayout cardLayout = (CardLayout) ContenedorPaneles.getLayout();
+        cardLayout.show(ContenedorPaneles, nombreVista);
+    }
+    public void mostrarMenu(String vista){
+        CardLayout cardLayout = (CardLayout) Menu.getLayout();
+        cardLayout.show(Menu, vista);
+    }
     
     private void MetodoBtnMenu() {
         int actual = jSplitPane1.getDividerLocation();
@@ -1994,8 +2042,10 @@ public class VentanaMain extends javax.swing.JFrame {
 
     }
     public void IluminacionBotonesMenu(JPanel botonActivo, JLabel Txt) {
+
         JPanel[] botones = {DatosPersonalesBtn, GestionProductosBtn, FacturacionBtn, RegistroVentasBtn, HistorialClienteBtn};
         JLabel[] botonetxt = {DatosPersonalesTxt, GestionProductosTxt, FacturacionTxt, RegistroVentasTxt, HistorialClienteTxt};
+        
         
         for (JPanel boton : botones) {
             // activo
@@ -2023,49 +2073,6 @@ public class VentanaMain extends javax.swing.JFrame {
         MetodoBtnMenu();
     }//GEN-LAST:event_BtnMenuMouseClicked
 
-    private void ExitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitTxtMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_ExitTxtMouseClicked
-
-    private void ExitTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitTxtMouseEntered
-        ExitBtn.setBackground(Color.red);
-        ExitTxt.setForeground(Color.WHITE);
-    }//GEN-LAST:event_ExitTxtMouseEntered
-
-    private void ExitTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitTxtMouseExited
-        ExitBtn.setBackground(new Color(228,228,228));
-        ExitTxt.setForeground(Color.BLACK);
-    }//GEN-LAST:event_ExitTxtMouseExited
-
-    private void ExitTxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitTxtMousePressed
-        ExitBtn.setBackground(new Color(200,0,0));
-        ExitTxt.setForeground(Color.GRAY);
-    }//GEN-LAST:event_ExitTxtMousePressed
-
-    private void HeaderMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeaderMouseDragged
-        int x = evt.getXOnScreen();
-        int y = evt.getYOnScreen();
-        
-        this.setLocation(x-xMouse,y-yMouse);
-    }//GEN-LAST:event_HeaderMouseDragged
-
-    private void HeaderMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeaderMousePressed
-        xMouse = evt.getX();
-        yMouse = evt.getY();
-    }//GEN-LAST:event_HeaderMousePressed
-
-    private void MinimizarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarTxtMouseClicked
-        setState(JFrame.ICONIFIED);
-    }//GEN-LAST:event_MinimizarTxtMouseClicked
-
-    private void MinimizarTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarTxtMouseEntered
-        BtnMinimizar.setBackground(new Color(241,241,241));
-    }//GEN-LAST:event_MinimizarTxtMouseEntered
-
-    private void MinimizarTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarTxtMouseExited
-        BtnMinimizar.setBackground(new Color(228,228,228));
-    }//GEN-LAST:event_MinimizarTxtMouseExited
-
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
         Menu.setSize(new Dimension(Menu.getWidth(), this.getHeight()));
         ContenedorPaneles.setSize(new Dimension(ContenedorPaneles.getWidth(), this.getHeight()));
@@ -2074,11 +2081,6 @@ public class VentanaMain extends javax.swing.JFrame {
     private void BotonEditarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEditarDatosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BotonEditarDatosActionPerformed
-
-    public void mostrarVentana(String nombreVista) {
-        CardLayout cardLayout = (CardLayout) ContenedorPaneles.getLayout();
-        cardLayout.show(ContenedorPaneles, nombreVista);
-    }
 
     private void BarraAgregarNombreProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BarraAgregarNombreProductosActionPerformed
         // TODO add your handling code here:
@@ -2500,16 +2502,53 @@ public class VentanaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_TextoBotonGenerarFacturaMouseClicked
 
     private void CerrarSesionBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarSesionBtnMouseClicked
-        
-        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de querer salir de la Sesion?", "Cerrar Sesion", JOptionPane.YES_NO_OPTION);
-        
-        if(confirmacion == JOptionPane.YES_OPTION){
-            ventanalogin.setVisible(true);
-            dispose();
-        }
-        
+        sesion.CerrarSesionMain();
     }//GEN-LAST:event_CerrarSesionBtnMouseClicked
 
+    private void HeaderMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeaderMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_HeaderMousePressed
+
+    private void HeaderMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeaderMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+
+        this.setLocation(x-xMouse,y-yMouse);
+    }//GEN-LAST:event_HeaderMouseDragged
+
+    private void ExitTxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitTxtMousePressed
+        ExitBtn.setBackground(new Color(200,0,0));
+        ExitTxt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x.png")));
+    }//GEN-LAST:event_ExitTxtMousePressed
+
+    private void ExitTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitTxtMouseExited
+        ExitBtn.setBackground(new Color(219,219,219));
+        ExitTxt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x2.png")));
+    }//GEN-LAST:event_ExitTxtMouseExited
+
+    private void ExitTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitTxtMouseEntered
+        ExitBtn.setBackground(Color.red);
+        ExitTxt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x.png")));
+    }//GEN-LAST:event_ExitTxtMouseEntered
+
+    private void ExitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitTxtMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_ExitTxtMouseClicked
+
+    private void MinimizarTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarTxtMouseExited
+        BtnMinimizar.setBackground(new Color(219,219,219));
+    }//GEN-LAST:event_MinimizarTxtMouseExited
+
+    private void MinimizarTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarTxtMouseEntered
+        BtnMinimizar.setBackground(new Color(241,241,241));
+    }//GEN-LAST:event_MinimizarTxtMouseEntered
+
+    private void MinimizarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarTxtMouseClicked
+        setState(JFrame.ICONIFIED);
+    }//GEN-LAST:event_MinimizarTxtMouseClicked
+
+    
     
     
     
@@ -2520,7 +2559,7 @@ public class VentanaMain extends javax.swing.JFrame {
 
     private VentanaMain VentanaMain;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Background;
+    private BordesSuaves.PanelRound Background;
     private javax.swing.JTextField BarraAgregarCantidadProducto;
     private javax.swing.JTextField BarraAgregarNombreProductos;
     private javax.swing.JTextField BarraAgregarPrecioProducto;
@@ -2562,6 +2601,7 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JLabel ExitTxt;
     private BordesSuaves.PanelRound FacturacionBtn;
     private javax.swing.JLabel FacturacionTxt;
+    private javax.swing.JLabel FondoCrom;
     private BordesSuaves.PanelRound GestionProductosBtn;
     private javax.swing.JLabel GestionProductosTxt;
     private javax.swing.JPanel Header;
@@ -2569,6 +2609,7 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JLabel HistorialClienteTxt;
     private javax.swing.JLabel JavaIcon;
     private javax.swing.JPanel Menu;
+    private javax.swing.JPanel MenuAdministrador;
     private javax.swing.JLabel MinimizarTxt;
     private javax.swing.JLabel Nombre_empleadoMenu;
     public javax.swing.JScrollPane PanelTablaDatosPersonales;

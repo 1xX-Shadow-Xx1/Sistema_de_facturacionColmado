@@ -15,6 +15,7 @@ import persistencia.ConexionBD;
 public class Sesion {
     public static int idEmpleado;
     public static String Empleado;
+    public static Integer nivelAcceso;
       
 }
 

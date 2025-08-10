@@ -51,20 +51,27 @@ public class IniciarSesion {
                 String Correo = rs.getString("correo");
                 String Password = rs.getString("contraseña");
                 String nombreEmpleado = rs.getString("nombre_empleado");
+                int nivelAcceso = Integer.valueOf(rs.getString("nivelacceso"));
                 id_empleadologin = Integer.valueOf(rs.getString("id_empleado"));
+                
 
 
                 if (correo.equals(Correo) && password.equals(Password)) {
                     loginExitoso = true;
                     System.out.println("Login correcto. ID Empleado: " + rs.getInt("id_empleado"));
+                    System.out.println("acceso: " + rs.getInt("nivelacceso"));
                     Sesion.idEmpleado = id_empleadologin;
                     Sesion.Empleado = nombreEmpleado;
+                    Sesion.nivelAcceso = nivelAcceso;
                     break;
                 }
             }
             if (loginExitoso) {
+
                 vn.abrirVentanaPrincipal();
-                vn.frame.setVisible(false);
+                vn.setVisible(false);
+ 
+
             } else {
                 JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
             }

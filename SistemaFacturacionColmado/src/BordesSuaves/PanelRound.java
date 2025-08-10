@@ -1,5 +1,6 @@
 package BordesSuaves;
 
+import VentanaLogin.VentanaLogin;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -10,6 +11,10 @@ import java.awt.geom.RoundRectangle2D;
 import javax.swing.JPanel;
 
 public class PanelRound extends JPanel {
+
+    public PanelRound(VentanaLogin aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     public int getRoundTopLeft() {
         return roundTopLeft;
