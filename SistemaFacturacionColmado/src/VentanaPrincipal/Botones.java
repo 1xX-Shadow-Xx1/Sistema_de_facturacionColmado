@@ -1,6 +1,6 @@
 package VentanaPrincipal;
 
-import VentanaLogin.Sesion;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -35,6 +35,8 @@ public class Botones {
         }
         BtnListaAdmin[0].activo = true;
     }
+    
+    
 
     public void botones(JPanel btn, JLabel Txt, int numBtn, String nameVentana){
 

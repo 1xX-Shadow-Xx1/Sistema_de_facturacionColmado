@@ -1,5 +1,6 @@
 package Tablas;
 
+import VentanaLogin.Sesion;
 import javax.swing.table.DefaultTableModel;
 import VentanaPrincipal.VentanaMain;
 import java.sql.ResultSet;
@@ -60,9 +61,10 @@ public class Tablas{
         modelo.addColumn("Cedula");
         modelo.addColumn("Nombre");
         modelo.addColumn("Numero de Telefono");
+        modelo.addColumn("Direccion");
         modelo.addColumn("Tipo");
         
-        String [] datos = new String[4];
+        String [] datos = new String[5];
         
         try {
             Statement st = ConexionBD.getInstancia().getConexion().createStatement();
@@ -106,7 +108,14 @@ public class Tablas{
                 modelo.addRow(datos);
             }
 
-            ventanaMain.TablaMostrarProductos_VentanaGestionProductos.setModel(modelo);
+            if(Sesion.nivelAcceso == 1){
+                ventanaMain.TablaMostrarProductos_VentanaProductos.setModel(modelo);
+            }else if (Sesion.nivelAcceso == 2){
+                ventanaMain.TablaMostrarProductos_VentanaGestionProductos.setModel(modelo);
+            }
+            
+            
+            
 
 
         } catch (SQLException ex) {

@@ -25,12 +25,13 @@ public class MenuEmpleado extends javax.swing.JPanel {
         sesion = new CerrarSesion(ventanaMain);
         botones = new Botones(ventanaMain, this);
         botonesescucha();
+        
     }
 
     public void botonesescucha(){
 
         botones.botonesEmpleados(DatosPersonalesBtn,DatosPersonalesTxt,0,"VnDatosClientes");
-        botones.botonesEmpleados(GestionProductosBtn,GestionProductosTxt,1,"VnGestionProductos");
+        botones.botonesEmpleados(GestionProductosBtn,GestionProductosTxt,1,"VnProductos");
         botones.botonesEmpleados(FacturacionBtn,FacturacionTxt,2,"VnFacturacion");
         botones.botonesEmpleados(HistorialClienteBtn,HistorialClienteTxt,3,"VnHistorialCliente");
     }

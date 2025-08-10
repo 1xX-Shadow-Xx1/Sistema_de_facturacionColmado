@@ -30,9 +30,12 @@ import javax.swing.JTextField;
 import javax.swing.table.TableRowSorter;
 import BordesSuaves.PanelRound;
 import java.awt.BorderLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.UIManager;
 
 
@@ -52,17 +55,14 @@ public class VentanaMain extends javax.swing.JFrame {
     VentanaLogin ventanalogin = new VentanaLogin();
     private Botones Botones;
     private CerrarSesion sesion;
-    
+    private int AccesoEditar = Sesion.nivelAcceso;
+    private int AccesoELiminar = Sesion.nivelAcceso;
     
 
     public VentanaMain() {
         setUndecorated(true);
 
-        try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception ex) {
-            System.err.println("No se pudo aplicar el tema.");
-        }
+
 
         initComponents();
 
@@ -93,11 +93,12 @@ public class VentanaMain extends javax.swing.JFrame {
         }
         TextoNombreEmpleadoCuadro_Factura.setText(Sesion.Empleado);
         
+        botonesPequeños();
 
         botonesescucha();
 
         MenuAcceso();
-
+        
         //this.dispose();
     }
 
@@ -134,11 +135,11 @@ public class VentanaMain extends javax.swing.JFrame {
         VentanaDatosClientes = new javax.swing.JPanel();
         PanelTablaDatosClientes = new javax.swing.JScrollPane();
         TablaDatosClientes = new javax.swing.JTable();
-        panelRound1 = new BordesSuaves.PanelRound();
-        jLabel3 = new javax.swing.JLabel();
-        panelRound2 = new BordesSuaves.PanelRound();
-        jLabel4 = new javax.swing.JLabel();
-        TituloVentanaDatosPersonales1 = new javax.swing.JLabel();
+        BotonEliminarDatosClientes = new BordesSuaves.PanelRound();
+        TxtEliminarDatosClientes = new javax.swing.JLabel();
+        BotonEditarDatosClientes = new BordesSuaves.PanelRound();
+        TxtEditarDatosClientes = new javax.swing.JLabel();
+        TituloVentanaDatosClientes = new javax.swing.JLabel();
         VentanaDatosPersonales = new javax.swing.JPanel();
         PanelTablaDatosPersonales = new javax.swing.JScrollPane();
         TablaDatosPersonales = new javax.swing.JTable();
@@ -169,10 +170,10 @@ public class VentanaMain extends javax.swing.JFrame {
         ComboBoxAgregarUnidadMedidaProducto = new javax.swing.JComboBox<>();
         PanelTablaVentanaProductos = new javax.swing.JScrollPane();
         TablaMostrarProductos_VentanaGestionProductos = new javax.swing.JTable();
-        BotonEditarVentanaProductos = new javax.swing.JPanel();
+        BotonEditarVentanaProductos = new BordesSuaves.PanelRound();
         TextoBotonEditarProductos = new javax.swing.JLabel();
-        BotonEliminarVentanaProductos = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        BotonEliminarVentanaProductos = new BordesSuaves.PanelRound();
+        TxtEliminarVentanaGestionProductos = new javax.swing.JLabel();
         VentanaFacturacion = new javax.swing.JPanel();
         TituloVentanaFacturacion = new javax.swing.JLabel();
         CuadroInformacion_Factura = new javax.swing.JPanel();
@@ -199,8 +200,6 @@ public class VentanaMain extends javax.swing.JFrame {
         TablaCuadro_Factura = new javax.swing.JTable();
         TextoImpuestoCuadro_Factura = new javax.swing.JLabel();
         TextoPorcentajeCuadro_Factura = new javax.swing.JLabel();
-        BotonGenerearFactura = new javax.swing.JPanel();
-        TextoBotonGenerarFactura = new javax.swing.JLabel();
         CuadroDatos_Factura = new javax.swing.JPanel();
         BarraNombreClienteCuadro_DatosFactura = new javax.swing.JTextField();
         BarraProductoCuadro_DatosFactura = new javax.swing.JTextField();
@@ -220,6 +219,8 @@ public class VentanaMain extends javax.swing.JFrame {
         TituloAgregarProductoCuadro_DatosFactura = new javax.swing.JLabel();
         BotonEliminarCuadro__DatosFactura = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        BotonGenerearFactura = new BordesSuaves.PanelRound();
+        TextoBotonGenerarFactura = new javax.swing.JLabel();
         VentanaRegistroVentas = new javax.swing.JPanel();
         Titulo_VentanaRegistroVentas = new javax.swing.JLabel();
         ScrollTabla_VentanaRegistroVentas = new javax.swing.JScrollPane();
@@ -266,6 +267,14 @@ public class VentanaMain extends javax.swing.JFrame {
         ComboBoxAnual_VentanaHistorialCliente = new javax.swing.JComboBox<>();
         TextoMesFiltro_VentanaHistorialCliente = new javax.swing.JLabel();
         TextoAnualFiltro_VentanaHistorialCliente = new javax.swing.JLabel();
+        VentanaProductos = new javax.swing.JPanel();
+        TituloVentanaProductos = new javax.swing.JLabel();
+        PanelTablaProductos = new javax.swing.JScrollPane();
+        TablaMostrarProductos_VentanaProductos = new javax.swing.JTable();
+        BtnEditarProductoEmpleado = new BordesSuaves.PanelRound();
+        TextoBotonEditarProductosEmpleado = new javax.swing.JLabel();
+        BtnEliminarProductosEmpleado = new BordesSuaves.PanelRound();
+        TextoBotonEliminarProductoEmpleado = new javax.swing.JLabel();
         Header = new javax.swing.JPanel();
         BtnMinimizar = new javax.swing.JPanel();
         MinimizarTxt = new javax.swing.JLabel();
@@ -455,11 +464,9 @@ public class VentanaMain extends javax.swing.JFrame {
         FondoCrom.setPreferredSize(new java.awt.Dimension(280, 732));
         MenuAdministrador.add(FondoCrom, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1210, 740));
 
-        Menu.add(MenuAdministrador, "card2");
+        Menu.add(MenuAdministrador, "MenuAdmin");
 
         jSplitPane1.setLeftComponent(Menu);
-        Menu.setLayout(new CardLayout());
-        Menu.add(MenuAdministrador, "MenuAdmin");
 
         ContenedorPaneles.setBackground(new java.awt.Color(255, 255, 255));
         ContenedorPaneles.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 204, 204)));
@@ -490,52 +497,54 @@ public class VentanaMain extends javax.swing.JFrame {
         });
         PanelTablaDatosClientes.setViewportView(TablaDatosClientes);
 
-        panelRound1.setBackground(new java.awt.Color(235, 235, 235));
-        panelRound1.setRoundBottomLeft(35);
-        panelRound1.setRoundBottomRight(35);
-        panelRound1.setRoundTopLeft(35);
-        panelRound1.setRoundTopRight(35);
+        BotonEliminarDatosClientes.setBackground(new java.awt.Color(220, 220, 220));
+        BotonEliminarDatosClientes.setRoundBottomLeft(35);
+        BotonEliminarDatosClientes.setRoundBottomRight(35);
+        BotonEliminarDatosClientes.setRoundTopLeft(35);
+        BotonEliminarDatosClientes.setRoundTopRight(35);
 
-        jLabel3.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Eliminar");
+        TxtEliminarDatosClientes.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        TxtEliminarDatosClientes.setForeground(new java.awt.Color(51, 51, 51));
+        TxtEliminarDatosClientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TxtEliminarDatosClientes.setText("Eliminar");
+        TxtEliminarDatosClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
-        panelRound1.setLayout(panelRound1Layout);
-        panelRound1Layout.setHorizontalGroup(
-            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+        javax.swing.GroupLayout BotonEliminarDatosClientesLayout = new javax.swing.GroupLayout(BotonEliminarDatosClientes);
+        BotonEliminarDatosClientes.setLayout(BotonEliminarDatosClientesLayout);
+        BotonEliminarDatosClientesLayout.setHorizontalGroup(
+            BotonEliminarDatosClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TxtEliminarDatosClientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
         );
-        panelRound1Layout.setVerticalGroup(
-            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
-        panelRound2.setBackground(new java.awt.Color(235, 235, 235));
-        panelRound2.setRoundBottomLeft(35);
-        panelRound2.setRoundBottomRight(35);
-        panelRound2.setRoundTopLeft(35);
-        panelRound2.setRoundTopRight(35);
-
-        jLabel4.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Editar");
-
-        javax.swing.GroupLayout panelRound2Layout = new javax.swing.GroupLayout(panelRound2);
-        panelRound2.setLayout(panelRound2Layout);
-        panelRound2Layout.setHorizontalGroup(
-            panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-        );
-        panelRound2Layout.setVerticalGroup(
-            panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        BotonEliminarDatosClientesLayout.setVerticalGroup(
+            BotonEliminarDatosClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TxtEliminarDatosClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        TituloVentanaDatosPersonales1.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        TituloVentanaDatosPersonales1.setText("Datos Personales");
+        BotonEditarDatosClientes.setBackground(new java.awt.Color(220, 220, 220));
+        BotonEditarDatosClientes.setRoundBottomLeft(35);
+        BotonEditarDatosClientes.setRoundBottomRight(35);
+        BotonEditarDatosClientes.setRoundTopLeft(35);
+        BotonEditarDatosClientes.setRoundTopRight(35);
+
+        TxtEditarDatosClientes.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        TxtEditarDatosClientes.setForeground(new java.awt.Color(51, 51, 51));
+        TxtEditarDatosClientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TxtEditarDatosClientes.setText("Editar");
+        TxtEditarDatosClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        javax.swing.GroupLayout BotonEditarDatosClientesLayout = new javax.swing.GroupLayout(BotonEditarDatosClientes);
+        BotonEditarDatosClientes.setLayout(BotonEditarDatosClientesLayout);
+        BotonEditarDatosClientesLayout.setHorizontalGroup(
+            BotonEditarDatosClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TxtEditarDatosClientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+        );
+        BotonEditarDatosClientesLayout.setVerticalGroup(
+            BotonEditarDatosClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TxtEditarDatosClientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        TituloVentanaDatosClientes.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        TituloVentanaDatosClientes.setText("Datos  de Clientes");
 
         javax.swing.GroupLayout VentanaDatosClientesLayout = new javax.swing.GroupLayout(VentanaDatosClientes);
         VentanaDatosClientes.setLayout(VentanaDatosClientesLayout);
@@ -543,13 +552,13 @@ public class VentanaMain extends javax.swing.JFrame {
             VentanaDatosClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(VentanaDatosClientesLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(TituloVentanaDatosPersonales1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(TituloVentanaDatosClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(721, 721, 721))
             .addGroup(VentanaDatosClientesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelRound2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BotonEditarDatosClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BotonEliminarDatosClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
             .addGroup(VentanaDatosClientesLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
@@ -560,17 +569,17 @@ public class VentanaMain extends javax.swing.JFrame {
             VentanaDatosClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(VentanaDatosClientesLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(TituloVentanaDatosPersonales1)
+                .addComponent(TituloVentanaDatosClientes)
                 .addGap(59, 59, 59)
                 .addComponent(PanelTablaDatosClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addGroup(VentanaDatosClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelRound2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BotonEditarDatosClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BotonEliminarDatosClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25))
         );
 
-        ContenedorPaneles.add(VentanaDatosClientes, "card7");
+        ContenedorPaneles.add(VentanaDatosClientes, "VnDatosClientes");
 
         VentanaDatosPersonales.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -584,11 +593,11 @@ public class VentanaMain extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Cedula", "Nombre", "Numero de Telefono", "Tipo"
+                "Cedula", "Nombre", "Numero de Telefono", "Direccion", "Tipo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -780,7 +789,7 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addGap(92, 92, 92))
         );
 
-        ContenedorPaneles.add(VentanaDatosPersonales, "card2");
+        ContenedorPaneles.add(VentanaDatosPersonales, "VnDatosPersonales");
 
         VentanaGestionProducto.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -939,41 +948,43 @@ public class VentanaMain extends javax.swing.JFrame {
         });
         PanelTablaVentanaProductos.setViewportView(TablaMostrarProductos_VentanaGestionProductos);
 
-        BotonEditarVentanaProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonEditarVentanaProductos.setBackground(new java.awt.Color(220, 220, 220));
+        BotonEditarVentanaProductos.setRoundBottomLeft(30);
+        BotonEditarVentanaProductos.setRoundBottomRight(30);
+        BotonEditarVentanaProductos.setRoundTopLeft(30);
+        BotonEditarVentanaProductos.setRoundTopRight(30);
+        BotonEditarVentanaProductos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        TextoBotonEditarProductos.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        TextoBotonEditarProductos.setForeground(new java.awt.Color(51, 51, 51));
         TextoBotonEditarProductos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         TextoBotonEditarProductos.setText("Editar");
+        TextoBotonEditarProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         TextoBotonEditarProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TextoBotonEditarProductosMouseClicked(evt);
             }
         });
+        BotonEditarVentanaProductos.add(TextoBotonEditarProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 40));
 
-        javax.swing.GroupLayout BotonEditarVentanaProductosLayout = new javax.swing.GroupLayout(BotonEditarVentanaProductos);
-        BotonEditarVentanaProductos.setLayout(BotonEditarVentanaProductosLayout);
-        BotonEditarVentanaProductosLayout.setHorizontalGroup(
-            BotonEditarVentanaProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BotonEditarVentanaProductosLayout.createSequentialGroup()
-                .addComponent(TextoBotonEditarProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                .addGap(1, 1, 1))
-        );
-        BotonEditarVentanaProductosLayout.setVerticalGroup(
-            BotonEditarVentanaProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TextoBotonEditarProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
-        BotonEliminarVentanaProductos.setPreferredSize(new java.awt.Dimension(84, 37));
+        BotonEliminarVentanaProductos.setBackground(new java.awt.Color(220, 220, 220));
+        BotonEliminarVentanaProductos.setRoundBottomLeft(30);
+        BotonEliminarVentanaProductos.setRoundBottomRight(30);
+        BotonEliminarVentanaProductos.setRoundTopLeft(30);
+        BotonEliminarVentanaProductos.setRoundTopRight(30);
         BotonEliminarVentanaProductos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Eliminar");
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        TxtEliminarVentanaGestionProductos.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        TxtEliminarVentanaGestionProductos.setForeground(new java.awt.Color(51, 51, 51));
+        TxtEliminarVentanaGestionProductos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TxtEliminarVentanaGestionProductos.setText("Eliminar");
+        TxtEliminarVentanaGestionProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TxtEliminarVentanaGestionProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                TxtEliminarVentanaGestionProductosMouseClicked(evt);
             }
         });
-        BotonEliminarVentanaProductos.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 30));
+        BotonEliminarVentanaProductos.add(TxtEliminarVentanaGestionProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 40));
 
         javax.swing.GroupLayout VentanaGestionProductoLayout = new javax.swing.GroupLayout(VentanaGestionProducto);
         VentanaGestionProducto.setLayout(VentanaGestionProductoLayout);
@@ -986,14 +997,16 @@ public class VentanaMain extends javax.swing.JFrame {
             .addGroup(VentanaGestionProductoLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(CuadroAgregarProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(10, 10, 10)
-                .addComponent(PanelTablaVentanaProductos)
-                .addContainerGap())
-            .addGroup(VentanaGestionProductoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BotonEditarVentanaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BotonEliminarVentanaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(VentanaGestionProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(VentanaGestionProductoLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BotonEditarVentanaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(BotonEliminarVentanaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14))
+                    .addGroup(VentanaGestionProductoLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(PanelTablaVentanaProductos)))
                 .addContainerGap())
         );
         VentanaGestionProductoLayout.setVerticalGroup(
@@ -1003,15 +1016,17 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addComponent(TituloVentanaGestionProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55)
                 .addGroup(VentanaGestionProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CuadroAgregarProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PanelTablaVentanaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(VentanaGestionProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BotonEditarVentanaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BotonEliminarVentanaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(VentanaGestionProductoLayout.createSequentialGroup()
+                        .addComponent(PanelTablaVentanaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addGroup(VentanaGestionProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(BotonEditarVentanaProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BotonEliminarVentanaProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)))
+                    .addComponent(CuadroAgregarProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 16, Short.MAX_VALUE))
         );
 
-        ContenedorPaneles.add(VentanaGestionProducto, "card3");
+        ContenedorPaneles.add(VentanaGestionProducto, "VnGestionProductos");
 
         VentanaFacturacion.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -1146,7 +1161,7 @@ public class VentanaMain extends javax.swing.JFrame {
                     .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
                         .addComponent(jSeparator3)
                         .addGap(1, 1, 1)))
-                .addGap(7, 7, 7))
+                .addContainerGap())
         );
         CuadroInformacion_FacturaLayout.setVerticalGroup(
             CuadroInformacion_FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1195,27 +1210,6 @@ public class VentanaMain extends javax.swing.JFrame {
                         .addGroup(CuadroInformacion_FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(TextoImpuestoCuadro_Factura)
                             .addComponent(TextoPorcentajeCuadro_Factura)))))
-        );
-
-        TextoBotonGenerarFactura.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        TextoBotonGenerarFactura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TextoBotonGenerarFactura.setText("Generar Factura");
-        TextoBotonGenerarFactura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        TextoBotonGenerarFactura.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TextoBotonGenerarFacturaMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout BotonGenerearFacturaLayout = new javax.swing.GroupLayout(BotonGenerearFactura);
-        BotonGenerearFactura.setLayout(BotonGenerearFacturaLayout);
-        BotonGenerearFacturaLayout.setHorizontalGroup(
-            BotonGenerearFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TextoBotonGenerarFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-        );
-        BotonGenerearFacturaLayout.setVerticalGroup(
-            BotonGenerearFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TextoBotonGenerarFactura, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         BarraNombreClienteCuadro_DatosFactura.setForeground(new java.awt.Color(204, 204, 204));
@@ -1464,35 +1458,56 @@ public class VentanaMain extends javax.swing.JFrame {
             }
         });
 
+        BotonGenerearFactura.setBackground(new java.awt.Color(220, 220, 220));
+        BotonGenerearFactura.setRoundBottomLeft(30);
+        BotonGenerearFactura.setRoundBottomRight(30);
+        BotonGenerearFactura.setRoundTopLeft(30);
+        BotonGenerearFactura.setRoundTopRight(30);
+        BotonGenerearFactura.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        TextoBotonGenerarFactura.setBackground(new java.awt.Color(220, 220, 220));
+        TextoBotonGenerarFactura.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        TextoBotonGenerarFactura.setForeground(new java.awt.Color(51, 51, 51));
+        TextoBotonGenerarFactura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TextoBotonGenerarFactura.setText("Generar Factura");
+        TextoBotonGenerarFactura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TextoBotonGenerarFactura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TextoBotonGenerarFacturaMouseClicked(evt);
+            }
+        });
+        BotonGenerearFactura.add(TextoBotonGenerarFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 40));
+
         javax.swing.GroupLayout VentanaFacturacionLayout = new javax.swing.GroupLayout(VentanaFacturacion);
         VentanaFacturacion.setLayout(VentanaFacturacionLayout);
         VentanaFacturacionLayout.setHorizontalGroup(
             VentanaFacturacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(VentanaFacturacionLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(TituloVentanaFacturacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(TituloVentanaFacturacion, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                 .addGap(777, 777, 777))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VentanaFacturacionLayout.createSequentialGroup()
                 .addGroup(VentanaFacturacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(VentanaFacturacionLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BotonGenerearFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(VentanaFacturacionLayout.createSequentialGroup()
                         .addGap(79, 79, 79)
                         .addComponent(CuadroDatos_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)
-                        .addComponent(CuadroInformacion_Factura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(VentanaFacturacionLayout.createSequentialGroup()
-                        .addGap(779, 779, 779)
-                        .addGroup(VentanaFacturacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(VentanaFacturacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(VentanaFacturacionLayout.createSequentialGroup()
-                                .addGap(60, 60, 60)
+                                .addGap(379, 379, 379)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(BotonGenerearFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(VentanaFacturacionLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(CuadroInformacion_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(50, 50, 50))
         );
         VentanaFacturacionLayout.setVerticalGroup(
             VentanaFacturacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(VentanaFacturacionLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VentanaFacturacionLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(TituloVentanaFacturacion, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .addComponent(TituloVentanaFacturacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(12, 12, 12)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1504,7 +1519,7 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
         );
 
-        ContenedorPaneles.add(VentanaFacturacion, "card4");
+        ContenedorPaneles.add(VentanaFacturacion, "VnFacturacion");
 
         VentanaRegistroVentas.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -1539,10 +1554,12 @@ public class VentanaMain extends javax.swing.JFrame {
         TextoTotal_VentanaRegistroVentas.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         TextoTotal_VentanaRegistroVentas.setText("Total:");
 
-        TextoTotalNumerico_VentanaRegistroVentas.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TextoTotalNumerico_VentanaRegistroVentas.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 24)); // NOI18N
+        TextoTotalNumerico_VentanaRegistroVentas.setForeground(new java.awt.Color(51, 51, 51));
+        TextoTotalNumerico_VentanaRegistroVentas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         TextoTotalNumerico_VentanaRegistroVentas.setText("0");
         TextoTotalNumerico_VentanaRegistroVentas.setToolTipText("");
-        TextoTotalNumerico_VentanaRegistroVentas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        TextoTotalNumerico_VentanaRegistroVentas.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(153, 153, 153)));
 
         TextoFiltroMes_VentanaRegistroVentas.setText("Mes:");
 
@@ -1608,7 +1625,7 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addGap(38, 38, 38))
         );
 
-        ContenedorPaneles.add(VentanaRegistroVentas, "card5");
+        ContenedorPaneles.add(VentanaRegistroVentas, "VnRegistroVentas");
 
         VentanaHistorialCliente.setBackground(new java.awt.Color(250, 250, 250));
         VentanaHistorialCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -1933,16 +1950,108 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        ContenedorPaneles.add(VentanaHistorialCliente, "card6");
+        ContenedorPaneles.add(VentanaHistorialCliente, "VnHistorialCliente");
+
+        VentanaProductos.setBackground(new java.awt.Color(250, 250, 250));
+        VentanaProductos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        TituloVentanaProductos.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TituloVentanaProductos.setText("Gestion de Productos");
+        VentanaProductos.add(TituloVentanaProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 542, 25));
+
+        PanelTablaProductos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(198, 198, 198), 2));
+        PanelTablaProductos.setEnabled(false);
+
+        TablaMostrarProductos_VentanaProductos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "id", "Producto", "Cantidad", "Precio", "Unidad de medida"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        PanelTablaProductos.setViewportView(TablaMostrarProductos_VentanaProductos);
+
+        VentanaProductos.add(PanelTablaProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 900, 520));
+
+        BtnEditarProductoEmpleado.setBackground(new java.awt.Color(220, 220, 220));
+        BtnEditarProductoEmpleado.setRoundBottomLeft(35);
+        BtnEditarProductoEmpleado.setRoundBottomRight(35);
+        BtnEditarProductoEmpleado.setRoundTopLeft(35);
+        BtnEditarProductoEmpleado.setRoundTopRight(35);
+
+        TextoBotonEditarProductosEmpleado.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        TextoBotonEditarProductosEmpleado.setForeground(new java.awt.Color(51, 51, 51));
+        TextoBotonEditarProductosEmpleado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TextoBotonEditarProductosEmpleado.setText("Editar");
+        TextoBotonEditarProductosEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TextoBotonEditarProductosEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TextoBotonEditarProductosEmpleadoMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout BtnEditarProductoEmpleadoLayout = new javax.swing.GroupLayout(BtnEditarProductoEmpleado);
+        BtnEditarProductoEmpleado.setLayout(BtnEditarProductoEmpleadoLayout);
+        BtnEditarProductoEmpleadoLayout.setHorizontalGroup(
+            BtnEditarProductoEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TextoBotonEditarProductosEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        );
+        BtnEditarProductoEmpleadoLayout.setVerticalGroup(
+            BtnEditarProductoEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TextoBotonEditarProductosEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        VentanaProductos.add(BtnEditarProductoEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 660, 100, 40));
+
+        BtnEliminarProductosEmpleado.setBackground(new java.awt.Color(220, 220, 220));
+        BtnEliminarProductosEmpleado.setRoundBottomLeft(35);
+        BtnEliminarProductosEmpleado.setRoundBottomRight(35);
+        BtnEliminarProductosEmpleado.setRoundTopLeft(35);
+        BtnEliminarProductosEmpleado.setRoundTopRight(35);
+
+        TextoBotonEliminarProductoEmpleado.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        TextoBotonEliminarProductoEmpleado.setForeground(new java.awt.Color(51, 51, 51));
+        TextoBotonEliminarProductoEmpleado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TextoBotonEliminarProductoEmpleado.setText("Eliminar");
+        TextoBotonEliminarProductoEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TextoBotonEliminarProductoEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TextoBotonEliminarProductoEmpleadoMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout BtnEliminarProductosEmpleadoLayout = new javax.swing.GroupLayout(BtnEliminarProductosEmpleado);
+        BtnEliminarProductosEmpleado.setLayout(BtnEliminarProductosEmpleadoLayout);
+        BtnEliminarProductosEmpleadoLayout.setHorizontalGroup(
+            BtnEliminarProductosEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TextoBotonEliminarProductoEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        );
+        BtnEliminarProductosEmpleadoLayout.setVerticalGroup(
+            BtnEliminarProductosEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TextoBotonEliminarProductoEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        VentanaProductos.add(BtnEliminarProductosEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 660, 100, 40));
+
+        ContenedorPaneles.add(VentanaProductos, "VnProductos");
 
         jSplitPane1.setRightComponent(ContenedorPaneles);
-        ContenedorPaneles.setLayout(new CardLayout());
-        ContenedorPaneles.add(VentanaDatosClientes, "VnDatosClientes");
-        ContenedorPaneles.add(VentanaDatosPersonales, "VnDatosPersonales");
-        ContenedorPaneles.add(VentanaGestionProducto, "VnGestionProductos");
-        ContenedorPaneles.add(VentanaFacturacion, "VnFacturacion");
-        ContenedorPaneles.add(VentanaRegistroVentas, "VnRegistroVentas");
-        ContenedorPaneles.add(VentanaHistorialCliente, "VnHistorialCliente");
 
         Background.add(jSplitPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 32, 1210, 740));
 
@@ -2030,14 +2139,13 @@ public class VentanaMain extends javax.swing.JFrame {
 
         BtnMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         BtnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/menu.png"))); // NOI18N
-        BtnMenu.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         BtnMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BtnMenuMouseClicked(evt);
             }
         });
-        Header.add(BtnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, -1, 44));
+        Header.add(BtnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, -1, 40));
 
         Background.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1220, 40));
 
@@ -2048,7 +2156,7 @@ public class VentanaMain extends javax.swing.JFrame {
 
 
     //Metodos
-    void botonesescucha(){
+    private void botonesescucha(){
 
         Botones.botones(DatosPersonalesBtn,DatosPersonalesTxt,0,"VnDatosPersonales");
         Botones.botones(GestionProductosBtn,GestionProductosTxt,1,"VnGestionProductos");
@@ -2056,7 +2164,66 @@ public class VentanaMain extends javax.swing.JFrame {
         Botones.botones(RegistroVentasBtn,RegistroVentasTxt,3,"VnRegistroVentas");
         Botones.botones(HistorialClienteBtn,HistorialClienteTxt,4,"VnHistorialCliente");
     }
-    void MenuAcceso(){
+    public void botonesPequeños() {
+        JPanel[] Btoen = new JPanel[]{
+            BotonEliminarDatosClientes,
+            BotonEditarDatosClientes,
+            BotonEditarVentanaProductos,
+            BotonEliminarVentanaProductos,
+            BotonGenerearFactura,
+            BtnEditarProductoEmpleado,
+            BtnEliminarProductosEmpleado
+        };
+        JLabel[] Tsto = new JLabel[]{
+            TxtEliminarDatosClientes,
+            TxtEditarDatosClientes,
+            TextoBotonEditarProductos,
+            TxtEliminarVentanaGestionProductos,
+            TextoBotonGenerarFactura,
+            TextoBotonEditarProductosEmpleado,
+            TextoBotonEliminarProductoEmpleado
+        };
+
+        Color normal = new Color(220, 220, 220);
+        Color hover = new Color(232, 232, 232);
+        Color pressed = new Color(223, 223, 223);
+        Color textoNormal = new Color(51, 51, 51);
+        Color textoHover = new Color(255, 255, 255);
+        Color textoPressed = new Color(245, 245, 245);
+
+        for (int i = 0; i < Btoen.length; i++) {
+            JPanel panel = Btoen[i];
+            JLabel label = Tsto[i];
+
+            MouseAdapter listener = new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    panel.setBackground(pressed);
+                    label.setForeground(textoPressed);
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    panel.setBackground(hover);
+                    label.setForeground(textoHover);
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    panel.setBackground(normal);
+                    label.setForeground(textoNormal);
+                }
+            };
+
+            panel.setBackground(normal);
+            label.setForeground(textoNormal);
+
+            panel.addMouseListener(listener);
+            label.addMouseListener(listener);
+        }
+    }
+
+    private void MenuAcceso(){
         if(Sesion.nivelAcceso == 1){  
             Menu.add(menuEmpleado, "MenuEmpleados");
             mostrarMenu("MenuEmpleados");
@@ -2067,7 +2234,133 @@ public class VentanaMain extends javax.swing.JFrame {
             mostrarVentana("VnDatosPersonales");
         }
     }
-    
+    private void EditarProducto(JTable tabla){
+        
+        int filaSeleccionada = tabla.getSelectedRow();
+        if(filaSeleccionada == -1){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para editar.", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{        
+            if (AccesoEditar == 1){
+                 
+                JPasswordField campoClave = new JPasswordField();
+
+                
+                int opcion = JOptionPane.showConfirmDialog(
+                    null, 
+                    campoClave, 
+                    "Ingrese la clave", 
+                    JOptionPane.OK_CANCEL_OPTION, 
+                    JOptionPane.PLAIN_MESSAGE
+                );
+
+                
+                if (opcion == JOptionPane.OK_OPTION) {
+                    
+                    String clave = new String(campoClave.getPassword());
+                    System.out.println("Clave ingresada: " + clave);
+
+                    
+                    if (clave.equals("Admin")) {
+                        JOptionPane.showMessageDialog(null, "Acceso concedido");
+                        AccesoEditar = 2;
+                    } else{
+                        JOptionPane.showMessageDialog(null, "Clave incorrecta");
+                    }
+                }else {
+                    System.out.println("El usuario canceló");
+                }
+            }
+        
+            if(AccesoEditar == 2){
+
+                int filaModelo = tabla.convertRowIndexToModel(filaSeleccionada);
+
+                int id = Integer.parseInt(tabla.getModel().getValueAt(filaModelo, 0).toString());
+                String nombreProducto = tabla.getModel().getValueAt(filaModelo, 1).toString();
+                int cantidad = Integer.parseInt(tabla.getModel().getValueAt(filaModelo, 2).toString());
+                double precio = Double.parseDouble(tabla.getModel().getValueAt(filaModelo, 3).toString());
+                String unidadMedida = tabla.getModel().getValueAt(filaModelo, 4).toString();
+
+                JFrame ventana = new JFrame("Editor de Usuario");
+
+                VentanaEditarProductos ventanaeditar = new VentanaEditarProductos(id, nombreProducto, cantidad, precio, unidadMedida, this, tabla);
+
+                ventana.setContentPane(ventanaeditar.VentanaEmergenteEditarProductos);
+                ventana.setVisible(true);
+                ventana.setSize(450, 550);
+                ventana.setLocationRelativeTo(null);
+
+                }
+            else{
+                JOptionPane.showMessageDialog(null, "No tienes permisos para esta opcion. ", "Nivel de acceso bajo", JOptionPane.ERROR_MESSAGE );
+            }
+        }
+    }
+    private void EliminarProducto(JTable tabla){
+
+        int filaSeleccionada = tabla.getSelectedRow();
+        if(filaSeleccionada == -1){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            if (AccesoELiminar == 1){
+                 
+                JPasswordField campoClave = new JPasswordField();
+
+                
+                int opcion = JOptionPane.showConfirmDialog(
+                    null, 
+                    campoClave, 
+                    "Ingrese la clave", 
+                    JOptionPane.OK_CANCEL_OPTION, 
+                    JOptionPane.PLAIN_MESSAGE
+                );
+
+                
+                if (opcion == JOptionPane.OK_OPTION) {
+                    
+                    String clave = new String(campoClave.getPassword());
+                    System.out.println("Clave ingresada: " + clave);
+
+                    
+                    if (clave.equals("Admin123")) {
+                        JOptionPane.showMessageDialog(null, "Acceso concedido");
+                        AccesoELiminar = 2;
+                    } else{
+                        JOptionPane.showMessageDialog(null, "Clave incorrecta");
+                    }
+                }else {
+                    System.out.println("El usuario canceló");
+                }
+            }
+            
+            if(AccesoELiminar == 2){
+                int filaModelo = tabla.convertRowIndexToModel(filaSeleccionada);
+
+                int fila = tabla.convertRowIndexToModel(filaSeleccionada);
+                DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+                int idproducto = Integer.parseInt(modelo.getValueAt(fila,0).toString());
+
+                int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de eliminar este producto?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+
+                if (confirmacion == JOptionPane.YES_OPTION) {
+
+                    try {
+                       Statement st = ConexionBD.getInstancia().getConexion().createStatement();
+
+                       st.executeUpdate("DELETE FROM ProductoColmado WHERE id_producto = "+ idproducto);
+
+                       JOptionPane.showMessageDialog(null, "Producto eliminado exitosamente.");
+                       tablas.TablaGestionProductos();
+
+                    }catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Error con la sintaxis");
+                    }
+                }             
+            } else {
+                JOptionPane.showMessageDialog(null, "No tienes permisos para esta opcion. ", "Nivel de acceso bajo", JOptionPane.ERROR_MESSAGE );
+            }           
+        } 
+    }
     public void mostrarFecha(){
         LocalDate fechaActual = LocalDate.now();
         String Fecha = fechaActual.toString();
@@ -2098,7 +2391,6 @@ public class VentanaMain extends javax.swing.JFrame {
         });
         timer.start();
     }
-    
     public void mostrarVentana(String nombreVista) {
         CardLayout cardLayout = (CardLayout) ContenedorPaneles.getLayout();
         cardLayout.show(ContenedorPaneles, nombreVista);
@@ -2107,7 +2399,6 @@ public class VentanaMain extends javax.swing.JFrame {
         CardLayout cardLayout = (CardLayout) Menu.getLayout();
         cardLayout.show(Menu, vista);
     }
-    
     private void MetodoBtnMenu() {
         int actual = jSplitPane1.getDividerLocation();
         if (menuVisible) {
@@ -2269,31 +2560,7 @@ public class VentanaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_ComboBoxEditarDatosActionPerformed
 
     private void TextoBotonEditarProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextoBotonEditarProductosMouseClicked
-        
-        int filaSeleccionada = TablaMostrarProductos_VentanaGestionProductos.getSelectedRow();
-        
-        if(filaSeleccionada == -1){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para editar.", "Error", JOptionPane.ERROR_MESSAGE);
-        }else{
-        int filaModelo = TablaMostrarProductos_VentanaGestionProductos.convertRowIndexToModel(filaSeleccionada);
-        
-        int id = Integer.parseInt(TablaMostrarProductos_VentanaGestionProductos.getModel().getValueAt(filaModelo, 0).toString());
-        String nombreProducto = TablaMostrarProductos_VentanaGestionProductos.getModel().getValueAt(filaModelo, 1).toString();
-        int cantidad = Integer.parseInt(TablaMostrarProductos_VentanaGestionProductos.getModel().getValueAt(filaModelo, 2).toString());
-        double precio = Double.parseDouble(TablaMostrarProductos_VentanaGestionProductos.getModel().getValueAt(filaModelo, 3).toString());
-        String unidadMedida = TablaMostrarProductos_VentanaGestionProductos.getModel().getValueAt(filaModelo, 4).toString();
-
-        JFrame ventana = new JFrame("Editor de Usuario");
-        
-        VentanaEditarProductos ventanaeditar = new VentanaEditarProductos(id, nombreProducto, cantidad, precio, unidadMedida, this, TablaMostrarProductos_VentanaGestionProductos);
-        
-        ventana.setContentPane(ventanaeditar.VentanaEmergenteEditarProductos);
-        ventana.setVisible(true);
-        ventana.setSize(450, 550);
-        ventana.setLocationRelativeTo(null);
-        
-        }
-        
+        EditarProducto(TablaMostrarProductos_VentanaGestionProductos);     
     }//GEN-LAST:event_TextoBotonEditarProductosMouseClicked
 
     private void BotonAgregarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAgregarProductosActionPerformed
@@ -2340,41 +2607,9 @@ public class VentanaMain extends javax.swing.JFrame {
         
     }//GEN-LAST:event_BotonAgregarProductosActionPerformed
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        
-        int filaSeleccionada = TablaMostrarProductos_VentanaGestionProductos.getSelectedRow();
-        
-        if(filaSeleccionada == -1){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
-        }else{
-        int filaModelo = TablaMostrarProductos_VentanaGestionProductos.convertRowIndexToModel(filaSeleccionada);
-        
-        int fila = TablaMostrarProductos_VentanaGestionProductos.convertRowIndexToModel(filaSeleccionada);
-        DefaultTableModel modelo = (DefaultTableModel) TablaMostrarProductos_VentanaGestionProductos.getModel();
-        int idproducto = Integer.parseInt(modelo.getValueAt(fila,0).toString());
-        
-        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de eliminar este producto?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
-        
-        if (confirmacion == JOptionPane.YES_OPTION) {
-            
-            try {
-               Statement st = ConexionBD.getInstancia().getConexion().createStatement();
-                   
-               st.executeUpdate("DELETE FROM ProductoColmado WHERE id_producto = "+ idproducto);
-               
-               JOptionPane.showMessageDialog(null, "Producto eliminado exitosamente.");
-               tablas.TablaGestionProductos();
-                        
-            }catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Error con la sintaxis");
-                
-            }
-                
-            }
-            
-            
-        }        
-    }//GEN-LAST:event_jLabel1MouseClicked
+    private void TxtEliminarVentanaGestionProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtEliminarVentanaGestionProductosMouseClicked
+        EliminarProducto(TablaMostrarProductos_VentanaGestionProductos);
+    }//GEN-LAST:event_TxtEliminarVentanaGestionProductosMouseClicked
 
     private void BarraNombreClienteCuadro_DatosFacturaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BarraNombreClienteCuadro_DatosFacturaKeyReleased
 
@@ -2706,6 +2941,14 @@ public class VentanaMain extends javax.swing.JFrame {
         setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_MinimizarTxtMouseClicked
 
+    private void TextoBotonEditarProductosEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextoBotonEditarProductosEmpleadoMouseClicked
+        EditarProducto(TablaMostrarProductos_VentanaProductos);
+    }//GEN-LAST:event_TextoBotonEditarProductosEmpleadoMouseClicked
+
+    private void TextoBotonEliminarProductoEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextoBotonEliminarProductoEmpleadoMouseClicked
+        EliminarProducto(TablaMostrarProductos_VentanaProductos);
+    }//GEN-LAST:event_TextoBotonEliminarProductoEmpleadoMouseClicked
+
     
     
     
@@ -2733,10 +2976,14 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JButton BotonAgregarCuadro__DatosFactura;
     private javax.swing.JButton BotonAgregarProductos;
     private javax.swing.JButton BotonEditarDatos;
-    private javax.swing.JPanel BotonEditarVentanaProductos;
+    private BordesSuaves.PanelRound BotonEditarDatosClientes;
+    private BordesSuaves.PanelRound BotonEditarVentanaProductos;
     private javax.swing.JButton BotonEliminarCuadro__DatosFactura;
-    private javax.swing.JPanel BotonEliminarVentanaProductos;
-    private javax.swing.JPanel BotonGenerearFactura;
+    private BordesSuaves.PanelRound BotonEliminarDatosClientes;
+    private BordesSuaves.PanelRound BotonEliminarVentanaProductos;
+    private BordesSuaves.PanelRound BotonGenerearFactura;
+    private BordesSuaves.PanelRound BtnEditarProductoEmpleado;
+    private BordesSuaves.PanelRound BtnEliminarProductosEmpleado;
     private javax.swing.JLabel BtnMenu;
     private javax.swing.JPanel BtnMinimizar;
     private javax.swing.JLabel CerrarSesionBtn;
@@ -2772,6 +3019,7 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JLabel Nombre_AdminMenu;
     public javax.swing.JScrollPane PanelTablaDatosClientes;
     public javax.swing.JScrollPane PanelTablaDatosPersonales;
+    private javax.swing.JScrollPane PanelTablaProductos;
     private javax.swing.JScrollPane PanelTablaVentanaProductos;
     private BordesSuaves.PanelRound RegistroVentasBtn;
     private javax.swing.JLabel RegistroVentasTxt;
@@ -2787,6 +3035,7 @@ public class VentanaMain extends javax.swing.JFrame {
     public javax.swing.JTable TablaDatosPersonales;
     public javax.swing.JTable TablaHistorialCliente_VentanaHistorialCliente;
     public javax.swing.JTable TablaMostrarProductos_VentanaGestionProductos;
+    public javax.swing.JTable TablaMostrarProductos_VentanaProductos;
     public javax.swing.JTable TablaVentanaVentas;
     private javax.swing.JTable Tabla_CuadroInfomacionFactura__VentanaHistorialCliente;
     private javax.swing.JLabel TextoAgregarCantidadProducto;
@@ -2795,6 +3044,8 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JLabel TextoAgregarUnidadMedidaProducto;
     private javax.swing.JLabel TextoAnualFiltro_VentanaHistorialCliente;
     private javax.swing.JLabel TextoBotonEditarProductos;
+    private javax.swing.JLabel TextoBotonEditarProductosEmpleado;
+    private javax.swing.JLabel TextoBotonEliminarProductoEmpleado;
     private javax.swing.JLabel TextoBotonGenerarFactura;
     private javax.swing.JLabel TextoCantidadCuadro_DatosFactura;
     private javax.swing.JLabel TextoCedulaCuadro_DatosFactura;
@@ -2850,33 +3101,33 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JLabel TituloAgregarProductoCuadro_DatosFactura;
     private javax.swing.JLabel TituloCuadroInformacion_Factura;
     private javax.swing.JLabel TituloCuadro_DatosFactura;
+    private javax.swing.JLabel TituloVentanaDatosClientes;
     private javax.swing.JLabel TituloVentanaDatosPersonales;
-    private javax.swing.JLabel TituloVentanaDatosPersonales1;
     private javax.swing.JLabel TituloVentanaFacturacion;
     private javax.swing.JLabel TituloVentanaGestionProductos;
+    private javax.swing.JLabel TituloVentanaProductos;
     private javax.swing.JLabel Titulo_CuadroAgregarProductos;
     private javax.swing.JLabel Titulo_CuadroEditarDatos;
     private javax.swing.JLabel Titulo_CuadroInfomacionFactura__VentanaHistorialCliente;
     private javax.swing.JLabel Titulo_VentanaHistorialCliente;
     private javax.swing.JLabel Titulo_VentanaRegistroVentas;
+    private javax.swing.JLabel TxtEditarDatosClientes;
+    private javax.swing.JLabel TxtEliminarDatosClientes;
+    private javax.swing.JLabel TxtEliminarVentanaGestionProductos;
     private javax.swing.JLabel TxtoSubtotalNumerico_CuadroInfomacionFactura__VentanaHistorialCliente;
     private javax.swing.JPanel VentanaDatosClientes;
     private javax.swing.JPanel VentanaDatosPersonales;
     private javax.swing.JPanel VentanaFacturacion;
     private javax.swing.JPanel VentanaGestionProducto;
     private javax.swing.JPanel VentanaHistorialCliente;
+    private javax.swing.JPanel VentanaProductos;
     private javax.swing.JPanel VentanaRegistroVentas;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollTablaCuadro_Factura;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSplitPane jSplitPane1;
-    private BordesSuaves.PanelRound panelRound1;
-    private BordesSuaves.PanelRound panelRound2;
     // End of variables declaration//GEN-END:variables
     private TableRowSorter<DefaultTableModel> trs;
 
