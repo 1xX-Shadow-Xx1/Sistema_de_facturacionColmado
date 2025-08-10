@@ -4,11 +4,9 @@
  */
 package VentanaPrincipal;
 
-import VentanaPrincipal.CerrarSesion;
-import VentanaPrincipal.VentanaMain;
+
 import java.awt.Color;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -246,6 +244,6 @@ public class MenuEmpleado extends javax.swing.JPanel {
     private BordesSuaves.PanelRound HistorialClienteBtn;
     private javax.swing.JLabel HistorialClienteTxt;
     private javax.swing.JLabel LogoEmpresa;
-    private javax.swing.JLabel Nombre_empleadoMenu;
+    public javax.swing.JLabel Nombre_empleadoMenu;
     // End of variables declaration//GEN-END:variables
 }

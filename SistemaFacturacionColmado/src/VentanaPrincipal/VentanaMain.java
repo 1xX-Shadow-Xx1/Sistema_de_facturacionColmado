@@ -51,7 +51,8 @@ public class VentanaMain extends javax.swing.JFrame {
     public Tablas tablas;
     VentanaLogin ventanalogin = new VentanaLogin();
     private Botones Botones;
-    private CerrarSesion sesion;    
+    private CerrarSesion sesion;
+    
     
 
     public VentanaMain() {
@@ -76,7 +77,7 @@ public class VentanaMain extends javax.swing.JFrame {
         SumaFactura();
 
         this.tablas = new Tablas(this);
-
+        
         if(Sesion.nivelAcceso == 1){
             tablas.TablaDatosClientes();
             System.out.println("Tablacliente");
@@ -85,7 +86,11 @@ public class VentanaMain extends javax.swing.JFrame {
             System.out.println("Tabladatos");
         }
 
-        Nombre_empleadoMenu.setText(Sesion.Empleado);
+        if(Sesion.nivelAcceso == 1){
+            menuEmpleado.Nombre_empleadoMenu.setText(Sesion.Empleado);
+        }else if(Sesion.nivelAcceso == 2){
+            Nombre_AdminMenu.setText(Sesion.Empleado);
+        }
         TextoNombreEmpleadoCuadro_Factura.setText(Sesion.Empleado);
         
 
@@ -112,7 +117,7 @@ public class VentanaMain extends javax.swing.JFrame {
         Menu = new javax.swing.JPanel();
         MenuAdministrador = new javax.swing.JPanel();
         JavaIcon = new javax.swing.JLabel();
-        Nombre_empleadoMenu = new javax.swing.JLabel();
+        Nombre_AdminMenu = new javax.swing.JLabel();
         CerrarSesionBtn = new javax.swing.JLabel();
         DatosPersonalesBtn = new BordesSuaves.PanelRound();
         DatosPersonalesTxt = new javax.swing.JLabel();
@@ -299,13 +304,13 @@ public class VentanaMain extends javax.swing.JFrame {
         JavaIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Logo.png"))); // NOI18N
         MenuAdministrador.add(JavaIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 155));
 
-        Nombre_empleadoMenu.setBackground(new java.awt.Color(102, 102, 102));
-        Nombre_empleadoMenu.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        Nombre_empleadoMenu.setForeground(new java.awt.Color(102, 102, 102));
-        Nombre_empleadoMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Nombre_empleadoMenu.setText("Nombre admin");
-        Nombre_empleadoMenu.setMaximumSize(new java.awt.Dimension(59, 50));
-        MenuAdministrador.add(Nombre_empleadoMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 230, -1));
+        Nombre_AdminMenu.setBackground(new java.awt.Color(102, 102, 102));
+        Nombre_AdminMenu.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        Nombre_AdminMenu.setForeground(new java.awt.Color(102, 102, 102));
+        Nombre_AdminMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Nombre_AdminMenu.setText("Nombre admin");
+        Nombre_AdminMenu.setMaximumSize(new java.awt.Dimension(59, 50));
+        MenuAdministrador.add(Nombre_AdminMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 230, -1));
 
         CerrarSesionBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar-sesion.png"))); // NOI18N
         CerrarSesionBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -2764,7 +2769,7 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JPanel Menu;
     private javax.swing.JPanel MenuAdministrador;
     private javax.swing.JLabel MinimizarTxt;
-    private javax.swing.JLabel Nombre_empleadoMenu;
+    private javax.swing.JLabel Nombre_AdminMenu;
     public javax.swing.JScrollPane PanelTablaDatosClientes;
     public javax.swing.JScrollPane PanelTablaDatosPersonales;
     private javax.swing.JScrollPane PanelTablaVentanaProductos;
