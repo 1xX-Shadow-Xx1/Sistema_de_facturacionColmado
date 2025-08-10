@@ -3,11 +3,8 @@ package Tablas;
 import javax.swing.table.DefaultTableModel;
 import VentanaPrincipal.VentanaMain;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.JTable;
-import javax.swing.table.TableRowSorter;
 import persistencia.ConexionBD;
 
 /**
@@ -22,6 +19,39 @@ public class Tablas{
      public Tablas(VentanaMain ventanaMain) {
         this.ventanaMain = ventanaMain;
     }
+
+    public void TablaDatosClientes(){
+
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("Cedula");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Numero de Telefono");
+        modelo.addColumn("Direccion");
+
+        String [] datos = new String[5];
+        
+        try {
+
+            Statement st = ConexionBD.getInstancia().getConexion().createStatement();
+
+            ResultSet rs = st.executeQuery("SELECT * FROM vistadatosclientes;");
+
+            while (rs.next()){
+                for (int i = 0; i < datos.length; i++) {
+                    datos[i] = rs.getString(i + 1);
+                }
+                modelo.addRow(datos);
+
+            }
+            ventanaMain.TablaDatosClientes.setModel(modelo);
+        }catch(SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Problema con la TablaDatosClientes");
+        }
+
+                
+     }
     
     
     public void TablaDatosPersonales(){

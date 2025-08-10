@@ -101,7 +101,7 @@ public class Botones {
                     ventana.mostrarVentana(nameVentana);
                     menuEmpleado.IluminacionBotonesMenuEmpleado(btn, Txt);
                     if (numBtn == 0){
-                        ventana.tablas.TablaDatosPersonales();
+                        ventana.tablas.TablaDatosClientes();
                     }
                     if (numBtn == 1) {
                         ventana.tablas.TablaGestionProductos();

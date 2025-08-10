@@ -75,11 +75,19 @@ public class VentanaMain extends javax.swing.JFrame {
         mostrarFecha();
         SumaFactura();
 
-        this.tablas = new Tablas(this); 
-        tablas.TablaDatosPersonales();
+        this.tablas = new Tablas(this);
+
+        if(Sesion.nivelAcceso == 1){
+            tablas.TablaDatosClientes();
+            System.out.println("Tablacliente");
+        }else if(Sesion.nivelAcceso == 2){
+            tablas.TablaDatosPersonales();
+            System.out.println("Tabladatos");
+        }
 
         Nombre_empleadoMenu.setText(Sesion.Empleado);
         TextoNombreEmpleadoCuadro_Factura.setText(Sesion.Empleado);
+        
 
         botonesescucha();
 
@@ -118,6 +126,14 @@ public class VentanaMain extends javax.swing.JFrame {
         RegistroVentasTxt = new javax.swing.JLabel();
         FondoCrom = new javax.swing.JLabel();
         ContenedorPaneles = new javax.swing.JPanel();
+        VentanaDatosClientes = new javax.swing.JPanel();
+        PanelTablaDatosClientes = new javax.swing.JScrollPane();
+        TablaDatosClientes = new javax.swing.JTable();
+        panelRound1 = new BordesSuaves.PanelRound();
+        jLabel3 = new javax.swing.JLabel();
+        panelRound2 = new BordesSuaves.PanelRound();
+        jLabel4 = new javax.swing.JLabel();
+        TituloVentanaDatosPersonales1 = new javax.swing.JLabel();
         VentanaDatosPersonales = new javax.swing.JPanel();
         PanelTablaDatosPersonales = new javax.swing.JScrollPane();
         TablaDatosPersonales = new javax.swing.JTable();
@@ -445,9 +461,116 @@ public class VentanaMain extends javax.swing.JFrame {
         ContenedorPaneles.setPreferredSize(new java.awt.Dimension(53, 559));
         ContenedorPaneles.setLayout(new java.awt.CardLayout());
 
+        VentanaDatosClientes.setBackground(new java.awt.Color(250, 250, 250));
+
+        PanelTablaDatosClientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(198, 198, 198), 2));
+        PanelTablaDatosClientes.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+
+        TablaDatosClientes.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        TablaDatosClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Cedula", "Nombre", "Numero de Telefono", "Direccion"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        PanelTablaDatosClientes.setViewportView(TablaDatosClientes);
+
+        panelRound1.setBackground(new java.awt.Color(235, 235, 235));
+        panelRound1.setRoundBottomLeft(35);
+        panelRound1.setRoundBottomRight(35);
+        panelRound1.setRoundTopLeft(35);
+        panelRound1.setRoundTopRight(35);
+
+        jLabel3.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Eliminar");
+
+        javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
+        panelRound1.setLayout(panelRound1Layout);
+        panelRound1Layout.setHorizontalGroup(
+            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+        );
+        panelRound1Layout.setVerticalGroup(
+            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        panelRound2.setBackground(new java.awt.Color(235, 235, 235));
+        panelRound2.setRoundBottomLeft(35);
+        panelRound2.setRoundBottomRight(35);
+        panelRound2.setRoundTopLeft(35);
+        panelRound2.setRoundTopRight(35);
+
+        jLabel4.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Editar");
+
+        javax.swing.GroupLayout panelRound2Layout = new javax.swing.GroupLayout(panelRound2);
+        panelRound2.setLayout(panelRound2Layout);
+        panelRound2Layout.setHorizontalGroup(
+            panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+        );
+        panelRound2Layout.setVerticalGroup(
+            panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        TituloVentanaDatosPersonales1.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        TituloVentanaDatosPersonales1.setText("Datos Personales");
+
+        javax.swing.GroupLayout VentanaDatosClientesLayout = new javax.swing.GroupLayout(VentanaDatosClientes);
+        VentanaDatosClientes.setLayout(VentanaDatosClientesLayout);
+        VentanaDatosClientesLayout.setHorizontalGroup(
+            VentanaDatosClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(VentanaDatosClientesLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(TituloVentanaDatosPersonales1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(721, 721, 721))
+            .addGroup(VentanaDatosClientesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelRound2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
+            .addGroup(VentanaDatosClientesLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(PanelTablaDatosClientes)
+                .addGap(33, 33, 33))
+        );
+        VentanaDatosClientesLayout.setVerticalGroup(
+            VentanaDatosClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(VentanaDatosClientesLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(TituloVentanaDatosPersonales1)
+                .addGap(59, 59, 59)
+                .addComponent(PanelTablaDatosClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addGroup(VentanaDatosClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelRound2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25))
+        );
+
+        ContenedorPaneles.add(VentanaDatosClientes, "card7");
+
         VentanaDatosPersonales.setBackground(new java.awt.Color(250, 250, 250));
 
         PanelTablaDatosPersonales.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(198, 198, 198), 2));
+        PanelTablaDatosPersonales.setEnabled(false);
         PanelTablaDatosPersonales.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
 
         TablaDatosPersonales.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -467,6 +590,7 @@ public class VentanaMain extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        TablaDatosPersonales.setEnabled(false);
         PanelTablaDatosPersonales.setViewportView(TablaDatosPersonales);
 
         CuadroEditarDatosPersonales.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(198, 198, 198), 2));
@@ -641,15 +765,14 @@ public class VentanaMain extends javax.swing.JFrame {
             VentanaDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(VentanaDatosPersonalesLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(TituloVentanaDatosPersonales, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                .addGap(49, 49, 49)
+                .addComponent(TituloVentanaDatosPersonales)
+                .addGap(52, 52, 52)
                 .addGroup(VentanaDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(VentanaDatosPersonalesLayout.createSequentialGroup()
-                        .addComponent(PanelTablaDatosPersonales)
-                        .addGap(10, 10, 10))
+                    .addComponent(PanelTablaDatosPersonales)
                     .addGroup(VentanaDatosPersonalesLayout.createSequentialGroup()
                         .addComponent(CuadroEditarDatosPersonales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(182, Short.MAX_VALUE))))
+                        .addGap(101, 101, 101)))
+                .addGap(92, 92, 92))
         );
 
         ContenedorPaneles.add(VentanaDatosPersonales, "card2");
@@ -797,9 +920,16 @@ public class VentanaMain extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         PanelTablaVentanaProductos.setViewportView(TablaMostrarProductos_VentanaGestionProductos);
@@ -1387,9 +1517,16 @@ public class VentanaMain extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         ScrollTabla_VentanaRegistroVentas.setViewportView(TablaVentanaVentas);
@@ -1665,9 +1802,16 @@ public class VentanaMain extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         ScrollTablaClientes_VentanaHistorialCliente.setViewportView(TablaClientes_VentanaHistorialCliente);
@@ -1685,9 +1829,16 @@ public class VentanaMain extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.Double.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         ScrollTablaHistorialCliente_VentanaHistorialCliente.setViewportView(TablaHistorialCliente_VentanaHistorialCliente);
@@ -1781,6 +1932,7 @@ public class VentanaMain extends javax.swing.JFrame {
 
         jSplitPane1.setRightComponent(ContenedorPaneles);
         ContenedorPaneles.setLayout(new CardLayout());
+        ContenedorPaneles.add(VentanaDatosClientes, "VnDatosClientes");
         ContenedorPaneles.add(VentanaDatosPersonales, "VnDatosPersonales");
         ContenedorPaneles.add(VentanaGestionProducto, "VnGestionProductos");
         ContenedorPaneles.add(VentanaFacturacion, "VnFacturacion");
@@ -1903,10 +2055,11 @@ public class VentanaMain extends javax.swing.JFrame {
         if(Sesion.nivelAcceso == 1){  
             Menu.add(menuEmpleado, "MenuEmpleados");
             mostrarMenu("MenuEmpleados");
-            
+            mostrarVentana("VnDatosClientes");
         }
         else if(Sesion.nivelAcceso == 2){
-            mostrarVentana("MenuAdmin");
+            mostrarMenu("MenuAdmin");
+            mostrarVentana("VnDatosPersonales");
         }
     }
     
@@ -2612,6 +2765,7 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JPanel MenuAdministrador;
     private javax.swing.JLabel MinimizarTxt;
     private javax.swing.JLabel Nombre_empleadoMenu;
+    public javax.swing.JScrollPane PanelTablaDatosClientes;
     public javax.swing.JScrollPane PanelTablaDatosPersonales;
     private javax.swing.JScrollPane PanelTablaVentanaProductos;
     private BordesSuaves.PanelRound RegistroVentasBtn;
@@ -2624,6 +2778,7 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JSeparator SeparatorSuperior_CuadroInfomacionFactura__VentanaHistorialCliente;
     public javax.swing.JTable TablaClientes_VentanaHistorialCliente;
     private javax.swing.JTable TablaCuadro_Factura;
+    public javax.swing.JTable TablaDatosClientes;
     public javax.swing.JTable TablaDatosPersonales;
     public javax.swing.JTable TablaHistorialCliente_VentanaHistorialCliente;
     public javax.swing.JTable TablaMostrarProductos_VentanaGestionProductos;
@@ -2691,6 +2846,7 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JLabel TituloCuadroInformacion_Factura;
     private javax.swing.JLabel TituloCuadro_DatosFactura;
     private javax.swing.JLabel TituloVentanaDatosPersonales;
+    private javax.swing.JLabel TituloVentanaDatosPersonales1;
     private javax.swing.JLabel TituloVentanaFacturacion;
     private javax.swing.JLabel TituloVentanaGestionProductos;
     private javax.swing.JLabel Titulo_CuadroAgregarProductos;
@@ -2699,6 +2855,7 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JLabel Titulo_VentanaHistorialCliente;
     private javax.swing.JLabel Titulo_VentanaRegistroVentas;
     private javax.swing.JLabel TxtoSubtotalNumerico_CuadroInfomacionFactura__VentanaHistorialCliente;
+    private javax.swing.JPanel VentanaDatosClientes;
     private javax.swing.JPanel VentanaDatosPersonales;
     private javax.swing.JPanel VentanaFacturacion;
     private javax.swing.JPanel VentanaGestionProducto;
@@ -2706,11 +2863,15 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JPanel VentanaRegistroVentas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollTablaCuadro_Factura;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSplitPane jSplitPane1;
+    private BordesSuaves.PanelRound panelRound1;
+    private BordesSuaves.PanelRound panelRound2;
     // End of variables declaration//GEN-END:variables
     private TableRowSorter<DefaultTableModel> trs;
 
