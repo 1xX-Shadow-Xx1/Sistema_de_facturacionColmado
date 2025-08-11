@@ -20,7 +20,7 @@ public class Tablas{
         
      public Tablas(VentanaMain ventanaMain) {
         this.ventanaMain = ventanaMain;
-        nose();        
+             
     }
 
     public void TablaDatosClientes(){
@@ -169,37 +169,12 @@ public class Tablas{
                 modelo.addRow(datos);
             }
             ventanaMain.TablaClientes_VentanaHistorialCliente.setModel(modelo);
-            nose();
+           
         }catch(Exception ex){
             ex.printStackTrace();
         }
     }   
     public void TablaFacturaHistorial(){
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("Numero de factura");
-        modelo.addColumn("Tipo de pago");
-        modelo.addColumn("Total");
-        
-        String[] datos = new String[3];
-        try{
-            
-            Statement st = ConexionBD.getInstancia().getConexion().createStatement();
-            
-            ResultSet rs = st.executeQuery("SELECT * FROM vista_facturas_resumen;");
-            
-            while (rs.next()) {
-                for(int i = 0; i < datos.length; i++){
-                    datos[i] = rs.getString(i + 1);
-                }
-                modelo.addRow(datos);
-            }
-            ventanaMain.TablaHistorialCliente_VentanaHistorialCliente.setModel(modelo);
-            
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }
-    }
-    public void nose(){
         ventanaMain.TablaClientes_VentanaHistorialCliente.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 int fila = ventanaMain.TablaClientes_VentanaHistorialCliente.getSelectedRow();
