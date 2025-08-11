@@ -8,6 +8,13 @@ CREATE TABLE Cliente (
     cedula_cliente VARCHAR(14) UNIQUE,
     numero_cliente VARCHAR(20),
     tipo_pago VARCHAR(50)
+	
+);
+
+create table Direcciones (
+	id_cliente int not null,
+    direccion varchar(100),
+    foreign key (id_cliente) references Cliente(id_cliente)
 );
 
 -- relacion correo - empleado
@@ -62,24 +69,6 @@ CREATE TABLE Factura_Producto (
     FOREIGN KEY (id_producto) REFERENCES ProductoColmado(id_producto)
 );
 
-
-
-select nombre, contraseña from Correo ;
-select * from Correo ;
-select * from empleado;
-SELECT * FROM ProductoColmado;
-
-
-
--- Consultas rapidas
-SELECT * FROM vistadatospersonales;
-SELECT * FROM vistaproductos;
-SELECT * FROM vista_registro_ventas;
-SELECT * FROM vistahistorial_tablaclientes;
-SELECT * FROM vista_facturas_resumen;
-
-SELECT * FROM vista_empleado_correo_simple;
-
 -- Insertar un correo primero
 INSERT INTO correo (nombre, contraseña,nivelacceso) 
 VALUES ('Kevin@gmail.com', 'Admin123',2);
@@ -97,12 +86,4 @@ VALUES ('Ramona@gmail.com', 'Admin123',1);
 INSERT INTO Empleado (id_correo, nombre_empleado, cedula_empleado, numero_empleado, cargo) 
 VALUES (2, 'Ramona Liriano Ramirez', '402-9254264-8', '809-133-4567', 'Empleado');
 
-/*ALTER TABLE Empleado
-ADD COLUMN id_correo INT;
-
-ALTER TABLE correo
-ADD COLUMN nombre VARCHAR(100);
-
-ALTER TABLE Empleado
-ADD CONSTRAINT fk_empleado_correo
-FOREIGN KEY (id_correo) REFERENCES correo(id_correo); */
+SELECT * FROM vista_empleado_correo_simple;
