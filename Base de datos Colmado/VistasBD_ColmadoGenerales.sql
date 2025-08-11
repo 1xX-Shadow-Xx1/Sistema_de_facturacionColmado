@@ -1,5 +1,5 @@
+-- Vistas de clientes y direcciones
 DROP VIEW IF EXISTS vistadatosclientes;
-
 CREATE VIEW vistadatosclientes AS
 SELECT 
     c.id_cliente AS ID,
@@ -10,8 +10,17 @@ SELECT
 FROM Cliente c
 LEFT JOIN Direcciones d ON d.id_cliente = c.id_cliente;
 
-DROP VIEW IF EXISTS vistadatospersonales;
+DROP VIEW IF EXISTS vistahistorial_tablaclientes;
+CREATE VIEW vistahistorial_tablaclientes AS
+SELECT
+    c.cedula_cliente AS Cedula,
+    c.nombre_cliente AS Nombre,
+    c.numero_cliente AS `Numero de telefono`
+FROM Cliente c;
 
+
+-- Vista combinada de personas (clientes y empleados)
+DROP VIEW IF EXISTS vistadatospersonales;
 CREATE VIEW vistadatospersonales AS
 SELECT 
     c.cedula_cliente AS Cedula,
@@ -32,8 +41,9 @@ SELECT
     e.cargo AS Tipo
 FROM Empleado e;
 
-DROP VIEW IF EXISTS vistaproductos;
 
+-- Vista de productos
+DROP VIEW IF EXISTS vistaproductos;
 CREATE VIEW vistaproductos AS
 SELECT
     p.id_producto AS ID,
@@ -44,49 +54,8 @@ SELECT
 FROM ProductoColmado p;
 
 
-DROP VIEW IF EXISTS vista_registro_ventas;
-
-CREATE VIEW vista_registro_ventas AS
-SELECT 
-    c.nombre_cliente AS Cliente,
-    f.id_factura AS `Numero de factura`,
-    e.nombre_empleado AS Empleado,
-    f.total AS Venta
-FROM Factura f
-JOIN Cliente c ON f.id_cliente = c.id_cliente
-JOIN Empleado e ON f.id_empleado = e.id_empleado;
-
-
-DROP VIEW IF EXISTS vistahistorial_tablaclientes;
-
-CREATE VIEW vistahistorial_tablaclientes AS
-SELECT
-    c.cedula_cliente AS Cedula,
-    c.nombre_cliente AS Nombre,
-    c.numero_cliente AS `Numero de telefono`
-FROM Cliente c;
-
-
-DROP VIEW IF EXISTS vista_facturas_resumen;
-
-CREATE OR REPLACE VIEW vista_facturas_resumen AS
-SELECT 
-    f.id_factura,
-    f.tipo_pago,
-    f.total,
-    f.subtotal,
-    f.impuesto,
-    f.fecha,
-    e.nombre_empleado AS empleado
-FROM
-    Factura f
-JOIN
-    Empleado e ON f.id_empleado = e.id_empleado;
-
-
-
+-- Vista de empleados y sus correos
 DROP VIEW IF EXISTS vista_empleado_correo_simple;
-
 CREATE VIEW vista_empleado_correo_simple AS
 SELECT 
     e.id_empleado,
@@ -98,8 +67,8 @@ FROM Empleado e
 JOIN Correo c ON e.id_correo = c.id_correo;
 
 
+-- Vista resumen de facturas
 DROP VIEW IF EXISTS vista_facturas_resumen;
-
 CREATE OR REPLACE VIEW vista_facturas_resumen AS
 SELECT 
     f.id_factura AS `ID Factura`,
@@ -108,18 +77,34 @@ SELECT
     f.fecha AS Fecha,
     f.impuesto AS Impuesto,
     f.subtotal AS Subtotal,
-    f.total AS Total
+    f.total AS Total,
+    e.nombre_empleado AS empleado
 FROM Factura f
-JOIN Cliente c ON f.id_cliente = c.id_cliente;
+JOIN Cliente c ON f.id_cliente = c.id_cliente
+JOIN Empleado e ON f.id_empleado = e.id_empleado;
 
 
-DROP VIEW IF EXISTS vistahistorial_tablaclientes;
+-- Vista detalle de productos en facturas
+DROP VIEW IF EXISTS VistaFacturaProductos;
+CREATE OR REPLACE VIEW VistaFacturaProductos AS
+SELECT 
+    fp.id_factura,
+    pc.nombre AS nombre_producto,
+    fp.cantidad,
+    pc.precio AS precio_unidad
+FROM Factura_Producto fp
+JOIN ProductoColmado pc ON fp.id_producto = pc.id_producto;
 
-CREATE VIEW vistahistorial_tablaclientes AS
-SELECT
-    c.cedula_cliente AS Cedula,
-    c.nombre_cliente AS Nombre,
-    c.numero_cliente AS `Numero de telefono`
-FROM Cliente c;
 
+-- Vista para registro de ventas (sumario por factura)
+DROP VIEW IF EXISTS vista_registro_ventas;
+CREATE VIEW vista_registro_ventas AS
+SELECT 
+    c.nombre_cliente AS Cliente,
+    f.id_factura AS `Numero de factura`,
+    e.nombre_empleado AS Empleado,
+    f.total AS Venta
+FROM Factura f
+JOIN Cliente c ON f.id_cliente = c.id_cliente
+JOIN Empleado e ON f.id_empleado = e.id_empleado;
 

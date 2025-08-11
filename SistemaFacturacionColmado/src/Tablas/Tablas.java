@@ -7,6 +7,8 @@ import static com.sun.java.accessibility.util.SwingEventMonitor.addListSelection
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JTable;
+import javax.swing.table.TableColumn;
 import persistencia.ConexionBD;
 
 /**
@@ -125,7 +127,7 @@ public class Tablas{
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Cliente");
         modelo.addColumn("Numero de factura");
-        modelo.addColumn("Cliente");
+        modelo.addColumn("Empleado");
         modelo.addColumn("Venta");
         
         String[] datos = new String[4];
@@ -176,17 +178,12 @@ public class Tablas{
     }   
     public void TablaFacturaHistorial(){
         ventanaMain.TablaClientes_VentanaHistorialCliente.getSelectionModel().addListSelectionListener(e -> {
+
+        DefaultTableModel modelo = (DefaultTableModel) ventanaMain.TablaHistorialCliente_VentanaHistorialCliente.getModel();
+
+            
             if (!e.getValueIsAdjusting()) {
                 int fila = ventanaMain.TablaClientes_VentanaHistorialCliente.getSelectedRow();
-
-                DefaultTableModel modelo = new DefaultTableModel();
-                modelo.addColumn("ID Factura");
-                modelo.addColumn("Cedula");
-                modelo.addColumn("Tipo de pago");
-                modelo.addColumn("Fecha");
-                modelo.addColumn("Impuesto");
-                modelo.addColumn("Subtotal"); 
-                modelo.addColumn("Total");
 
                 if (fila == -1) {
                     ventanaMain.TablaHistorialCliente_VentanaHistorialCliente.setModel(modelo); // tabla vacía
@@ -200,8 +197,10 @@ public class Tablas{
                     String consulta = "SELECT * FROM vista_facturas_resumen WHERE Cedula = '" + cedula + "'";
                     ResultSet rs = st.executeQuery(consulta);
                     
+                    modelo.setRowCount(0);
+
                     System.out.println(consulta);
-                    Object[] datos = new Object[7];
+                    Object[] datos = new Object[8];
                     while (rs.next()) {
                         datos[0] = rs.getInt(1);           // ID Factura como Integer
                         datos[1] = rs.getString(2);        // Cedula
@@ -210,16 +209,24 @@ public class Tablas{
                         datos[4] = rs.getString(5);        // Impuesto
                         datos[5] = rs.getString(6);        // Subtotal
                         datos[6] = rs.getString(7);        // Total
+                        datos[7] = rs.getString(8);        // empleado
                         modelo.addRow(datos);
                     }
-                    ventanaMain.TablaHistorialCliente_VentanaHistorialCliente.setModel(modelo);
+                    // Ocultar columnas específicas
+
+                    
+                    
+                    
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
         });
+        
     }
+    
+    
 }
 
 

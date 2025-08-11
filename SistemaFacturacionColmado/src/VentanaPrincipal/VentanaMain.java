@@ -37,6 +37,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.UIManager;
+import javax.swing.table.TableColumn;
 
 
         
@@ -1102,66 +1103,63 @@ public class VentanaMain extends javax.swing.JFrame {
         CuadroInformacion_FacturaLayout.setHorizontalGroup(
             CuadroInformacion_FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
                 .addGroup(CuadroInformacion_FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addGroup(CuadroInformacion_FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
-                                .addGroup(CuadroInformacion_FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
-                                        .addComponent(TextoEmpreadoCuadro_Factura)
-                                        .addGap(14, 14, 14)
-                                        .addComponent(TextoNombreEmpleadoCuadro_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
-                                        .addComponent(TextoClienteCuadro_Factura)
-                                        .addGap(15, 15, 15)
-                                        .addComponent(TextoNombreClienteCuadro_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
-                                        .addComponent(TextoCedulaCuadro_Factura)
-                                        .addGap(10, 10, 10)
-                                        .addComponent(TextoNumericoCedulaCuadro_Factura))
-                                    .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
-                                        .addComponent(TextoNumeroTefonicoCuadro_Factura)
-                                        .addGap(7, 7, 7)
-                                        .addComponent(TextoNumericoTelefonoCuadro_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(90, 90, 90)
-                                .addComponent(TextoFechaCuadro_Factura)
-                                .addGap(12, 12, 12)
-                                .addComponent(TextoNumericoFechaCuadro_Factura))
+                                .addComponent(TextoEmpreadoCuadro_Factura)
+                                .addGap(14, 14, 14)
+                                .addComponent(TextoNombreEmpleadoCuadro_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
-                                .addComponent(TextoTipodepagoCuadro_Factura)
-                                .addGap(17, 17, 17)
-                                .addComponent(TextoNombreTipoPagoCuadro_Factura))))
+                                .addComponent(TextoClienteCuadro_Factura)
+                                .addGap(15, 15, 15)
+                                .addComponent(TextoNombreClienteCuadro_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
+                                .addComponent(TextoCedulaCuadro_Factura)
+                                .addGap(10, 10, 10)
+                                .addComponent(TextoNumericoCedulaCuadro_Factura))
+                            .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
+                                .addComponent(TextoNumeroTefonicoCuadro_Factura)
+                                .addGap(7, 7, 7)
+                                .addComponent(TextoNumericoTelefonoCuadro_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(90, 90, 90)
+                        .addComponent(TextoFechaCuadro_Factura)
+                        .addGap(12, 12, 12)
+                        .addComponent(TextoNumericoFechaCuadro_Factura))
                     .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(TituloCuadroInformacion_Factura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(112, 112, 112))
-                    .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jSeparator1)
-                        .addGap(1, 1, 1))
-                    .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jScrollTablaCuadro_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(11, 11, 11))
-                    .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(TextoImpuestoCuadro_Factura)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TextoPorcentajeCuadro_Factura)
-                        .addGap(102, 102, 102)
-                        .addComponent(TextoSubtotalCuadro_Factura)
-                        .addGap(9, 9, 9)
-                        .addGroup(CuadroInformacion_FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TextoNumericoTotalCuadro_Factura, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TextoNumericoSubtotalCuadro_Factura, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
-                        .addGap(230, 230, 230)
-                        .addComponent(TextoTotalCuadro_Factura))
-                    .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
-                        .addComponent(jSeparator3)
-                        .addGap(1, 1, 1)))
-                .addContainerGap())
+                        .addComponent(TextoTipodepagoCuadro_Factura)
+                        .addGap(17, 17, 17)
+                        .addComponent(TextoNombreTipoPagoCuadro_Factura))))
+            .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
+                .addGap(110, 110, 110)
+                .addComponent(TituloCuadroInformacion_Factura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(112, 112, 112))
+            .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jSeparator1)
+                .addGap(1, 1, 1))
+            .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jScrollTablaCuadro_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(11, 11, 11))
+            .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(TextoImpuestoCuadro_Factura)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TextoPorcentajeCuadro_Factura)
+                .addGap(102, 102, 102)
+                .addComponent(TextoSubtotalCuadro_Factura)
+                .addGap(9, 9, 9)
+                .addGroup(CuadroInformacion_FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TextoNumericoTotalCuadro_Factura, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TextoNumericoSubtotalCuadro_Factura, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
+                .addGap(230, 230, 230)
+                .addComponent(TextoTotalCuadro_Factura))
+            .addGroup(CuadroInformacion_FacturaLayout.createSequentialGroup()
+                .addComponent(jSeparator3)
+                .addGap(1, 1, 1))
         );
         CuadroInformacion_FacturaLayout.setVerticalGroup(
             CuadroInformacion_FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1487,21 +1485,21 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addComponent(TituloVentanaFacturacion, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                 .addGap(777, 777, 777))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VentanaFacturacionLayout.createSequentialGroup()
-                .addGroup(VentanaFacturacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(VentanaFacturacionLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BotonGenerearFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(VentanaFacturacionLayout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(CuadroDatos_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(VentanaFacturacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(VentanaFacturacionLayout.createSequentialGroup()
-                                .addGap(379, 379, 379)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(VentanaFacturacionLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(CuadroInformacion_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BotonGenerearFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VentanaFacturacionLayout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addComponent(CuadroDatos_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(VentanaFacturacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(VentanaFacturacionLayout.createSequentialGroup()
+                        .addGap(379, 379, 379)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(50, 50, 50))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VentanaFacturacionLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(CuadroInformacion_Factura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))))
         );
         VentanaFacturacionLayout.setVerticalGroup(
             VentanaFacturacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1845,30 +1843,19 @@ public class VentanaMain extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Numero de Factura", "Pago", "Total"
+                "Numero de Factura", "Cedula", "Tipo de pago", "Fecha", "Impuesto", "Subtotal", "Total", "Empleado"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         TablaHistorialCliente_VentanaHistorialCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TablaHistorialCliente_VentanaHistorialClienteMouseClicked(evt);
             }
         });
         ScrollTablaHistorialCliente_VentanaHistorialCliente.setViewportView(TablaHistorialCliente_VentanaHistorialCliente);
+        ocultarColumna(TablaHistorialCliente_VentanaHistorialCliente, 1); // ID Factura
+        ocultarColumna(TablaHistorialCliente_VentanaHistorialCliente, 4); // Impuesto
+        ocultarColumna(TablaHistorialCliente_VentanaHistorialCliente, 5); // Subtotal
+        ocultarColumna(TablaHistorialCliente_VentanaHistorialCliente, 7); // Empleado
 
         BarraBusquedaCedula_VentanaHistorialCliente.setForeground(new java.awt.Color(204, 204, 204));
         BarraBusquedaCedula_VentanaHistorialCliente.setText("000-0000000-0");
@@ -2519,7 +2506,124 @@ public class VentanaMain extends javax.swing.JFrame {
             }
         }
     }
+    private void ocultarColumna(JTable tabla, int indice) {
+        TableColumn columna = tabla.getColumnModel().getColumn(indice);
+        columna.setMinWidth(0);
+        columna.setMaxWidth(0);
+        columna.setPreferredWidth(0);
+    }
+    private void guardarFacturaConProductos() {
 
+        try {
+            Connection con = ConexionBD.getInstancia().getConexion();
+            con.setAutoCommit(false);  // Para manejar transacción manualmente
+
+            // Datos del cliente y factura desde interfaz
+            String nombre_cli = TextoNombreClienteCuadro_Factura.getText();
+            String cedula_cli = TextoNumericoCedulaCuadro_Factura.getText();
+            String numero_cli = TextoNumericoTelefonoCuadro_Factura.getText();
+            String tipo_pago_cli = TextoNombreTipoPagoCuadro_Factura.getText();
+            String fecha_compra = TextoNumericoFechaCuadro_Factura.getText();
+            String subtotal_cli = TextoNumericoSubtotalCuadro_Factura.getText();
+            String total_cli = TextoNumericoTotalCuadro_Factura.getText();
+            String impuesto_cli = TextoPorcentajeCuadro_Factura.getText();
+
+            // Buscar id_cliente existente o insertar uno nuevo
+            int id_cliente = -1;
+            PreparedStatement psCliente = con.prepareStatement("SELECT id_cliente FROM cliente WHERE cedula_cliente = ?");
+            psCliente.setString(1, cedula_cli);
+            ResultSet rsCliente = psCliente.executeQuery();
+            if (rsCliente.next()) {
+                id_cliente = rsCliente.getInt("id_cliente");
+            } else {
+                PreparedStatement psInsertCliente = con.prepareStatement(
+                    "INSERT INTO Cliente (cedula_cliente, tipo_pago, nombre_cliente, numero_cliente) VALUES (?, ?, ?, ?)", 
+                    Statement.RETURN_GENERATED_KEYS);
+                psInsertCliente.setString(1, cedula_cli);
+                psInsertCliente.setString(2, tipo_pago_cli);
+                psInsertCliente.setString(3, nombre_cli);
+                psInsertCliente.setString(4, numero_cli);
+                psInsertCliente.executeUpdate();
+
+                ResultSet rsKeys = psInsertCliente.getGeneratedKeys();
+                if (rsKeys.next()) {
+                    id_cliente = rsKeys.getInt(1);
+                }
+                rsKeys.close();
+                psInsertCliente.close();
+            }
+            rsCliente.close();
+            psCliente.close();
+
+            if (id_cliente == -1) {
+                throw new SQLException("No se pudo obtener el ID del cliente.");
+            }
+
+            // Insertar factura y obtener id_factura
+            PreparedStatement psFactura = con.prepareStatement(
+                "INSERT INTO Factura (id_cliente, id_empleado, fecha, tipo_pago, subtotal, impuesto, total) VALUES (?, ?, ?, ?, ?, ?, ?)", 
+                Statement.RETURN_GENERATED_KEYS);
+            psFactura.setInt(1, id_cliente);
+            psFactura.setInt(2, Sesion.idEmpleado);
+            psFactura.setString(3, fecha_compra);
+            psFactura.setString(4, tipo_pago_cli);
+            psFactura.setBigDecimal(5, new java.math.BigDecimal(subtotal_cli));
+            psFactura.setString(6, impuesto_cli);
+            psFactura.setBigDecimal(7, new java.math.BigDecimal(total_cli));
+            psFactura.executeUpdate();
+
+            ResultSet rsFactura = psFactura.getGeneratedKeys();
+            int idFactura = -1;
+            if (rsFactura.next()) {
+                idFactura = rsFactura.getInt(1);
+            }
+            rsFactura.close();
+            psFactura.close();
+
+            if (idFactura == -1) {
+                throw new SQLException("No se pudo obtener el ID de la factura.");
+            }
+
+            // Insertar productos relacionados a la factura
+            DefaultTableModel modelo3 = (DefaultTableModel) TablaCuadro_Factura.getModel();
+            PreparedStatement psFacturaProd = con.prepareStatement(
+                "INSERT INTO Factura_Producto (id_factura, id_producto, cantidad) VALUES (?, ?, ?)");
+
+            for (int i = 0; i < modelo3.getRowCount(); i++) {
+                int idProducto = Integer.parseInt(modelo3.getValueAt(i, 0).toString());
+                int cantidad = Integer.parseInt(modelo3.getValueAt(i, 2).toString());
+
+                psFacturaProd.setInt(1, idFactura);
+                psFacturaProd.setInt(2, idProducto);
+                psFacturaProd.setInt(3, cantidad);
+                psFacturaProd.addBatch();
+            }
+            psFacturaProd.executeBatch();
+            psFacturaProd.close();
+
+            con.commit();
+            JOptionPane.showMessageDialog(null, "Factura y productos creados correctamente");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                ConexionBD.getInstancia().getConexion().rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            JOptionPane.showMessageDialog(null, "Error al guardar factura: " + e.getMessage());
+        } finally {
+            try {
+                ConexionBD.getInstancia().getConexion().setAutoCommit(true);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    
+    
+    
     
     
     private void BtnMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnMenuMouseClicked
@@ -2568,10 +2672,7 @@ public class VentanaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_TextoBotonEditarProductosMouseClicked
 
     private void BotonAgregarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAgregarProductosActionPerformed
-        // TODO add your handling code here:
 
-        // nombre, cantidad precio y unidad de medida.
-        // BarraAgregarNombreProductos / BarraAgregarCantidadProducto / BarraAgregarPrecioProducto
 
         BarraAgregarNombreProductos.getText();
         BarraAgregarCantidadProducto.getText();
@@ -2579,9 +2680,6 @@ public class VentanaMain extends javax.swing.JFrame {
         ComboBoxAgregarUnidadMedidaProducto.getSelectedItem();
 
         ProductoColmado p;
-
-
-        // Statement statement = c1.createStatement();
 
         DefaultTableModel modelo_mostrar = (DefaultTableModel) TablaMostrarProductos_VentanaGestionProductos.getModel();
         try {
@@ -2850,67 +2948,7 @@ public class VentanaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_BarraEditarDatoNombreActionPerformed
 
     private void TextoBotonGenerarFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextoBotonGenerarFacturaMouseClicked
-
-        int id_empleado = Sesion.idEmpleado;
-        String Empleado = Sesion.Empleado;
-
-        try {
-            Statement statement = ConexionBD.getInstancia().getConexion().createStatement();
-
-            String nombre_cli = TextoNombreClienteCuadro_Factura.getText();
-            String cedula_cli = TextoNumericoCedulaCuadro_Factura.getText();
-            String numero_cli = TextoNumericoTelefonoCuadro_Factura.getText();
-            String tipo_pago_cli = TextoNombreTipoPagoCuadro_Factura.getText();
-            String fecha_compra = TextoNumericoFechaCuadro_Factura.getText();
-            String subtotal_cli = TextoNumericoSubtotalCuadro_Factura.getText();
-            String total_cli = TextoNumericoTotalCuadro_Factura.getText();
-            String impuesto_cli = TextoPorcentajeCuadro_Factura.getText();
-
-            // Verificar si el cliente ya existe
-            ResultSet rs = statement.executeQuery("SELECT id_cliente FROM cliente WHERE cedula_cliente = '" + cedula_cli + "'");
-            int id_cliente = -1;
-            System.out.println("Hola ");
-            if (rs.next()) {
-                // Si existe, obtener su id
-                id_cliente = rs.getInt("id_cliente");
-            } else {
-                // Si no existe, insertarlo
-                statement.executeUpdate("INSERT INTO Cliente (cedula_cliente, tipo_pago, nombre_cliente, numero_cliente) VALUES ('" + cedula_cli + "', '" + tipo_pago_cli + "', '" + nombre_cli + "', '" + numero_cli + "')");
-
-                // Obtener el ID recién insertado
-                ResultSet rs2 = statement.executeQuery("SELECT LAST_INSERT_ID() AS id_cliente");
-                if (rs2.next()) {
-                    id_cliente = rs2.getInt("id_cliente");
-                }
-            }
-
-            // Insertar la factura y obtener el id_factura generado
-            String sqlFactura = "INSERT INTO Factura (id_cliente, id_empleado, fecha, tipo_pago, subtotal, impuesto, total) VALUES ('" + id_cliente + "', '" + id_empleado + "', '" + fecha_compra + "', '" + tipo_pago_cli + "', '" + subtotal_cli + "', '" + impuesto_cli + "', '" + total_cli + "')";
-            statement.executeUpdate(sqlFactura, Statement.RETURN_GENERATED_KEYS);
-            ResultSet rsFactura = statement.getGeneratedKeys();
-            int idFactura = -1;
-            if (rsFactura.next()) {
-                idFactura = rsFactura.getInt(1);
-            }
-
-            // Insertar productos asociados a la factura
-            DefaultTableModel modelo3 = (DefaultTableModel) TablaCuadro_Factura.getModel();
-            for (int i = 0; i < modelo3.getRowCount(); i++) {
-                int idProducto = Integer.parseInt(modelo3.getValueAt(i, 0).toString());
-                int cantidad = Integer.parseInt(modelo3.getValueAt(i, 2).toString());
-                // Precio si lo necesitas: double precio = Double.parseDouble(modelo3.getValueAt(i, 3).toString());
-
-                
-                String sqlInsert = "INSERT INTO Factura_Producto (id_factura, id_producto, cantidad) VALUES (" + idFactura + ", " + idProducto + ", " + cantidad + ")";
-                statement.executeUpdate(sqlInsert);
-            }
-
-            JOptionPane.showMessageDialog(null, "Factura y productos creados correctamente");
-
-        } catch (SQLException el) {
-            el.printStackTrace();
-        }
-
+        guardarFacturaConProductos();
     }//GEN-LAST:event_TextoBotonGenerarFacturaMouseClicked
 
     private void CerrarSesionBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarSesionBtnMouseClicked
@@ -2982,8 +3020,8 @@ public class VentanaMain extends javax.swing.JFrame {
                 DefaultTableModel modelo2 = (DefaultTableModel)TablaHistorialCliente_VentanaHistorialCliente.getModel();
                 DefaultTableModel modelo = (DefaultTableModel) TablaClientes_VentanaHistorialCliente.getModel();
 
-                TextoEmpleadoNombre_CuadroInfomacionFactura__VentanaHistorialCliente.setText(Sesion.Empleado);
-
+                TextoEmpleadoNombre_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 7));
+                
 
 
                 TextoNombreCliente_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 0));
@@ -3006,10 +3044,7 @@ public class VentanaMain extends javax.swing.JFrame {
                     System.out.println("Entré al método para cargar productos");
                     Statement st = ConexionBD.getInstancia().getConexion().createStatement();
 
-                    String sql = "SELECT pc.nombre AS nombre_producto, fp.cantidad, pc.precio AS precio_unidad " +
-                            "FROM Factura_Producto fp " +
-                            "JOIN ProductoColmado pc ON fp.id_producto = pc.id_producto " +
-                            "WHERE fp.id_factura = " + idFactura;
+                    String sql = "SELECT nombre_producto, cantidad, precio_unidad FROM VistaFacturaProductos WHERE id_factura = " + idFactura + ";";
 
                     System.out.println("Consulta SQL: " + sql);
 
@@ -3039,6 +3074,7 @@ public class VentanaMain extends javax.swing.JFrame {
     
     
     
+
     
     
     
