@@ -1863,6 +1863,11 @@ public class VentanaMain extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        TablaHistorialCliente_VentanaHistorialCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaHistorialCliente_VentanaHistorialClienteMouseClicked(evt);
+            }
+        });
         ScrollTablaHistorialCliente_VentanaHistorialCliente.setViewportView(TablaHistorialCliente_VentanaHistorialCliente);
 
         BarraBusquedaCedula_VentanaHistorialCliente.setForeground(new java.awt.Color(204, 204, 204));
@@ -2948,6 +2953,56 @@ public class VentanaMain extends javax.swing.JFrame {
     private void TextoBotonEliminarProductoEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextoBotonEliminarProductoEmpleadoMouseClicked
         EliminarProducto(TablaMostrarProductos_VentanaProductos);
     }//GEN-LAST:event_TextoBotonEliminarProductoEmpleadoMouseClicked
+
+    private void TablaHistorialCliente_VentanaHistorialClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaHistorialCliente_VentanaHistorialClienteMouseClicked
+        int fila_principal = TablaHistorialCliente_VentanaHistorialCliente.getSelectedRow();
+        int fila_secundaria = TablaClientes_VentanaHistorialCliente.getSelectedRow();
+
+        
+        if (fila_principal == -1 || fila_secundaria == -1) {
+            return; 
+        }
+
+        
+        DefaultTableModel modelo2 = (DefaultTableModel) TablaHistorialCliente_VentanaHistorialCliente.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) TablaClientes_VentanaHistorialCliente.getModel();
+
+        
+        TextoEmpleadoNombre_CuadroInfomacionFactura__VentanaHistorialCliente.setText(Sesion.Empleado);
+
+        TextoNombreCliente_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 0));
+        TextoCedulaNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 1));
+        TextoTelefonoNumero_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 2));
+
+        
+        TextoFechaNumerio_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 3));
+        TextoTipodePagoNombre_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 1));
+        TextoTotalNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 6));
+        TextoImpuestoNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 4));
+        TxtoSubtotalNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 5));
+
+        
+        int fila_exact = (Integer) modelo2.getValueAt(fila_principal, 0);
+
+       
+        DefaultTableModel modelo3 = (DefaultTableModel) Tabla_CuadroInfomacionFactura__VentanaHistorialCliente.getModel();
+        modelo3.setRowCount(0);
+
+        try {
+            Statement st = ConexionBD.getInstancia().getConexion().createStatement();
+            ResultSet rs = st.executeQuery("SELECT nombre_producto, precio_unidad, cantidad FROM VistaFacturaProducto WHERE id_factura = " + fila_exact);
+
+            while (rs.next()) {
+                modelo3.addRow(new Object[]{
+                    rs.getString("nombre_producto"),
+                    rs.getInt("cantidad"),
+                    rs.getDouble("precio_unidad")
+                });
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_TablaHistorialCliente_VentanaHistorialClienteMouseClicked
 
     
     

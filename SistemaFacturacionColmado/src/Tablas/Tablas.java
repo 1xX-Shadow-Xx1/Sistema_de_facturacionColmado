@@ -3,6 +3,7 @@ package Tablas;
 import VentanaLogin.Sesion;
 import javax.swing.table.DefaultTableModel;
 import VentanaPrincipal.VentanaMain;
+import static com.sun.java.accessibility.util.SwingEventMonitor.addListSelectionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,9 +17,10 @@ import persistencia.ConexionBD;
 public class Tablas{
     
     private VentanaMain ventanaMain; 
-    
+        
      public Tablas(VentanaMain ventanaMain) {
         this.ventanaMain = ventanaMain;
+        nose();        
     }
 
     public void TablaDatosClientes(){
@@ -53,8 +55,6 @@ public class Tablas{
 
                 
      }
-    
-    
     public void TablaDatosPersonales(){
         
         DefaultTableModel modelo = new DefaultTableModel();
@@ -84,8 +84,7 @@ public class Tablas{
         } catch (SQLException ex) {
             ex.printStackTrace();
         } 
-    }
-    
+    }   
     public void TablaGestionProductos(){
         
         DefaultTableModel modelo = new DefaultTableModel();
@@ -121,8 +120,7 @@ public class Tablas{
         } catch (SQLException ex) {
             ex.printStackTrace();
         } 
-    }
-    
+    }  
     public void TablaRegistroVentas(){
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Cliente");
@@ -149,8 +147,7 @@ public class Tablas{
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-    }
-    
+    }   
     public void TablaClientesHistorial(){
         
         DefaultTableModel modelo = new DefaultTableModel();
@@ -172,12 +169,11 @@ public class Tablas{
                 modelo.addRow(datos);
             }
             ventanaMain.TablaClientes_VentanaHistorialCliente.setModel(modelo);
-            
+            nose();
         }catch(Exception ex){
             ex.printStackTrace();
         }
-    }
-    
+    }   
     public void TablaFacturaHistorial(){
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Numero de factura");
@@ -203,8 +199,47 @@ public class Tablas{
             ex.printStackTrace();
         }
     }
-    
-    
+    public void nose(){
+        ventanaMain.TablaClientes_VentanaHistorialCliente.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int fila = ventanaMain.TablaClientes_VentanaHistorialCliente.getSelectedRow();
+
+                DefaultTableModel modelo = new DefaultTableModel();
+                modelo.addColumn("ID Factura");
+                modelo.addColumn("Cedula");
+                modelo.addColumn("Tipo de pago");
+                modelo.addColumn("Fecha");
+                modelo.addColumn("Impuesto");
+                modelo.addColumn("Subtotal"); 
+                modelo.addColumn("Total");
+
+                if (fila == -1) {
+                    ventanaMain.TablaHistorialCliente_VentanaHistorialCliente.setModel(modelo); // tabla vacía
+                    return;
+                }
+
+                String cedula = ventanaMain.TablaClientes_VentanaHistorialCliente.getValueAt(fila, 1).toString();
+
+                try {
+                    Statement st = ConexionBD.getInstancia().getConexion().createStatement();
+                    String consulta = "SELECT * FROM vista_facturas_resumen WHERE Cedula = '" + cedula + "'";
+                    ResultSet rs = st.executeQuery(consulta);
+
+                    String[] datos = new String[7];
+                    while (rs.next()) {
+                        for (int i = 0; i < datos.length; i++) {
+                            datos[i] = rs.getString(i + 1);
+                        }
+                        modelo.addRow(datos);
+                    }
+                    ventanaMain.TablaHistorialCliente_VentanaHistorialCliente.setModel(modelo);
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+    }
 }
 
 
