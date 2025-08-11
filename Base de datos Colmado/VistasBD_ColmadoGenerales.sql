@@ -69,12 +69,20 @@ FROM Cliente c;
 
 DROP VIEW IF EXISTS vista_facturas_resumen;
 
-CREATE VIEW vista_facturas_resumen AS
-SELECT
-    f.id_factura AS `Numero de factura`,
-    f.tipo_pago AS `Tipo de pago`,
-    f.total AS Total
-FROM Factura f;
+CREATE OR REPLACE VIEW vista_facturas_resumen AS
+SELECT 
+    f.id_factura,
+    f.tipo_pago,
+    f.total,
+    f.subtotal,
+    f.impuesto,
+    f.fecha,
+    e.nombre_empleado AS empleado
+FROM
+    Factura f
+JOIN
+    Empleado e ON f.id_empleado = e.id_empleado;
+
 
 
 DROP VIEW IF EXISTS vista_empleado_correo_simple;
@@ -88,4 +96,30 @@ SELECT
     c.nivelacceso
 FROM Empleado e
 JOIN Correo c ON e.id_correo = c.id_correo;
+
+
+DROP VIEW IF EXISTS vista_facturas_resumen;
+
+CREATE OR REPLACE VIEW vista_facturas_resumen AS
+SELECT 
+    f.id_factura AS `ID Factura`,
+    c.cedula_cliente AS Cedula,
+    f.tipo_pago AS `Tipo de pago`,
+    f.fecha AS Fecha,
+    f.impuesto AS Impuesto,
+    f.subtotal AS Subtotal,
+    f.total AS Total
+FROM Factura f
+JOIN Cliente c ON f.id_cliente = c.id_cliente;
+
+
+DROP VIEW IF EXISTS vistahistorial_tablaclientes;
+
+CREATE VIEW vistahistorial_tablaclientes AS
+SELECT
+    c.cedula_cliente AS Cedula,
+    c.nombre_cliente AS Nombre,
+    c.numero_cliente AS `Numero de telefono`
+FROM Cliente c;
+
 

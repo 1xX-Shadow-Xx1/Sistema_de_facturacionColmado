@@ -26,8 +26,8 @@ public class IniciarSesion {
     
     public void Login() {
 
-        String correo = vn.getCorreoText();
-        String password = vn.getPasswordText();
+        String correo = "Kevin@gmail.com";//vn.getCorreoText();
+        String password = "Admin123";//vn.getPasswordText();
         int id_empleadologin = -1;
 
         if (correo.equals("Ingrese su correo electronico") || password.equals("••••••••••••••••")) {

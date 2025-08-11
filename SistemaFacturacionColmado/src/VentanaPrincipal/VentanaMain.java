@@ -2851,46 +2851,55 @@ public class VentanaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_BarraEditarDatoNombreActionPerformed
 
     private void TextoBotonGenerarFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextoBotonGenerarFacturaMouseClicked
+              
+        
+        /*System.out.println("s");
         int fila_principal = TablaHistorialCliente_VentanaHistorialCliente.getSelectedRow();
 
-                int fila_secundaria = TablaClientes_VentanaHistorialCliente.getSelectedRow();
+        int fila_secundaria = TablaClientes_VentanaHistorialCliente.getSelectedRow();
 
-                            DefaultTableModel modelo2 = (DefaultTableModel)TablaHistorialCliente_VentanaHistorialCliente.getModel();
-                            DefaultTableModel modelo = (DefaultTableModel) TablaClientes_VentanaHistorialCliente.getModel();
+        DefaultTableModel modelo2 = (DefaultTableModel)TablaHistorialCliente_VentanaHistorialCliente.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) TablaClientes_VentanaHistorialCliente.getModel();
 
-                    TextoEmpleadoNombre_CuadroInfomacionFactura__VentanaHistorialCliente.setText(Sesion.Empleado);
+        TextoEmpleadoNombre_CuadroInfomacionFactura__VentanaHistorialCliente.setText(Sesion.Empleado);
                     
+        System.out.println("pedro");            
                     
+        TextoNombreCliente_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 0));
+        TextoCedulaNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 1));
+        TextoTelefonoNumero_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 2));
                     
-                    TextoNombreCliente_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 0));
-                    TextoCedulaNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 1));
-                    TextoTelefonoNumero_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 2));
+        //esto esta bien
+        TextoFechaNumerio_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 3));
+        TextoTipodePagoNombre_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 1));
+        TextoTotalNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 6));
+        TextoImpuestoNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 4));
+        TxtoSubtotalNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 5));
                     
-                    //esto esta bien
-                    TextoFechaNumerio_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 3));
-                    TextoTipodePagoNombre_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 1));
-                    TextoTotalNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 6));
-                    TextoImpuestoNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 4));
-                    TxtoSubtotalNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 5));
+        DefaultTableModel modelo3 = (DefaultTableModel) Tabla_CuadroInfomacionFactura__VentanaHistorialCliente.getModel();
                     
-                     DefaultTableModel modelo3 = (DefaultTableModel) Tabla_CuadroInfomacionFactura__VentanaHistorialCliente.getModel();
-                    
-                    int fila_exact = fila_principal + 1;
-                    modelo3.setRowCount(0);
+        int idFactura = Integer.parseInt(modelo2.getValueAt(fila_principal, 0).toString());
+        System.out.println("Lolo");
+        modelo3.setRowCount(0);
 
-                    try {
-                        
-                                 Statement st = ConexionBD.getInstancia().getConexion().createStatement();
-                                 ResultSet rs = st.executeQuery("SELECT nombre_producto, precio_unidad, cantidad FROM VistaFacturaProducto WHERE id_factura = " + fila_exact);
+        try {
+            System.out.println("Entré al método para cargar productos");            
+            Statement st = ConexionBD.getInstancia().getConexion().createStatement();
+            ResultSet rs = st.executeQuery("SELECT pc.nombre, fp.cantidad, pc.precio " + "FROM Factura_Producto fp " + "JOIN ProductoColmado pc ON fp.id_producto = pc.id_producto " + "WHERE fp.id_factura = " + idFactura);
+            System.out.println(rs);
+            
+            if (!rs.isBeforeFirst()) {  // rs.isBeforeFirst() es true si hay filas
+                System.out.println("No hay datos en ResultSet");
+            } else {
+                while(rs.next()){
+                    modelo3.addRow(new Object[]{rs.getString("nombre"), rs.getInt("cantidad"), rs.getDouble("precio") });
+                }
+            }
+ 
 
-                                 while(rs.next()){
-                modelo3.addRow(new Object[]{rs.getString("nombre_producto"), rs.getInt("cantidad"), rs.getDouble("precio_unidad") });
-
-   } 
-
-                    } catch (Exception ex) {
-                        
-                    }
+        } catch (Exception ex) {
+             ex.printStackTrace();           
+        }*/
     }//GEN-LAST:event_TextoBotonGenerarFacturaMouseClicked
 
     private void CerrarSesionBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarSesionBtnMouseClicked

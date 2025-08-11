@@ -87,3 +87,6 @@ INSERT INTO Empleado (id_correo, nombre_empleado, cedula_empleado, numero_emplea
 VALUES (2, 'Ramona Liriano Ramirez', '402-9254264-8', '809-133-4567', 'Empleado');
 
 SELECT * FROM vista_empleado_correo_simple;
+select * from cliente;
+
+SELECT * FROM vista_facturas_resumen WHERE Cedula = '12546';

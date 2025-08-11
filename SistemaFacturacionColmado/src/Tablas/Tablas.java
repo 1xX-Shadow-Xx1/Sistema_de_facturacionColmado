@@ -193,18 +193,23 @@ public class Tablas{
                     return;
                 }
 
-                String cedula = ventanaMain.TablaClientes_VentanaHistorialCliente.getValueAt(fila, 1).toString();
+                String cedula = ventanaMain.TablaClientes_VentanaHistorialCliente.getValueAt(fila, 0).toString();
 
                 try {
                     Statement st = ConexionBD.getInstancia().getConexion().createStatement();
                     String consulta = "SELECT * FROM vista_facturas_resumen WHERE Cedula = '" + cedula + "'";
                     ResultSet rs = st.executeQuery(consulta);
-
-                    String[] datos = new String[7];
+                    
+                    System.out.println(consulta);
+                    Object[] datos = new Object[7];
                     while (rs.next()) {
-                        for (int i = 0; i < datos.length; i++) {
-                            datos[i] = rs.getString(i + 1);
-                        }
+                        datos[0] = rs.getInt(1);           // ID Factura como Integer
+                        datos[1] = rs.getString(2);        // Cedula
+                        datos[2] = rs.getString(3);        // Tipo de pago
+                        datos[3] = rs.getString(4);        // Fecha
+                        datos[4] = rs.getString(5);        // Impuesto
+                        datos[5] = rs.getString(6);        // Subtotal
+                        datos[6] = rs.getString(7);        // Total
                         modelo.addRow(datos);
                     }
                     ventanaMain.TablaHistorialCliente_VentanaHistorialCliente.setModel(modelo);
