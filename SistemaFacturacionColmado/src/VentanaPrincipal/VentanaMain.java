@@ -96,7 +96,7 @@ public class VentanaMain extends javax.swing.JFrame {
         botonesPequeños();
 
         botonesescucha();
-
+        ActionListen();
         MenuAcceso();
         
         //this.dispose();
@@ -2851,54 +2851,48 @@ public class VentanaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_BarraEditarDatoNombreActionPerformed
 
     private void TextoBotonGenerarFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextoBotonGenerarFacturaMouseClicked
-              
-        
-        System.out.println("s");
-        int fila_principal = TablaHistorialCliente_VentanaHistorialCliente.getSelectedRow();
 
-        int fila_secundaria = TablaClientes_VentanaHistorialCliente.getSelectedRow();
-
-        DefaultTableModel modelo2 = (DefaultTableModel)TablaHistorialCliente_VentanaHistorialCliente.getModel();
-        DefaultTableModel modelo = (DefaultTableModel) TablaClientes_VentanaHistorialCliente.getModel();
-
-        TextoEmpleadoNombre_CuadroInfomacionFactura__VentanaHistorialCliente.setText(Sesion.Empleado);
-                    
-        System.out.println("pedro");            
-                    
-        TextoNombreCliente_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 0));
-        TextoCedulaNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 1));
-        TextoTelefonoNumero_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 2));
-                    
-        //esto esta bien
-        TextoFechaNumerio_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 3));
-        TextoTipodePagoNombre_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 1));
-        TextoTotalNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 6));
-        TextoImpuestoNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 4));
-        TxtoSubtotalNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 5));
-                    
-        DefaultTableModel modelo3 = (DefaultTableModel) Tabla_CuadroInfomacionFactura__VentanaHistorialCliente.getModel();
-                    
-        int idFactura = Integer.parseInt(modelo2.getValueAt(fila_principal, 0).toString());
-        System.out.println("Lolo");
-        modelo3.setRowCount(0);
+        int id_empleado = Sesion.idEmpleado;
+        String Empleado = Sesion.Empleado;
 
         try {
-            System.out.println("Entré al método para cargar productos");            
-            Statement st = ConexionBD.getInstancia().getConexion().createStatement();
-            ResultSet rs = st.executeQuery("SELECT pc.nombre, fp.cantidad, pc.precio " + "FROM Factura_Producto fp " + "JOIN ProductoColmado pc ON fp.id_producto = pc.id_producto " + "WHERE fp.id_factura = " + idFactura);
-            System.out.println(rs);
-            
-            if (!rs.isBeforeFirst()) {  // rs.isBeforeFirst() es true si hay filas
-                System.out.println("No hay datos en ResultSet");
+            Statement statement = ConexionBD.getInstancia().getConexion().createStatement();
+
+            String nombre_cli = TextoNombreClienteCuadro_Factura.getText();
+            String cedula_cli = TextoNumericoCedulaCuadro_Factura.getText();
+            String numero_cli = TextoNumericoTelefonoCuadro_Factura.getText();
+            String tipo_pago_cli = TextoNombreTipoPagoCuadro_Factura.getText();
+            String fecha_compra = TextoNumericoFechaCuadro_Factura.getText();
+            String subtotal_cli = TextoNumericoSubtotalCuadro_Factura.getText();
+            String total_cli = TextoNumericoTotalCuadro_Factura.getText();
+            String impuesto_cli = TextoPorcentajeCuadro_Factura.getText();
+
+            // Verificar si el cliente ya existe
+            ResultSet rs = statement.executeQuery("SELECT id_cliente FROM cliente WHERE cedula_cliente = '" + cedula_cli + "'");
+            int id_cliente = -1;
+            System.out.println("Hola ");
+            if (rs.next()) {
+                // Si existe, obtener su id
+                id_cliente = rs.getInt("id_cliente");
             } else {
-                while(rs.next()){
-                    modelo3.addRow(new Object[]{rs.getString("nombre"), rs.getInt("cantidad"), rs.getDouble("precio") });
+                // Si no existe, insertarlo
+                statement.executeUpdate("INSERT INTO Cliente (cedula_cliente, tipo_pago, nombre_cliente, numero_cliente) VALUES ('" + cedula_cli + "', '" + tipo_pago_cli + "', '" + nombre_cli + "', '" + numero_cli + "')");
+
+                // Obtener el ID recién insertado
+                ResultSet rs2 = statement.executeQuery("SELECT LAST_INSERT_ID() AS id_cliente");
+                if (rs2.next()) {
+                    id_cliente = rs2.getInt("id_cliente");
                 }
             }
- 
 
-        } catch (Exception ex) {
-             ex.printStackTrace();           
+            // Crear la factura con el id_cliente obtenido
+            statement.executeUpdate("INSERT INTO Factura (id_cliente, id_empleado, fecha, tipo_pago, subtotal, impuesto, total) " +
+                "VALUES ('" + id_cliente + "', '" + id_empleado + "', '" + fecha_compra + "', '" + tipo_pago_cli + "', '" + subtotal_cli + "', '" + impuesto_cli + "', '" + total_cli + "')");
+            JOptionPane.showMessageDialog(null, "Factura creada correctamente");
+
+            
+        } catch (SQLException el) {
+            el.printStackTrace();
         }
     }//GEN-LAST:event_TextoBotonGenerarFacturaMouseClicked
 
@@ -2958,57 +2952,72 @@ public class VentanaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_TextoBotonEliminarProductoEmpleadoMouseClicked
 
     private void TablaHistorialCliente_VentanaHistorialClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaHistorialCliente_VentanaHistorialClienteMouseClicked
-        
-        int fila_principal = TablaHistorialCliente_VentanaHistorialCliente.getSelectedRow();
-        int fila_secundaria = TablaClientes_VentanaHistorialCliente.getSelectedRow();
 
-        
-        if (fila_principal == -1 || fila_secundaria == -1) {
-            return; 
-        }
 
-        
-        DefaultTableModel modelo2 = (DefaultTableModel) TablaHistorialCliente_VentanaHistorialCliente.getModel();
-        DefaultTableModel modelo = (DefaultTableModel) TablaClientes_VentanaHistorialCliente.getModel();
-
-        
-        TextoEmpleadoNombre_CuadroInfomacionFactura__VentanaHistorialCliente.setText(Sesion.Empleado);
-
-        TextoNombreCliente_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 0));
-        TextoCedulaNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 1));
-        TextoTelefonoNumero_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 2));
-
-        
-        TextoFechaNumerio_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 3));
-        TextoTipodePagoNombre_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 1));
-        TextoTotalNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 6));
-        TextoImpuestoNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 4));
-        TxtoSubtotalNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 5));
-
-        
-        int fila_exact = (Integer) modelo2.getValueAt(fila_principal, 0);
-
-       
-        DefaultTableModel modelo3 = (DefaultTableModel) Tabla_CuadroInfomacionFactura__VentanaHistorialCliente.getModel();
-        modelo3.setRowCount(0);
-
-        try {
-            Statement st = ConexionBD.getInstancia().getConexion().createStatement();
-            ResultSet rs = st.executeQuery("SELECT nombre_producto, precio_unidad, cantidad FROM VistaFacturaProducto WHERE id_factura = " + fila_exact);
-            System.out.println(rs);
-            
-            while (rs.next()) {
-                modelo3.addRow(new Object[]{
-                    rs.getString("nombre_producto"),
-                    rs.getInt("cantidad"),
-                    rs.getDouble("precio_unidad")
-                });
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
     }//GEN-LAST:event_TablaHistorialCliente_VentanaHistorialClienteMouseClicked
 
+    public void ActionListen(){
+        TablaHistorialCliente_VentanaHistorialCliente.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                int fila_principal = TablaHistorialCliente_VentanaHistorialCliente.getSelectedRow();
+                int fila_secundaria = TablaClientes_VentanaHistorialCliente.getSelectedRow();
+
+                DefaultTableModel modelo2 = (DefaultTableModel)TablaHistorialCliente_VentanaHistorialCliente.getModel();
+                DefaultTableModel modelo = (DefaultTableModel) TablaClientes_VentanaHistorialCliente.getModel();
+
+                TextoEmpleadoNombre_CuadroInfomacionFactura__VentanaHistorialCliente.setText(Sesion.Empleado);
+
+
+
+                TextoNombreCliente_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 0));
+                TextoCedulaNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 1));
+                TextoTelefonoNumero_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 2));
+
+                TextoFechaNumerio_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 3));
+                TextoTipodePagoNombre_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 2));
+                TextoTotalNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 6));
+                TextoImpuestoNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 4));
+                TxtoSubtotalNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 5));
+
+                DefaultTableModel modelo3 = (DefaultTableModel) Tabla_CuadroInfomacionFactura__VentanaHistorialCliente.getModel();
+
+                int idFactura = Integer.parseInt(modelo2.getValueAt(fila_principal, 0).toString());
+                System.out.println("idFactura: " + idFactura);
+                modelo3.setRowCount(0);
+
+                try {
+                    System.out.println("Entré al método para cargar productos");
+                    Statement st = ConexionBD.getInstancia().getConexion().createStatement();
+
+                    String sql = "SELECT pc.nombre AS nombre_producto, fp.cantidad, pc.precio AS precio_unidad " +
+                            "FROM Factura_Producto fp " +
+                            "JOIN ProductoColmado pc ON fp.id_producto = pc.id_producto " +
+                            "WHERE fp.id_factura = " + idFactura;
+
+                    System.out.println("Consulta SQL: " + sql);
+
+                    ResultSet rs = st.executeQuery(sql);
+
+                    if (!rs.isBeforeFirst()) {
+                        System.out.println("No hay datos en ResultSet");
+                    } else {
+                        while(rs.next()){
+                            modelo3.addRow(new Object[]{
+                                    rs.getString("nombre_producto"),
+                                    rs.getInt("cantidad"),
+                                    rs.getDouble("precio_unidad")
+                            });
+                        }
+                    }
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                TablaHistorialCliente_VentanaHistorialClienteMouseClicked(evt);
+            }
+        });
+
+    }
     
     
     
