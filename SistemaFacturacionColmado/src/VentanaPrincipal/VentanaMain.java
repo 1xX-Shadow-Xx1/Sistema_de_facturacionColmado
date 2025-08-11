@@ -2227,7 +2227,6 @@ public class VentanaMain extends javax.swing.JFrame {
             label.addMouseListener(listener);
         }
     }
-
     private void MenuAcceso(){
         if(Sesion.nivelAcceso == 1){  
             Menu.add(menuEmpleado, "MenuEmpleados");
@@ -2885,15 +2884,33 @@ public class VentanaMain extends javax.swing.JFrame {
                 }
             }
 
-            // Crear la factura con el id_cliente obtenido
-            statement.executeUpdate("INSERT INTO Factura (id_cliente, id_empleado, fecha, tipo_pago, subtotal, impuesto, total) " +
-                "VALUES ('" + id_cliente + "', '" + id_empleado + "', '" + fecha_compra + "', '" + tipo_pago_cli + "', '" + subtotal_cli + "', '" + impuesto_cli + "', '" + total_cli + "')");
-            JOptionPane.showMessageDialog(null, "Factura creada correctamente");
+            // Insertar la factura y obtener el id_factura generado
+            String sqlFactura = "INSERT INTO Factura (id_cliente, id_empleado, fecha, tipo_pago, subtotal, impuesto, total) VALUES ('" + id_cliente + "', '" + id_empleado + "', '" + fecha_compra + "', '" + tipo_pago_cli + "', '" + subtotal_cli + "', '" + impuesto_cli + "', '" + total_cli + "')";
+            statement.executeUpdate(sqlFactura, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rsFactura = statement.getGeneratedKeys();
+            int idFactura = -1;
+            if (rsFactura.next()) {
+                idFactura = rsFactura.getInt(1);
+            }
 
-            
+            // Insertar productos asociados a la factura
+            DefaultTableModel modelo3 = (DefaultTableModel) TablaCuadro_Factura.getModel();
+            for (int i = 0; i < modelo3.getRowCount(); i++) {
+                int idProducto = Integer.parseInt(modelo3.getValueAt(i, 0).toString());
+                int cantidad = Integer.parseInt(modelo3.getValueAt(i, 2).toString());
+                // Precio si lo necesitas: double precio = Double.parseDouble(modelo3.getValueAt(i, 3).toString());
+
+                
+                String sqlInsert = "INSERT INTO Factura_Producto (id_factura, id_producto, cantidad) VALUES (" + idFactura + ", " + idProducto + ", " + cantidad + ")";
+                statement.executeUpdate(sqlInsert);
+            }
+
+            JOptionPane.showMessageDialog(null, "Factura y productos creados correctamente");
+
         } catch (SQLException el) {
             el.printStackTrace();
         }
+
     }//GEN-LAST:event_TextoBotonGenerarFacturaMouseClicked
 
     private void CerrarSesionBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarSesionBtnMouseClicked
