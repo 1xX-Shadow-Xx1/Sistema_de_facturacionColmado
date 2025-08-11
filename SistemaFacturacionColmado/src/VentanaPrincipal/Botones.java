@@ -10,7 +10,6 @@ public class Botones {
 
     EstadoBoton[] BtnListaAdmin = new EstadoBoton[5];
     EstadoBoton[] BtnListaEmpleado = new EstadoBoton[4];
-
     private VentanaMain ventana;
     private MenuEmpleado menuEmpleado;
     
