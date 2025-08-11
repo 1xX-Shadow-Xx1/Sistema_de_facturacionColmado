@@ -2853,7 +2853,7 @@ public class VentanaMain extends javax.swing.JFrame {
     private void TextoBotonGenerarFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextoBotonGenerarFacturaMouseClicked
               
         
-        /*System.out.println("s");
+        System.out.println("s");
         int fila_principal = TablaHistorialCliente_VentanaHistorialCliente.getSelectedRow();
 
         int fila_secundaria = TablaClientes_VentanaHistorialCliente.getSelectedRow();
@@ -2899,7 +2899,7 @@ public class VentanaMain extends javax.swing.JFrame {
 
         } catch (Exception ex) {
              ex.printStackTrace();           
-        }*/
+        }
     }//GEN-LAST:event_TextoBotonGenerarFacturaMouseClicked
 
     private void CerrarSesionBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarSesionBtnMouseClicked
@@ -2958,6 +2958,7 @@ public class VentanaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_TextoBotonEliminarProductoEmpleadoMouseClicked
 
     private void TablaHistorialCliente_VentanaHistorialClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaHistorialCliente_VentanaHistorialClienteMouseClicked
+        
         int fila_principal = TablaHistorialCliente_VentanaHistorialCliente.getSelectedRow();
         int fila_secundaria = TablaClientes_VentanaHistorialCliente.getSelectedRow();
 
@@ -2994,7 +2995,8 @@ public class VentanaMain extends javax.swing.JFrame {
         try {
             Statement st = ConexionBD.getInstancia().getConexion().createStatement();
             ResultSet rs = st.executeQuery("SELECT nombre_producto, precio_unidad, cantidad FROM VistaFacturaProducto WHERE id_factura = " + fila_exact);
-
+            System.out.println(rs);
+            
             while (rs.next()) {
                 modelo3.addRow(new Object[]{
                     rs.getString("nombre_producto"),
