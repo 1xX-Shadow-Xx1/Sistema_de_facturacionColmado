@@ -1726,11 +1726,11 @@ public class VentanaMain extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Factura", "Pago", "Fecha", "Total"
+                "Factura", "Cedula", "Pago", "Fecha", "Impuesto", "Subtotal", "Total"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1738,6 +1738,11 @@ public class VentanaMain extends javax.swing.JFrame {
             }
         });
         TablaHistorialCliente_VentanaHistorialCliente.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
+        TablaHistorialCliente_VentanaHistorialCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaHistorialCliente_VentanaHistorialClienteMouseClicked(evt);
+            }
+        });
         ScrollTablaHistorialCliente_VentanaHistorialCliente.setViewportView(TablaHistorialCliente_VentanaHistorialCliente);
 
         BarraBusquedaCedula_VentanaHistorialCliente.setForeground(new java.awt.Color(204, 204, 204));
@@ -2317,7 +2322,7 @@ public class VentanaMain extends javax.swing.JFrame {
         }else{
         }
     }//GEN-LAST:event_RegistroVentasBtnMouseClicked
-
+//er
     private void HistorialClienteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialClienteBtnMouseClicked
         if(lista[4].activo == false){
             tablas.TablaClientesHistorial();
@@ -2700,9 +2705,65 @@ public class VentanaMain extends javax.swing.JFrame {
 
     private void TextoBotonGenerarFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextoBotonGenerarFacturaMouseClicked
         // TODO add your handling code here:
-        
+        int id_empleado = Sesion.idEmpleado;
+String Empleado = Sesion.Empleado;
+
+try {
+    Statement statement = ConexionBD.getInstancia().getConexion().createStatement();
+
+    String nombre_cli = TextoNombreClienteCuadro_Factura.getText().trim();
+    String cedula_cli = TextoNumericoCedulaCuadro_Factura.getText().trim();
+    String numero_cli = TextoNumericoTelefonoCuadro_Factura.getText().trim();
+    String tipo_pago_cli = TextoNombreTipoPagoCuadro_Factura.getText().trim();
+    String fecha_compra = TextoNumericoFechaCuadro_Factura.getText().trim();
+    String subtotal_cli = TextoNumericoSubtotalCuadro_Factura.getText().trim();
+    String total_cli = TextoNumericoTotalCuadro_Factura.getText().trim();
+    String impuesto_cli = TextoPorcentajeCuadro_Factura.getText().trim();
+
+    // Verificar si el cliente ya existe
+    ResultSet rs = statement.executeQuery("SELECT id_cliente FROM cliente WHERE cedula_cliente = '" + cedula_cli + "'");
+    int id_cliente = -1;
+    if (rs.next()) {
+        id_cliente = rs.getInt("id_cliente");
+    } else {
+        // Insertar cliente si no existe
+        statement.executeUpdate("INSERT INTO Cliente (cedula_cliente, tipo_pago, nombre_cliente, numero_cliente) VALUES ('" + cedula_cli + "', '" + tipo_pago_cli + "', '" + nombre_cli + "', '" + numero_cli + "')");
+
+        ResultSet rs2 = statement.executeQuery("SELECT LAST_INSERT_ID() AS id_cliente");
+        if (rs2.next()) {
+            id_cliente = rs2.getInt("id_cliente");
+        }
+    }
+
+    // Insertar factura
+    statement.executeUpdate("INSERT INTO Factura (id_cliente, id_empleado, fecha, tipo_pago, subtotal, impuesto, total) " +
+        "VALUES ('" + id_cliente + "', '" + id_empleado + "', '" + fecha_compra + "', '" + tipo_pago_cli + "', '" + subtotal_cli + "', '" + impuesto_cli + "', '" + total_cli + "')");
+
+    // Obtener el id_factura recién insertado
+    ResultSet rsFactura = statement.executeQuery("SELECT LAST_INSERT_ID() AS id_factura");
+    int id_factura = -1;
+    if (rsFactura.next()) {
+        id_factura = rsFactura.getInt("id_factura");
+    }
+
+    // Insertar productos en Factura_Producto con el id_factura correcto
+    DefaultTableModel modelo = (DefaultTableModel) TablaCuadro_Factura.getModel();
+    for (int fila = 0; fila < modelo.getRowCount(); fila++) {
+        Object valor_id = modelo.getValueAt(fila, 0);
+        Object cantidad_p = modelo.getValueAt(fila, 2);
+
+        statement.executeUpdate("INSERT INTO Factura_Producto (id_factura, id_producto, cantidad) " +
+            "VALUES ('" + id_factura + "','" + valor_id + "','" + cantidad_p + "')");
+    }
+
+    JOptionPane.showMessageDialog(null, "Factura creada correctamente");
+
+} catch (SQLException el) {
+    el.printStackTrace();
+}
+
         // Generar factura EDDY
-    
+        /*
         int id_empleado = Sesion.idEmpleado;
         String Empleado = Sesion.Empleado;
 
@@ -2746,31 +2807,13 @@ public class VentanaMain extends javax.swing.JFrame {
         Object cantidad_p = modelo.getValueAt(fila, 2);
 
         
-        
-        
-            
             
              statement.executeUpdate("INSERT INTO Factura_Producto (id_factura, id_producto, cantidad) " +
                 "VALUES ('" + id_cliente + "','" + valor_id + "','" + cantidad_p + "')");
         
             
         
-        
-        
-        /*
-        if (col == 0){
-        System.out.println("Fila " + fila + ", Columna " + col + ": " + valor);
-        
-        
-             statement.executeUpdate("INSERT INTO Factura_Producto (id_factura, id_producto) " +
-                "VALUES ('" + id_cliente + "','" + valor + "')");
-            
-        } else if (col == 2){
-            
-             statement.executeUpdate("INSERT INTO Factura_Producto (id_factura, cantidad) " +
-                "VALUES ('" + id_cliente + "','" + valor + "')");
-        }
-        */
+     
 }
             
             
@@ -2779,7 +2822,10 @@ public class VentanaMain extends javax.swing.JFrame {
             
         } catch (SQLException el) {
             el.printStackTrace();
-        }
+            
+            
+        } 
+*/
     }//GEN-LAST:event_TextoBotonGenerarFacturaMouseClicked
 
     private void CerrarSesionBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarSesionBtnMouseClicked
@@ -2795,16 +2841,20 @@ public class VentanaMain extends javax.swing.JFrame {
 
     private void TablaClientes_VentanaHistorialClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaClientes_VentanaHistorialClienteMouseClicked
         // TODO add your handling code here:
-      
+      /*
         int fila = TablaClientes_VentanaHistorialCliente.getSelectedRow();
         
+        //2
                     DefaultTableModel modelo2 = (DefaultTableModel)TablaHistorialCliente_VentanaHistorialCliente.getModel();
                     DefaultTableModel modelo = (DefaultTableModel) TablaClientes_VentanaHistorialCliente.getModel();
+                    
                     TextoNombreCliente_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila, 0));
                     TextoCedulaNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila, 1));
                     TextoTelefonoNumero_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila, 2));
                     
                     TextoEmpleadoNombre_CuadroInfomacionFactura__VentanaHistorialCliente.setText(Nombre_empleadoMenu.getText());
+                    
+                    
                     TextoFechaNumerio_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila, 2));
                     TextoTipodePagoNombre_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila, 1));
                     TextoTotalNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila, 5));
@@ -2829,7 +2879,55 @@ public class VentanaMain extends javax.swing.JFrame {
                     } catch (Exception ex) {
                         
                     }
+                    */
     }//GEN-LAST:event_TablaClientes_VentanaHistorialClienteMouseClicked
+
+    private void TablaHistorialCliente_VentanaHistorialClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaHistorialCliente_VentanaHistorialClienteMouseClicked
+        // TODO add your handling code here:
+        
+                int fila_principal = TablaHistorialCliente_VentanaHistorialCliente.getSelectedRow();
+
+                int fila_secundaria = TablaClientes_VentanaHistorialCliente.getSelectedRow();
+
+                            DefaultTableModel modelo2 = (DefaultTableModel)TablaHistorialCliente_VentanaHistorialCliente.getModel();
+                            DefaultTableModel modelo = (DefaultTableModel) TablaClientes_VentanaHistorialCliente.getModel();
+
+                    TextoEmpleadoNombre_CuadroInfomacionFactura__VentanaHistorialCliente.setText(Nombre_empleadoMenu.getText());
+                    
+                    
+                    
+                    TextoNombreCliente_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 0));
+                    TextoCedulaNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 1));
+                    TextoTelefonoNumero_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo.getValueAt(fila_secundaria, 2));
+                    
+                    //esto esta bien
+                    TextoFechaNumerio_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 3));
+                    TextoTipodePagoNombre_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 1));
+                    TextoTotalNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 6));
+                    TextoImpuestoNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 4));
+                    TxtoSubtotalNumerico_CuadroInfomacionFactura__VentanaHistorialCliente.setText((String) modelo2.getValueAt(fila_principal, 5));
+                    
+                     DefaultTableModel modelo3 = (DefaultTableModel) Tabla_CuadroInfomacionFactura__VentanaHistorialCliente.getModel();
+                    
+                    int fila_exact = fila_principal + 1;
+                    modelo3.setRowCount(0);
+
+                    try {
+                        
+                                 Statement st = ConexionBD.getInstancia().getConexion().createStatement();
+                                 ResultSet rs = st.executeQuery("SELECT nombre_producto, precio_unidad, cantidad FROM VistaFacturaProducto WHERE id_factura = " + fila_exact);
+
+                                 while(rs.next()){
+                modelo3.addRow(new Object[]{rs.getString("nombre_producto"), rs.getInt("cantidad"), rs.getDouble("precio_unidad") });
+
+   } 
+
+                    } catch (Exception ex) {
+                        
+                    }
+                    
+
+    }//GEN-LAST:event_TablaHistorialCliente_VentanaHistorialClienteMouseClicked
     
 
 
