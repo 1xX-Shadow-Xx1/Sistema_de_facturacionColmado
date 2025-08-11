@@ -95,7 +95,6 @@ public class VentanaMain extends javax.swing.JFrame {
         TextoNombreEmpleadoCuadro_Factura.setText(Sesion.Empleado);
         
         botonesPequeños();
-
         botonesescucha();
         ActionListen();
         MenuAcceso();
@@ -121,6 +120,8 @@ public class VentanaMain extends javax.swing.JFrame {
         JavaIcon = new javax.swing.JLabel();
         Nombre_AdminMenu = new javax.swing.JLabel();
         CerrarSesionBtn = new javax.swing.JLabel();
+        AdministradorBtn = new BordesSuaves.PanelRound();
+        AdministradorTxt = new javax.swing.JLabel();
         DatosPersonalesBtn = new BordesSuaves.PanelRound();
         DatosPersonalesTxt = new javax.swing.JLabel();
         GestionProductosBtn = new BordesSuaves.PanelRound();
@@ -133,6 +134,15 @@ public class VentanaMain extends javax.swing.JFrame {
         RegistroVentasTxt = new javax.swing.JLabel();
         FondoCrom = new javax.swing.JLabel();
         ContenedorPaneles = new javax.swing.JPanel();
+        VentanaAdministrador = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TablaAdministrador = new javax.swing.JTable();
+        panelRound2 = new BordesSuaves.PanelRound();
+        jLabel4 = new javax.swing.JLabel();
+        panelRound4 = new BordesSuaves.PanelRound();
+        jLabel1 = new javax.swing.JLabel();
+        panelRound5 = new BordesSuaves.PanelRound();
+        jLabel3 = new javax.swing.JLabel();
         VentanaDatosClientes = new javax.swing.JPanel();
         PanelTablaDatosClientes = new javax.swing.JScrollPane();
         TablaDatosClientes = new javax.swing.JTable();
@@ -331,6 +341,32 @@ public class VentanaMain extends javax.swing.JFrame {
         });
         MenuAdministrador.add(CerrarSesionBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 690, -1, -1));
 
+        AdministradorBtn.setBackground(new java.awt.Color(220, 220, 220));
+        AdministradorBtn.setRoundBottomLeft(30);
+        AdministradorBtn.setRoundBottomRight(30);
+        AdministradorBtn.setRoundTopLeft(30);
+        AdministradorBtn.setRoundTopRight(30);
+
+        AdministradorTxt.setBackground(new java.awt.Color(198, 198, 198));
+        AdministradorTxt.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        AdministradorTxt.setForeground(new java.awt.Color(102, 102, 102));
+        AdministradorTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        AdministradorTxt.setText("Administrador");
+        AdministradorTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        javax.swing.GroupLayout AdministradorBtnLayout = new javax.swing.GroupLayout(AdministradorBtn);
+        AdministradorBtn.setLayout(AdministradorBtnLayout);
+        AdministradorBtnLayout.setHorizontalGroup(
+            AdministradorBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(AdministradorTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+        );
+        AdministradorBtnLayout.setVerticalGroup(
+            AdministradorBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(AdministradorTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+
+        MenuAdministrador.add(AdministradorBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 590, 250, 60));
+
         DatosPersonalesBtn.setBackground(new java.awt.Color(230, 230, 230));
         DatosPersonalesBtn.setRoundBottomLeft(20);
         DatosPersonalesBtn.setRoundBottomRight(20);
@@ -354,7 +390,7 @@ public class VentanaMain extends javax.swing.JFrame {
             .addComponent(DatosPersonalesTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        MenuAdministrador.add(DatosPersonalesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, -1, -1));
+        MenuAdministrador.add(DatosPersonalesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, -1, -1));
 
         GestionProductosBtn.setBackground(new java.awt.Color(220, 220, 220));
         GestionProductosBtn.setRoundBottomLeft(20);
@@ -380,7 +416,7 @@ public class VentanaMain extends javax.swing.JFrame {
             .addComponent(GestionProductosTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        MenuAdministrador.add(GestionProductosBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
+        MenuAdministrador.add(GestionProductosBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, -1));
 
         FacturacionBtn.setBackground(new java.awt.Color(220, 220, 220));
         FacturacionBtn.setRoundBottomLeft(20);
@@ -405,7 +441,7 @@ public class VentanaMain extends javax.swing.JFrame {
             .addComponent(FacturacionTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        MenuAdministrador.add(FacturacionBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
+        MenuAdministrador.add(FacturacionBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, -1, -1));
 
         HistorialClienteBtn.setBackground(new java.awt.Color(220, 220, 220));
         HistorialClienteBtn.setRoundBottomLeft(20);
@@ -431,7 +467,7 @@ public class VentanaMain extends javax.swing.JFrame {
             .addComponent(HistorialClienteTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        MenuAdministrador.add(HistorialClienteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 580, -1, -1));
+        MenuAdministrador.add(HistorialClienteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, -1, -1));
 
         RegistroVentasBtn.setBackground(new java.awt.Color(220, 220, 220));
         RegistroVentasBtn.setRoundBottomLeft(20);
@@ -457,7 +493,7 @@ public class VentanaMain extends javax.swing.JFrame {
             .addComponent(RegistroVentasTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        MenuAdministrador.add(RegistroVentasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, -1, -1));
+        MenuAdministrador.add(RegistroVentasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, -1, -1));
 
         FondoCrom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/2.png"))); // NOI18N
         FondoCrom.setMaximumSize(new java.awt.Dimension(280, 732));
@@ -473,6 +509,94 @@ public class VentanaMain extends javax.swing.JFrame {
         ContenedorPaneles.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 204, 204)));
         ContenedorPaneles.setPreferredSize(new java.awt.Dimension(53, 559));
         ContenedorPaneles.setLayout(new java.awt.CardLayout());
+
+        VentanaAdministrador.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        TablaAdministrador.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Empleado", "ID correo", "Empleado", "Cedula", "Numero de Telefono", "Cargo", "Usuario", "Nivel de acceso"
+            }
+        ));
+        jScrollPane1.setViewportView(TablaAdministrador);
+
+        VentanaAdministrador.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 47, 870, 544));
+
+        panelRound2.setBackground(new java.awt.Color(220, 220, 220));
+        panelRound2.setRoundBottomLeft(30);
+        panelRound2.setRoundBottomRight(30);
+        panelRound2.setRoundTopLeft(30);
+        panelRound2.setRoundTopRight(30);
+
+        jLabel4.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Agregar");
+
+        javax.swing.GroupLayout panelRound2Layout = new javax.swing.GroupLayout(panelRound2);
+        panelRound2.setLayout(panelRound2Layout);
+        panelRound2Layout.setHorizontalGroup(
+            panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+        );
+        panelRound2Layout.setVerticalGroup(
+            panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        VentanaAdministrador.add(panelRound2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 660, 120, 40));
+
+        panelRound4.setBackground(new java.awt.Color(220, 220, 220));
+        panelRound4.setRoundBottomLeft(30);
+        panelRound4.setRoundBottomRight(30);
+        panelRound4.setRoundTopLeft(30);
+        panelRound4.setRoundTopRight(30);
+
+        jLabel1.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Eliminar");
+
+        javax.swing.GroupLayout panelRound4Layout = new javax.swing.GroupLayout(panelRound4);
+        panelRound4.setLayout(panelRound4Layout);
+        panelRound4Layout.setHorizontalGroup(
+            panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+        );
+        panelRound4Layout.setVerticalGroup(
+            panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        VentanaAdministrador.add(panelRound4, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 660, 120, 40));
+
+        panelRound5.setBackground(new java.awt.Color(220, 220, 220));
+        panelRound5.setRoundBottomLeft(30);
+        panelRound5.setRoundBottomRight(30);
+        panelRound5.setRoundTopLeft(30);
+        panelRound5.setRoundTopRight(30);
+
+        jLabel3.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Editar");
+
+        javax.swing.GroupLayout panelRound5Layout = new javax.swing.GroupLayout(panelRound5);
+        panelRound5.setLayout(panelRound5Layout);
+        panelRound5Layout.setHorizontalGroup(
+            panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+        );
+        panelRound5Layout.setVerticalGroup(
+            panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        VentanaAdministrador.add(panelRound5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 660, 120, 40));
+
+        ContenedorPaneles.add(VentanaAdministrador, "card9");
 
         VentanaDatosClientes.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -3082,6 +3206,8 @@ public class VentanaMain extends javax.swing.JFrame {
 
     private VentanaMain VentanaMain;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private BordesSuaves.PanelRound AdministradorBtn;
+    private javax.swing.JLabel AdministradorTxt;
     private BordesSuaves.PanelRound Background;
     private javax.swing.JTextField BarraAgregarCantidadProducto;
     private javax.swing.JTextField BarraAgregarNombreProductos;
@@ -3151,6 +3277,7 @@ public class VentanaMain extends javax.swing.JFrame {
     public javax.swing.JScrollPane ScrollTabla_VentanaRegistroVentas;
     private javax.swing.JSeparator SeparadorInferior_CuadroInfomacionFactura__VentanaHistorialCliente;
     private javax.swing.JSeparator SeparatorSuperior_CuadroInfomacionFactura__VentanaHistorialCliente;
+    private javax.swing.JTable TablaAdministrador;
     public javax.swing.JTable TablaClientes_VentanaHistorialCliente;
     private javax.swing.JTable TablaCuadro_Factura;
     public javax.swing.JTable TablaDatosClientes;
@@ -3237,6 +3364,7 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JLabel TxtEliminarDatosClientes;
     private javax.swing.JLabel TxtEliminarVentanaGestionProductos;
     private javax.swing.JLabel TxtoSubtotalNumerico_CuadroInfomacionFactura__VentanaHistorialCliente;
+    private javax.swing.JPanel VentanaAdministrador;
     private javax.swing.JPanel VentanaDatosClientes;
     private javax.swing.JPanel VentanaDatosPersonales;
     private javax.swing.JPanel VentanaFacturacion;
@@ -3244,12 +3372,19 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JPanel VentanaHistorialCliente;
     private javax.swing.JPanel VentanaProductos;
     private javax.swing.JPanel VentanaRegistroVentas;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollTablaCuadro_Factura;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSplitPane jSplitPane1;
+    private BordesSuaves.PanelRound panelRound2;
+    private BordesSuaves.PanelRound panelRound4;
+    private BordesSuaves.PanelRound panelRound5;
     // End of variables declaration//GEN-END:variables
     private TableRowSorter<DefaultTableModel> trs;
 

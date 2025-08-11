@@ -28,18 +28,125 @@ public class VentanaEmergenteEditarEmpleado extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        BotonGuardarEditacionEmpleado_VentanaEmergente = new BordesSuaves.PanelRound();
+        jLabel9 = new javax.swing.JLabel();
+        BarraEditarNombreEmpleado_VentanaEmergente = new javax.swing.JTextField();
+        BarraEditarCedulaEmpleado_VentanaEmergente = new javax.swing.JTextField();
+        BarraEditarTelefonoEmpleado_VentanaEmergente = new javax.swing.JTextField();
+        BoxEditarCargoEmpleado_VentanaEmergente = new javax.swing.JComboBox<>();
+        BarraEditarUsuarioEmpleado_VentanaEmergente = new javax.swing.JTextField();
+        BoxEditarNivelAccesoEmpleado_VentanaEmergente = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        BarraEditarContraseñaEmpleado_VentanaEmergente = new javax.swing.JPasswordField();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        BotonGuardarEditacionEmpleado_VentanaEmergente.setBackground(new java.awt.Color(220, 220, 220));
+        BotonGuardarEditacionEmpleado_VentanaEmergente.setRoundBottomLeft(30);
+        BotonGuardarEditacionEmpleado_VentanaEmergente.setRoundBottomRight(30);
+        BotonGuardarEditacionEmpleado_VentanaEmergente.setRoundTopLeft(30);
+        BotonGuardarEditacionEmpleado_VentanaEmergente.setRoundTopRight(30);
+
+        jLabel9.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Editar");
+
+        javax.swing.GroupLayout BotonGuardarEditacionEmpleado_VentanaEmergenteLayout = new javax.swing.GroupLayout(BotonGuardarEditacionEmpleado_VentanaEmergente);
+        BotonGuardarEditacionEmpleado_VentanaEmergente.setLayout(BotonGuardarEditacionEmpleado_VentanaEmergenteLayout);
+        BotonGuardarEditacionEmpleado_VentanaEmergenteLayout.setHorizontalGroup(
+            BotonGuardarEditacionEmpleado_VentanaEmergenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        BotonGuardarEditacionEmpleado_VentanaEmergenteLayout.setVerticalGroup(
+            BotonGuardarEditacionEmpleado_VentanaEmergenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
         );
+
+        getContentPane().add(BotonGuardarEditacionEmpleado_VentanaEmergente, new org.netbeans.lib.awtextra.AbsoluteConstraints(709, 439, -1, -1));
+
+        BarraEditarNombreEmpleado_VentanaEmergente.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        BarraEditarNombreEmpleado_VentanaEmergente.setForeground(new java.awt.Color(51, 51, 51));
+        BarraEditarNombreEmpleado_VentanaEmergente.setText("Introduce el nuevo nombre");
+        getContentPane().add(BarraEditarNombreEmpleado_VentanaEmergente, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 93, 271, 30));
+
+        BarraEditarCedulaEmpleado_VentanaEmergente.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        BarraEditarCedulaEmpleado_VentanaEmergente.setForeground(new java.awt.Color(51, 51, 51));
+        BarraEditarCedulaEmpleado_VentanaEmergente.setText("Introuce la nueva cedula");
+        getContentPane().add(BarraEditarCedulaEmpleado_VentanaEmergente, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 204, 271, 30));
+
+        BarraEditarTelefonoEmpleado_VentanaEmergente.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        BarraEditarTelefonoEmpleado_VentanaEmergente.setForeground(new java.awt.Color(51, 51, 51));
+        BarraEditarTelefonoEmpleado_VentanaEmergente.setText("Introduce el nuevo telefono");
+        getContentPane().add(BarraEditarTelefonoEmpleado_VentanaEmergente, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 308, 271, 30));
+
+        BoxEditarCargoEmpleado_VentanaEmergente.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        BoxEditarCargoEmpleado_VentanaEmergente.setForeground(new java.awt.Color(51, 51, 51));
+        BoxEditarCargoEmpleado_VentanaEmergente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Empleado", "Administrador" }));
+        getContentPane().add(BoxEditarCargoEmpleado_VentanaEmergente, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 391, 109, 30));
+
+        BarraEditarUsuarioEmpleado_VentanaEmergente.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        BarraEditarUsuarioEmpleado_VentanaEmergente.setForeground(new java.awt.Color(51, 51, 51));
+        BarraEditarUsuarioEmpleado_VentanaEmergente.setText("Introduce el nuevo correo o usuario");
+        getContentPane().add(BarraEditarUsuarioEmpleado_VentanaEmergente, new org.netbeans.lib.awtextra.AbsoluteConstraints(522, 93, 262, 30));
+
+        BoxEditarNivelAccesoEmpleado_VentanaEmergente.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        BoxEditarNivelAccesoEmpleado_VentanaEmergente.setForeground(new java.awt.Color(51, 51, 51));
+        BoxEditarNivelAccesoEmpleado_VentanaEmergente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Regular", "Administrador" }));
+        getContentPane().add(BoxEditarNivelAccesoEmpleado_VentanaEmergente, new org.netbeans.lib.awtextra.AbsoluteConstraints(522, 308, 112, 30));
+
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel1.setText("Editar nombre del empleado");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 71, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel2.setText("Editar cedula del empleado");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 182, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 20)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel3.setText("Editor de datos del empleado");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel4.setText("Editar correo o usuario del empleado");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(522, 71, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel5.setText("Editar contraseña del empleado");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(522, 182, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel6.setText("Editar telefono del empleado");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 286, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel7.setText("Editar nievel de acceso");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(522, 286, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel8.setText("Editar cargo del empleado");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 369, -1, -1));
+
+        BarraEditarContraseñaEmpleado_VentanaEmergente.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        BarraEditarContraseñaEmpleado_VentanaEmergente.setForeground(new java.awt.Color(51, 51, 51));
+        BarraEditarContraseñaEmpleado_VentanaEmergente.setText("jPasswordField1");
+        getContentPane().add(BarraEditarContraseñaEmpleado_VentanaEmergente, new org.netbeans.lib.awtextra.AbsoluteConstraints(522, 204, 262, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -70,5 +177,22 @@ public class VentanaEmergenteEditarEmpleado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField BarraEditarCedulaEmpleado_VentanaEmergente;
+    private javax.swing.JPasswordField BarraEditarContraseñaEmpleado_VentanaEmergente;
+    private javax.swing.JTextField BarraEditarNombreEmpleado_VentanaEmergente;
+    private javax.swing.JTextField BarraEditarTelefonoEmpleado_VentanaEmergente;
+    private javax.swing.JTextField BarraEditarUsuarioEmpleado_VentanaEmergente;
+    private BordesSuaves.PanelRound BotonGuardarEditacionEmpleado_VentanaEmergente;
+    private javax.swing.JComboBox<String> BoxEditarCargoEmpleado_VentanaEmergente;
+    private javax.swing.JComboBox<String> BoxEditarNivelAccesoEmpleado_VentanaEmergente;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     // End of variables declaration//GEN-END:variables
 }

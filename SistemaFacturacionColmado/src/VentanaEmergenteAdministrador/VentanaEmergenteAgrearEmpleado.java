@@ -28,17 +28,115 @@ public class VentanaEmergenteAgrearEmpleado extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        BarraNombreNuevoEmpleado_VentanaEmergente = new javax.swing.JTextField();
+        BarraCedulaNuevoEmpleado_VentanaEmergente = new javax.swing.JTextField();
+        BarraTelefonoNuevoEmpleado_VentanaEmergente = new javax.swing.JTextField();
+        BoxCargoNuevoEmpleado_VentanaEmergente = new javax.swing.JComboBox<>();
+        BotonCrearCorreoNuevoEmpleado_VentanaEmergente = new BordesSuaves.PanelRound();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        BarraNombreNuevoEmpleado_VentanaEmergente.setText("Ingresa el nombre del empleado");
+
+        BarraCedulaNuevoEmpleado_VentanaEmergente.setText(" Ingresa la cedula del empleado");
+
+        BarraTelefonoNuevoEmpleado_VentanaEmergente.setText("Ingresa el telefono del empleado");
+
+        BoxCargoNuevoEmpleado_VentanaEmergente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Empleado", "Administrador" }));
+
+        BotonCrearCorreoNuevoEmpleado_VentanaEmergente.setBackground(new java.awt.Color(220, 220, 220));
+        BotonCrearCorreoNuevoEmpleado_VentanaEmergente.setRoundBottomLeft(30);
+        BotonCrearCorreoNuevoEmpleado_VentanaEmergente.setRoundBottomRight(30);
+        BotonCrearCorreoNuevoEmpleado_VentanaEmergente.setRoundTopLeft(30);
+        BotonCrearCorreoNuevoEmpleado_VentanaEmergente.setRoundTopRight(30);
+
+        jLabel1.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Crear Usuario");
+
+        javax.swing.GroupLayout BotonCrearCorreoNuevoEmpleado_VentanaEmergenteLayout = new javax.swing.GroupLayout(BotonCrearCorreoNuevoEmpleado_VentanaEmergente);
+        BotonCrearCorreoNuevoEmpleado_VentanaEmergente.setLayout(BotonCrearCorreoNuevoEmpleado_VentanaEmergenteLayout);
+        BotonCrearCorreoNuevoEmpleado_VentanaEmergenteLayout.setHorizontalGroup(
+            BotonCrearCorreoNuevoEmpleado_VentanaEmergenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BotonCrearCorreoNuevoEmpleado_VentanaEmergenteLayout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        BotonCrearCorreoNuevoEmpleado_VentanaEmergenteLayout.setVerticalGroup(
+            BotonCrearCorreoNuevoEmpleado_VentanaEmergenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+        );
+
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel2.setText("Agrega datos del nuevo empleado");
+
+        jLabel3.setText("Cargo:");
+
+        jLabel4.setText("Numero de Telefono");
+
+        jLabel5.setText("Cedula");
+
+        jLabel6.setText("Nombre del Empleado");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 57, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(40, 40, 40))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(124, 124, 124)
+                        .addComponent(BotonCrearCorreoNuevoEmpleado_VentanaEmergente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(BarraNombreNuevoEmpleado_VentanaEmergente)
+                                .addComponent(BarraCedulaNuevoEmpleado_VentanaEmergente)
+                                .addComponent(BarraTelefonoNuevoEmpleado_VentanaEmergente, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel3)
+                            .addComponent(BoxCargoNuevoEmpleado_VentanaEmergente, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel2)
+                .addGap(50, 50, 50)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BarraNombreNuevoEmpleado_VentanaEmergente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BarraCedulaNuevoEmpleado_VentanaEmergente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BarraTelefonoNuevoEmpleado_VentanaEmergente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BoxCargoNuevoEmpleado_VentanaEmergente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addComponent(BotonCrearCorreoNuevoEmpleado_VentanaEmergente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41))
         );
 
         pack();
@@ -70,5 +168,16 @@ public class VentanaEmergenteAgrearEmpleado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField BarraCedulaNuevoEmpleado_VentanaEmergente;
+    private javax.swing.JTextField BarraNombreNuevoEmpleado_VentanaEmergente;
+    private javax.swing.JTextField BarraTelefonoNuevoEmpleado_VentanaEmergente;
+    private BordesSuaves.PanelRound BotonCrearCorreoNuevoEmpleado_VentanaEmergente;
+    private javax.swing.JComboBox<String> BoxCargoNuevoEmpleado_VentanaEmergente;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 }
