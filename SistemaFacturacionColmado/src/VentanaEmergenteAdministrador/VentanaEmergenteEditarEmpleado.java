@@ -20,11 +20,11 @@ public class VentanaEmergenteEditarEmpleado extends javax.swing.JFrame {
      */
     public VentanaEmergenteEditarEmpleado() {
 
-        JFrame frame = new JFrame();
-        frame.setSize(860, 512);
-        frame.setLocationRelativeTo(null);
+
+        setSize(860, 512);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setResizable(false);
+        setResizable(false);
 
         initComponents();
     }
