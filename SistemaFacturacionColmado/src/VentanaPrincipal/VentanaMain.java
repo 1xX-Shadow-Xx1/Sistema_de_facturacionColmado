@@ -3161,18 +3161,30 @@ public class VentanaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_TextoBotonEliminarProductoEmpleadoMouseClicked
 
     private void TablaHistorialCliente_VentanaHistorialClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaHistorialCliente_VentanaHistorialClienteMouseClicked
+        
 
 
     }//GEN-LAST:event_TablaHistorialCliente_VentanaHistorialClienteMouseClicked
 
     private void TxtAgregarVentanaAdministradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtAgregarVentanaAdministradorMouseClicked
+        JFrame ventana = new JFrame();
         VentanaEmergenteAgrearEmpleado agregar = new VentanaEmergenteAgrearEmpleado();
-        agregar.setVisible(true);
+        
+        ventana.setSize(410, 525);
+        ventana.setLocationRelativeTo(null);
+        ventana.setResizable(false);
+
+        ventana.setVisible(true);
     }//GEN-LAST:event_TxtAgregarVentanaAdministradorMouseClicked
 
     private void TxtEditarVentanaAdministradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtEditarVentanaAdministradorMouseClicked
-        VentanaEmergenteEditarEmpleado editar = new VentanaEmergenteEditarEmpleado();
-        editar.setVisible(true);
+        JFrame ventana = new JFrame();
+        
+        VentanaEmergenteEditarEmpleado editar = new VentanaEmergenteEditarEmpleado();           
+        ventana.setSize(860, 512);
+        ventana.setLocationRelativeTo(null);
+        ventana.setResizable(false);
+
     }//GEN-LAST:event_TxtEditarVentanaAdministradorMouseClicked
 
     public void ActionListen(){
