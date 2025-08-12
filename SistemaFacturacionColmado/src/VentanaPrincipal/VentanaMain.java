@@ -36,8 +36,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.TableColumn;
 
@@ -59,17 +61,21 @@ public class VentanaMain extends javax.swing.JFrame {
     private CerrarSesion sesion;
     private int AccesoEditar = Sesion.nivelAcceso;
     private int AccesoELiminar = Sesion.nivelAcceso;
-
+    private VentanaEmergenteEditarEmpleado ventanaEmergenteEditarEmpleado;
+    private VentanaEmergenteAgrearEmpleado VentanaEmergenteAgrearEmpleado;
+    
     public VentanaMain() {
         setUndecorated(true);
 
-
-
+        
+                
         initComponents();
 
         sesion = new CerrarSesion(this);
         menuEmpleado = new MenuEmpleado(this);
-
+        ventanaEmergenteEditarEmpleado = new VentanaEmergenteEditarEmpleado(this);
+        VentanaEmergenteAgrearEmpleado = new VentanaEmergenteAgrearEmpleado(this); 
+        
         BordesFrame bordes = new BordesFrame();
         bordes.bordeFrame(this, 1210, 772, 30, 30);
 
@@ -2774,8 +2780,23 @@ public class VentanaMain extends javax.swing.JFrame {
             }
         }
     }
+    private void editapersona() {
+        VentanaEmergenteEditarEmpleado ventana = new VentanaEmergenteEditarEmpleado(this);
+        ventana.setSize(860, 512);
+        ventana.setLocationRelativeTo(null);
+        ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // No cierra la principal
+        ventana.setVisible(true);
+    }
 
-    
+    private void agregapersona() {
+        VentanaEmergenteAgrearEmpleado ventana = new VentanaEmergenteAgrearEmpleado(this);
+        ventana.setSize(410, 525);
+        ventana.setLocationRelativeTo(null);
+        ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // No cierra la principal
+        ventana.setVisible(true);
+    }
+
+
     
     
     
@@ -3167,23 +3188,11 @@ public class VentanaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_TablaHistorialCliente_VentanaHistorialClienteMouseClicked
 
     private void TxtAgregarVentanaAdministradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtAgregarVentanaAdministradorMouseClicked
-        JFrame ventana = new JFrame();
-        VentanaEmergenteAgrearEmpleado agregar = new VentanaEmergenteAgrearEmpleado();
-        
-        ventana.setSize(410, 525);
-        ventana.setLocationRelativeTo(null);
-        ventana.setResizable(false);
-
-        ventana.setVisible(true);
+        agregapersona();
     }//GEN-LAST:event_TxtAgregarVentanaAdministradorMouseClicked
 
     private void TxtEditarVentanaAdministradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtEditarVentanaAdministradorMouseClicked
-        JFrame ventana = new JFrame();
-        
-        VentanaEmergenteEditarEmpleado editar = new VentanaEmergenteEditarEmpleado();           
-        ventana.setSize(860, 512);
-        ventana.setLocationRelativeTo(null);
-        ventana.setResizable(false);
+        editapersona();
 
     }//GEN-LAST:event_TxtEditarVentanaAdministradorMouseClicked
 
