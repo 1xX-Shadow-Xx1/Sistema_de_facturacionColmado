@@ -8,15 +8,14 @@ public class AdministradorEmpleados {
 
     private static EmpleadoTemporal empleadoTemporal;
 
-    // Paso 1: Guardar datos del empleado (sin correo todavía)
+    //guarda datos del empleado
     public static void prepararEmpleadoNuevo(String nombre, String cedula, String telefono, String cargo) {
         empleadoTemporal = new EmpleadoTemporal(nombre, cedula, telefono, cargo);
     }
 
-    // Paso 2: Con los datos del correo, inserta ambos registros en la BD
     public static void agregarEmpleadoConCorreo(String correo, String contrasena, int nivelAcceso) {
         if (empleadoTemporal == null) {
-            JOptionPane.showMessageDialog(null, "Primero debe ingresar los datos del empleado.");
+            JOptionPane.showMessageDialog(null, "Por favor ingrese los datos del empleado.");
             return;
         }
 
@@ -81,7 +80,6 @@ public class AdministradorEmpleados {
         }
     }
 
-    // Eliminar empleado y, opcionalmente, el correo
     public static void eliminarEmpleado(int idEmpleado) {
         try {
             Connection conn = ConexionBD.getInstancia().getConexion();
@@ -110,7 +108,6 @@ public class AdministradorEmpleados {
         }
     }
 
-    // Llena la JTable con los empleados y correo/nivel de acceso
     public static void poblarTablaEmpleados(javax.swing.JTable tabla) {
         javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel();
         modelo.addColumn("ID");
@@ -120,7 +117,7 @@ public class AdministradorEmpleados {
         modelo.addColumn("Cargo");
         modelo.addColumn("Usuario");
         modelo.addColumn("Nivel de acceso");
-        modelo.addColumn("ID Correo"); // Oculto
+        modelo.addColumn("ID Correo");
 
         String[] datos = new String[8];
 
@@ -146,7 +143,6 @@ public class AdministradorEmpleados {
         }
     }
 
-    // Utilidad: obtener IDs de la fila seleccionada
     public static int[] obtenerIDsSeleccionados(javax.swing.JTable tabla) {
         int fila = tabla.getSelectedRow();
         if (fila == -1) return null;
