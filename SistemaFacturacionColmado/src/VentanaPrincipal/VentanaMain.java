@@ -104,6 +104,8 @@ public class VentanaMain extends javax.swing.JFrame {
         botonesescucha();
         ActionListen();
         MenuAcceso();
+       
+
 
         
         //this.dispose();
@@ -2787,7 +2789,6 @@ public class VentanaMain extends javax.swing.JFrame {
         ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // No cierra la principal
         ventana.setVisible(true);
     }
-
     private void agregapersona() {
         VentanaEmergenteAgrearEmpleado ventana = new VentanaEmergenteAgrearEmpleado(this);
         ventana.setSize(410, 525);
@@ -2795,7 +2796,8 @@ public class VentanaMain extends javax.swing.JFrame {
         ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // No cierra la principal
         ventana.setVisible(true);
     }
-
+    
+    
 
     
     
@@ -3008,7 +3010,7 @@ public class VentanaMain extends javax.swing.JFrame {
     
     
     
-    //Efectos Placeholder en los TexField
+
     
     private void BarraEditarDatoNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BarraEditarDatoNombreFocusGained
         aplicarPlaceholder(BarraEditarDatoNombre,"Ingrese nuevo nombre");
@@ -3408,7 +3410,7 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JLabel TextoTipodepagoCuadro_Factura;
     private javax.swing.JLabel TextoTotalCuadro_Factura;
     private javax.swing.JLabel TextoTotalNumerico_CuadroInfomacionFactura__VentanaHistorialCliente;
-    private javax.swing.JLabel TextoTotalNumerico_VentanaRegistroVentas;
+    public javax.swing.JLabel TextoTotalNumerico_VentanaRegistroVentas;
     private javax.swing.JLabel TextoTotal_CuadroInfomacionFactura__VentanaHistorialCliente;
     private javax.swing.JLabel TextoTotal_VentanaRegistroVentas;
     private javax.swing.JLabel TituloAgregarProductoCuadro_DatosFactura;

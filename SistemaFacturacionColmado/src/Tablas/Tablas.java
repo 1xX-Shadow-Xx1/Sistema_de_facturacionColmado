@@ -22,6 +22,7 @@ public class Tablas{
         
      public Tablas(VentanaMain ventanaMain) {
         this.ventanaMain = ventanaMain;
+        
              
     }
 
@@ -140,11 +141,22 @@ public class Tablas{
                 for (int i = 0; i < datos.length; i++) {
                     datos[i] = rs.getString(i + 1);
                 }
+                
                 modelo.addRow(datos);
             }
 
             ventanaMain.TablaVentanaVentas.setModel(modelo);
+            
+            // Nueva consulta para obtener la suma total
+        ResultSet rsTotal = st.executeQuery("SELECT SUM(Venta) AS totalVentas FROM vista_registro_ventas;");
+        if (rsTotal.next()) {
+            String totalVentas = rsTotal.getString("totalVentas");
+            ventanaMain.TextoTotalNumerico_VentanaRegistroVentas.setText(totalVentas);
 
+
+        }
+            VentanaMain vn = new VentanaMain();
+            
 
         } catch (SQLException ex) {
             ex.printStackTrace();
