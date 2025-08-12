@@ -139,14 +139,14 @@ public class VentanaEmergenteAgregarCorreo extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPasswordField BarraCrearContraseña_VentanaEmergente;
-    private javax.swing.JTextField BarraCrearUsuario_VentanaEmergente;
-    private BordesSuaves.PanelRound BotonAgregarUsuarioContraseña;
-    private javax.swing.JComboBox<String> BoxNivelAcceso_VentanaEmergente;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    public javax.swing.JPasswordField BarraCrearContraseña_VentanaEmergente;
+    public javax.swing.JTextField BarraCrearUsuario_VentanaEmergente;
+    public BordesSuaves.PanelRound BotonAgregarUsuarioContraseña;
+    public javax.swing.JComboBox<String> BoxNivelAcceso_VentanaEmergente;
+    public javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabel2;
+    public javax.swing.JLabel jLabel3;
+    public javax.swing.JLabel jLabel4;
+    public javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 }

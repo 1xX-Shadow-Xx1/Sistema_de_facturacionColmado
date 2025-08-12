@@ -4,19 +4,31 @@
  */
 package VentanaEmergenteAdministrador;
 
+import VentanaPrincipal.Botones;
+import VentanaPrincipal.VentanaMain;
+
+import javax.swing.*;
+
 /**
  *
  * @author kevin
  */
 public class VentanaEmergenteAgrearEmpleado extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaEmergenteAgrearEmpleado.class.getName());
+
 
     /**
      * Creates new form VentanaEmergenteAgrearEmpleado
      */
     public VentanaEmergenteAgrearEmpleado() {
+
+        setSize(410, 525);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setResizable(false);
+
         initComponents();
+
+
     }
 
     /**
@@ -145,39 +157,19 @@ public class VentanaEmergenteAgrearEmpleado extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VentanaEmergenteAgrearEmpleado().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField BarraCedulaNuevoEmpleado_VentanaEmergente;
-    private javax.swing.JTextField BarraNombreNuevoEmpleado_VentanaEmergente;
-    private javax.swing.JTextField BarraTelefonoNuevoEmpleado_VentanaEmergente;
-    private BordesSuaves.PanelRound BotonCrearCorreoNuevoEmpleado_VentanaEmergente;
-    private javax.swing.JComboBox<String> BoxCargoNuevoEmpleado_VentanaEmergente;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    public javax.swing.JTextField BarraCedulaNuevoEmpleado_VentanaEmergente;
+    public javax.swing.JTextField BarraNombreNuevoEmpleado_VentanaEmergente;
+    public javax.swing.JTextField BarraTelefonoNuevoEmpleado_VentanaEmergente;
+    public BordesSuaves.PanelRound BotonCrearCorreoNuevoEmpleado_VentanaEmergente;
+    public javax.swing.JComboBox<String> BoxCargoNuevoEmpleado_VentanaEmergente;
+    public javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabel2;
+    public javax.swing.JLabel jLabel3;
+    public javax.swing.JLabel jLabel4;
+    public javax.swing.JLabel jLabel5;
+    public javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 }

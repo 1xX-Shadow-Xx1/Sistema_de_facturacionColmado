@@ -3,6 +3,8 @@ package VentanaPrincipal;
 import BordesSuaves.BordesFrame;
 import Tablas.Tablas;
 import VentanaEditarProductos.VentanaEditarProductos;
+import VentanaEmergenteAdministrador.VentanaEmergenteAgrearEmpleado;
+import VentanaEmergenteAdministrador.VentanaEmergenteEditarEmpleado;
 import VentanaLogin.Sesion;
 import VentanaLogin.VentanaLogin;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -49,7 +51,6 @@ public class VentanaMain extends javax.swing.JFrame {
     
     private PanelRound panelRound;
     private MenuEmpleado menuEmpleado;
-    JFrame frame = new JFrame();
     int xMouse, yMouse;
     boolean menuVisible = true;
     public Tablas tablas;
@@ -58,7 +59,6 @@ public class VentanaMain extends javax.swing.JFrame {
     private CerrarSesion sesion;
     private int AccesoEditar = Sesion.nivelAcceso;
     private int AccesoELiminar = Sesion.nivelAcceso;
-    
 
     public VentanaMain() {
         setUndecorated(true);
@@ -98,6 +98,7 @@ public class VentanaMain extends javax.swing.JFrame {
         botonesescucha();
         ActionListen();
         MenuAcceso();
+
         
         //this.dispose();
     }
@@ -137,12 +138,13 @@ public class VentanaMain extends javax.swing.JFrame {
         VentanaAdministrador = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaAdministrador = new javax.swing.JTable();
-        panelRound2 = new BordesSuaves.PanelRound();
-        jLabel4 = new javax.swing.JLabel();
-        panelRound4 = new BordesSuaves.PanelRound();
-        jLabel1 = new javax.swing.JLabel();
-        panelRound5 = new BordesSuaves.PanelRound();
-        jLabel3 = new javax.swing.JLabel();
+        BotonAgregarVentanaAdministrador = new BordesSuaves.PanelRound();
+        TxtAgregarVentanaAdministrador = new javax.swing.JLabel();
+        BotonEliminarEmpleado = new BordesSuaves.PanelRound();
+        TxtEliminarEmpleado = new javax.swing.JLabel();
+        BotonEditarVentanaAdministrador = new BordesSuaves.PanelRound();
+        TxtEditarVentanaAdministrador = new javax.swing.JLabel();
+        TituloVentanaAdministrador = new javax.swing.JLabel();
         VentanaDatosClientes = new javax.swing.JPanel();
         PanelTablaDatosClientes = new javax.swing.JScrollPane();
         TablaDatosClientes = new javax.swing.JTable();
@@ -512,6 +514,8 @@ public class VentanaMain extends javax.swing.JFrame {
 
         VentanaAdministrador.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
         TablaAdministrador.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -522,81 +526,98 @@ public class VentanaMain extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(TablaAdministrador);
 
-        VentanaAdministrador.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 47, 870, 544));
+        VentanaAdministrador.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 880, 544));
 
-        panelRound2.setBackground(new java.awt.Color(220, 220, 220));
-        panelRound2.setRoundBottomLeft(30);
-        panelRound2.setRoundBottomRight(30);
-        panelRound2.setRoundTopLeft(30);
-        panelRound2.setRoundTopRight(30);
+        BotonAgregarVentanaAdministrador.setBackground(new java.awt.Color(220, 220, 220));
+        BotonAgregarVentanaAdministrador.setRoundBottomLeft(30);
+        BotonAgregarVentanaAdministrador.setRoundBottomRight(30);
+        BotonAgregarVentanaAdministrador.setRoundTopLeft(30);
+        BotonAgregarVentanaAdministrador.setRoundTopRight(30);
 
-        jLabel4.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Agregar");
+        TxtAgregarVentanaAdministrador.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        TxtAgregarVentanaAdministrador.setForeground(new java.awt.Color(51, 51, 51));
+        TxtAgregarVentanaAdministrador.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TxtAgregarVentanaAdministrador.setText("Agregar");
+        TxtAgregarVentanaAdministrador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TxtAgregarVentanaAdministrador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TxtAgregarVentanaAdministradorMouseClicked(evt);
+            }
+        });
 
-        javax.swing.GroupLayout panelRound2Layout = new javax.swing.GroupLayout(panelRound2);
-        panelRound2.setLayout(panelRound2Layout);
-        panelRound2Layout.setHorizontalGroup(
-            panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+        javax.swing.GroupLayout BotonAgregarVentanaAdministradorLayout = new javax.swing.GroupLayout(BotonAgregarVentanaAdministrador);
+        BotonAgregarVentanaAdministrador.setLayout(BotonAgregarVentanaAdministradorLayout);
+        BotonAgregarVentanaAdministradorLayout.setHorizontalGroup(
+            BotonAgregarVentanaAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TxtAgregarVentanaAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
         );
-        panelRound2Layout.setVerticalGroup(
-            panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-        );
-
-        VentanaAdministrador.add(panelRound2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 660, 120, 40));
-
-        panelRound4.setBackground(new java.awt.Color(220, 220, 220));
-        panelRound4.setRoundBottomLeft(30);
-        panelRound4.setRoundBottomRight(30);
-        panelRound4.setRoundTopLeft(30);
-        panelRound4.setRoundTopRight(30);
-
-        jLabel1.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Eliminar");
-
-        javax.swing.GroupLayout panelRound4Layout = new javax.swing.GroupLayout(panelRound4);
-        panelRound4.setLayout(panelRound4Layout);
-        panelRound4Layout.setHorizontalGroup(
-            panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-        );
-        panelRound4Layout.setVerticalGroup(
-            panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        BotonAgregarVentanaAdministradorLayout.setVerticalGroup(
+            BotonAgregarVentanaAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TxtAgregarVentanaAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        VentanaAdministrador.add(panelRound4, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 660, 120, 40));
+        VentanaAdministrador.add(BotonAgregarVentanaAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 660, 120, 40));
 
-        panelRound5.setBackground(new java.awt.Color(220, 220, 220));
-        panelRound5.setRoundBottomLeft(30);
-        panelRound5.setRoundBottomRight(30);
-        panelRound5.setRoundTopLeft(30);
-        panelRound5.setRoundTopRight(30);
+        BotonEliminarEmpleado.setBackground(new java.awt.Color(220, 220, 220));
+        BotonEliminarEmpleado.setRoundBottomLeft(30);
+        BotonEliminarEmpleado.setRoundBottomRight(30);
+        BotonEliminarEmpleado.setRoundTopLeft(30);
+        BotonEliminarEmpleado.setRoundTopRight(30);
 
-        jLabel3.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Editar");
+        TxtEliminarEmpleado.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        TxtEliminarEmpleado.setForeground(new java.awt.Color(51, 51, 51));
+        TxtEliminarEmpleado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TxtEliminarEmpleado.setText("Eliminar");
+        TxtEliminarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        javax.swing.GroupLayout panelRound5Layout = new javax.swing.GroupLayout(panelRound5);
-        panelRound5.setLayout(panelRound5Layout);
-        panelRound5Layout.setHorizontalGroup(
-            panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+        javax.swing.GroupLayout BotonEliminarEmpleadoLayout = new javax.swing.GroupLayout(BotonEliminarEmpleado);
+        BotonEliminarEmpleado.setLayout(BotonEliminarEmpleadoLayout);
+        BotonEliminarEmpleadoLayout.setHorizontalGroup(
+            BotonEliminarEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TxtEliminarEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
         );
-        panelRound5Layout.setVerticalGroup(
-            panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        BotonEliminarEmpleadoLayout.setVerticalGroup(
+            BotonEliminarEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TxtEliminarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        VentanaAdministrador.add(panelRound5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 660, 120, 40));
+        VentanaAdministrador.add(BotonEliminarEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 660, 120, 40));
 
-        ContenedorPaneles.add(VentanaAdministrador, "card9");
+        BotonEditarVentanaAdministrador.setBackground(new java.awt.Color(220, 220, 220));
+        BotonEditarVentanaAdministrador.setRoundBottomLeft(30);
+        BotonEditarVentanaAdministrador.setRoundBottomRight(30);
+        BotonEditarVentanaAdministrador.setRoundTopLeft(30);
+        BotonEditarVentanaAdministrador.setRoundTopRight(30);
+
+        TxtEditarVentanaAdministrador.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        TxtEditarVentanaAdministrador.setForeground(new java.awt.Color(51, 51, 51));
+        TxtEditarVentanaAdministrador.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TxtEditarVentanaAdministrador.setText("Editar");
+        TxtEditarVentanaAdministrador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TxtEditarVentanaAdministrador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TxtEditarVentanaAdministradorMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout BotonEditarVentanaAdministradorLayout = new javax.swing.GroupLayout(BotonEditarVentanaAdministrador);
+        BotonEditarVentanaAdministrador.setLayout(BotonEditarVentanaAdministradorLayout);
+        BotonEditarVentanaAdministradorLayout.setHorizontalGroup(
+            BotonEditarVentanaAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TxtEditarVentanaAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+        );
+        BotonEditarVentanaAdministradorLayout.setVerticalGroup(
+            BotonEditarVentanaAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TxtEditarVentanaAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        VentanaAdministrador.add(BotonEditarVentanaAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 660, 120, 40));
+
+        TituloVentanaAdministrador.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        TituloVentanaAdministrador.setText("Administrador");
+        VentanaAdministrador.add(TituloVentanaAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        ContenedorPaneles.add(VentanaAdministrador, "VnAdministrador");
 
         VentanaDatosClientes.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -918,7 +939,7 @@ public class VentanaMain extends javax.swing.JFrame {
 
         VentanaGestionProducto.setBackground(new java.awt.Color(250, 250, 250));
 
-        TituloVentanaGestionProductos.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TituloVentanaGestionProductos.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         TituloVentanaGestionProductos.setText("Gestion de Productos");
 
         CuadroAgregarProductos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(198, 198, 198), 2));
@@ -1148,14 +1169,14 @@ public class VentanaMain extends javax.swing.JFrame {
                             .addComponent(BotonEditarVentanaProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(BotonEliminarVentanaProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)))
                     .addComponent(CuadroAgregarProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 16, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         ContenedorPaneles.add(VentanaGestionProducto, "VnGestionProductos");
 
         VentanaFacturacion.setBackground(new java.awt.Color(250, 250, 250));
 
-        TituloVentanaFacturacion.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TituloVentanaFacturacion.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         TituloVentanaFacturacion.setText("Facturación");
 
         TituloCuadroInformacion_Factura.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -1645,7 +1666,7 @@ public class VentanaMain extends javax.swing.JFrame {
 
         VentanaRegistroVentas.setBackground(new java.awt.Color(250, 250, 250));
 
-        Titulo_VentanaRegistroVentas.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Titulo_VentanaRegistroVentas.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         Titulo_VentanaRegistroVentas.setText("Registro de Ventas");
 
         TablaVentanaVentas.setModel(new javax.swing.table.DefaultTableModel(
@@ -1735,7 +1756,7 @@ public class VentanaMain extends javax.swing.JFrame {
                     .addGroup(VentanaRegistroVentasLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(VentanaRegistroVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ComboBoxMes_VentanaRegistroVentas, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                            .addComponent(ComboBoxMes_VentanaRegistroVentas, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                             .addComponent(ComboBoxAnual_VentanaRegistroVentas))
                         .addGap(8, 8, 8)))
                 .addGap(20, 20, 20)
@@ -1752,7 +1773,7 @@ public class VentanaMain extends javax.swing.JFrame {
         VentanaHistorialCliente.setBackground(new java.awt.Color(250, 250, 250));
         VentanaHistorialCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        Titulo_VentanaHistorialCliente.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Titulo_VentanaHistorialCliente.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         Titulo_VentanaHistorialCliente.setText("Historial del Cliente");
 
         CuadroInformacionFactura_VentanaHistorialCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(198, 198, 198), 2));
@@ -1884,7 +1905,7 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
             .addGroup(CuadroInformacionFactura_VentanaHistorialClienteLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addComponent(Titulo_CuadroInfomacionFactura__VentanaHistorialCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                .addComponent(Titulo_CuadroInfomacionFactura__VentanaHistorialCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(74, 74, 74))
         );
         CuadroInformacionFactura_VentanaHistorialClienteLayout.setVerticalGroup(
@@ -2013,8 +2034,8 @@ public class VentanaMain extends javax.swing.JFrame {
             .addGroup(VentanaHistorialClienteLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(VentanaHistorialClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ScrollTablaClientes_VentanaHistorialCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
-                    .addComponent(ScrollTablaHistorialCliente_VentanaHistorialCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
+                    .addComponent(ScrollTablaClientes_VentanaHistorialCliente)
+                    .addComponent(ScrollTablaHistorialCliente_VentanaHistorialCliente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(CuadroInformacionFactura_VentanaHistorialCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
@@ -2071,7 +2092,7 @@ public class VentanaMain extends javax.swing.JFrame {
         VentanaProductos.setBackground(new java.awt.Color(250, 250, 250));
         VentanaProductos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        TituloVentanaProductos.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TituloVentanaProductos.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         TituloVentanaProductos.setText("Gestion de Productos");
         VentanaProductos.add(TituloVentanaProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 542, 25));
 
@@ -2274,11 +2295,14 @@ public class VentanaMain extends javax.swing.JFrame {
     //Metodos
     private void botonesescucha(){
 
+
+
         Botones.botones(DatosPersonalesBtn,DatosPersonalesTxt,0,"VnDatosPersonales");
         Botones.botones(GestionProductosBtn,GestionProductosTxt,1,"VnGestionProductos");
         Botones.botones(FacturacionBtn,FacturacionTxt,2,"VnFacturacion");
         Botones.botones(RegistroVentasBtn,RegistroVentasTxt,3,"VnRegistroVentas");
         Botones.botones(HistorialClienteBtn,HistorialClienteTxt,4,"VnHistorialCliente");
+        Botones.botones(AdministradorBtn, AdministradorTxt, 5, "VnAdministrador");
     }
     public void botonesPequeños() {
         JPanel[] Btoen = new JPanel[]{
@@ -2288,7 +2312,10 @@ public class VentanaMain extends javax.swing.JFrame {
             BotonEliminarVentanaProductos,
             BotonGenerearFactura,
             BtnEditarProductoEmpleado,
-            BtnEliminarProductosEmpleado
+            BtnEliminarProductosEmpleado,
+            BotonAgregarVentanaAdministrador,
+            BotonEliminarEmpleado,
+            BotonEditarVentanaAdministrador
         };
         JLabel[] Tsto = new JLabel[]{
             TxtEliminarDatosClientes,
@@ -2297,7 +2324,10 @@ public class VentanaMain extends javax.swing.JFrame {
             TxtEliminarVentanaGestionProductos,
             TextoBotonGenerarFactura,
             TextoBotonEditarProductosEmpleado,
-            TextoBotonEliminarProductoEmpleado
+            TextoBotonEliminarProductoEmpleado,
+            TxtAgregarVentanaAdministrador,
+            TxtEliminarEmpleado,
+            TxtEditarVentanaAdministrador
         };
 
         Color normal = new Color(220, 220, 220);
@@ -2607,8 +2637,8 @@ public class VentanaMain extends javax.swing.JFrame {
     }
     public void IluminacionBotonesMenu(JPanel botonActivo, JLabel Txt) {
 
-        JPanel[] botones = {DatosPersonalesBtn, GestionProductosBtn, FacturacionBtn, RegistroVentasBtn, HistorialClienteBtn};
-        JLabel[] botonetxt = {DatosPersonalesTxt, GestionProductosTxt, FacturacionTxt, RegistroVentasTxt, HistorialClienteTxt};
+        JPanel[] botones = {DatosPersonalesBtn, GestionProductosBtn, FacturacionBtn, RegistroVentasBtn, HistorialClienteBtn,AdministradorBtn};
+        JLabel[] botonetxt = {DatosPersonalesTxt, GestionProductosTxt, FacturacionTxt, RegistroVentasTxt, HistorialClienteTxt,AdministradorTxt};
         
         
         for (JPanel boton : botones) {
@@ -3135,6 +3165,16 @@ public class VentanaMain extends javax.swing.JFrame {
 
     }//GEN-LAST:event_TablaHistorialCliente_VentanaHistorialClienteMouseClicked
 
+    private void TxtAgregarVentanaAdministradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtAgregarVentanaAdministradorMouseClicked
+        VentanaEmergenteAgrearEmpleado agregar = new VentanaEmergenteAgrearEmpleado();
+        agregar.setVisible(true);
+    }//GEN-LAST:event_TxtAgregarVentanaAdministradorMouseClicked
+
+    private void TxtEditarVentanaAdministradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtEditarVentanaAdministradorMouseClicked
+        VentanaEmergenteEditarEmpleado editar = new VentanaEmergenteEditarEmpleado();
+        editar.setVisible(true);
+    }//GEN-LAST:event_TxtEditarVentanaAdministradorMouseClicked
+
     public void ActionListen(){
         TablaHistorialCliente_VentanaHistorialCliente.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
@@ -3223,11 +3263,14 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JTextField BarraTelefonoCuadro_DatosFactura;
     private javax.swing.JButton BotonAgregarCuadro__DatosFactura;
     private javax.swing.JButton BotonAgregarProductos;
+    private BordesSuaves.PanelRound BotonAgregarVentanaAdministrador;
     private javax.swing.JButton BotonEditarDatos;
     private BordesSuaves.PanelRound BotonEditarDatosClientes;
+    private BordesSuaves.PanelRound BotonEditarVentanaAdministrador;
     private BordesSuaves.PanelRound BotonEditarVentanaProductos;
     private javax.swing.JButton BotonEliminarCuadro__DatosFactura;
     private BordesSuaves.PanelRound BotonEliminarDatosClientes;
+    private BordesSuaves.PanelRound BotonEliminarEmpleado;
     private BordesSuaves.PanelRound BotonEliminarVentanaProductos;
     private BordesSuaves.PanelRound BotonGenerearFactura;
     private BordesSuaves.PanelRound BtnEditarProductoEmpleado;
@@ -3350,6 +3393,7 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JLabel TituloAgregarProductoCuadro_DatosFactura;
     private javax.swing.JLabel TituloCuadroInformacion_Factura;
     private javax.swing.JLabel TituloCuadro_DatosFactura;
+    private javax.swing.JLabel TituloVentanaAdministrador;
     private javax.swing.JLabel TituloVentanaDatosClientes;
     private javax.swing.JLabel TituloVentanaDatosPersonales;
     private javax.swing.JLabel TituloVentanaFacturacion;
@@ -3360,8 +3404,11 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JLabel Titulo_CuadroInfomacionFactura__VentanaHistorialCliente;
     private javax.swing.JLabel Titulo_VentanaHistorialCliente;
     private javax.swing.JLabel Titulo_VentanaRegistroVentas;
+    private javax.swing.JLabel TxtAgregarVentanaAdministrador;
     private javax.swing.JLabel TxtEditarDatosClientes;
+    private javax.swing.JLabel TxtEditarVentanaAdministrador;
     private javax.swing.JLabel TxtEliminarDatosClientes;
+    private javax.swing.JLabel TxtEliminarEmpleado;
     private javax.swing.JLabel TxtEliminarVentanaGestionProductos;
     private javax.swing.JLabel TxtoSubtotalNumerico_CuadroInfomacionFactura__VentanaHistorialCliente;
     private javax.swing.JPanel VentanaAdministrador;
@@ -3372,19 +3419,13 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JPanel VentanaHistorialCliente;
     private javax.swing.JPanel VentanaProductos;
     private javax.swing.JPanel VentanaRegistroVentas;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollTablaCuadro_Factura;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSplitPane jSplitPane1;
-    private BordesSuaves.PanelRound panelRound2;
-    private BordesSuaves.PanelRound panelRound4;
-    private BordesSuaves.PanelRound panelRound5;
     // End of variables declaration//GEN-END:variables
     private TableRowSorter<DefaultTableModel> trs;
 

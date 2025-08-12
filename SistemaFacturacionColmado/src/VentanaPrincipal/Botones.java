@@ -1,25 +1,37 @@
 package VentanaPrincipal;
 
 
+import BordesSuaves.PanelRound;
+import VentanaEmergenteAdministrador.VentanaEmergenteAgrearEmpleado;
+import VentanaEmergenteAdministrador.VentanaEmergenteEditarEmpleado;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
 public class Botones {
 
-    EstadoBoton[] BtnListaAdmin = new EstadoBoton[5];
+    EstadoBoton[] BtnListaAdmin = new EstadoBoton[6];
     EstadoBoton[] BtnListaEmpleado = new EstadoBoton[4];
     private VentanaMain ventana;
     private MenuEmpleado menuEmpleado;
-    
+    public VentanaEmergenteEditarEmpleado VnAgregarEmpleado;
+    public VentanaEmergenteEditarEmpleado VnEditarEmpleado;
+
+
     public Botones(VentanaMain ventana, MenuEmpleado menuEmpleado) {
         this.ventana = ventana;
         this.menuEmpleado = menuEmpleado;
-        
-        
+
+
+
         BotonesEmpleado();
         BotonesAdmin();
+    }
+    public Botones(VentanaEmergenteEditarEmpleado vnAgregarEmpleado, VentanaEmergenteEditarEmpleado VnEditarEmpleado){
+        this.VnAgregarEmpleado = vnAgregarEmpleado;
+        this.VnEditarEmpleado = VnEditarEmpleado;
+
     }
     
     void BotonesEmpleado(){
@@ -34,9 +46,6 @@ public class Botones {
         }
         BtnListaAdmin[0].activo = true;
     }
-    
-    
-
     public void botones(JPanel btn, JLabel Txt, int numBtn, String nameVentana){
 
         btn.addMouseListener(new MouseAdapter() {
@@ -91,7 +100,6 @@ public class Botones {
             }
         });
     }
-    
     public void botonesEmpleados(JPanel btn, JLabel Txt, int numBtn, String nameVentana){
         btn.addMouseListener(new MouseAdapter() {
             @Override
@@ -143,10 +151,8 @@ public class Botones {
             }
         });
     }
-
     void Botonestado(int Btn){
         BtnListaAdmin[Btn].activo = true;
-        
         
         for(int i = 0; i < BtnListaAdmin.length; i++ ){
             if( i != Btn){
@@ -164,4 +170,5 @@ public class Botones {
             }
         }
     }
+
 }
