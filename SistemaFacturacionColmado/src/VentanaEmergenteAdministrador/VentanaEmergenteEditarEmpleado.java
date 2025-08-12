@@ -4,6 +4,7 @@
  */
 package VentanaEmergenteAdministrador;
 
+import VentanaPrincipal.VentanaMain;
 import javax.swing.JFrame;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
@@ -11,20 +12,19 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
  *
  * @author kevin
  */
-public class VentanaEmergenteEditarEmpleado extends javax.swing.JFrame {
+public class VentanaEmergenteEditarEmpleado extends JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaEmergenteEditarEmpleado.class.getName());
 
+    private VentanaMain ventanaMain;
     /**
      * Creates new form VentanaEmergenteEditarEmpleado
      */
     public VentanaEmergenteEditarEmpleado() {
-
-
-        setSize(860, 512);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setResizable(false);
+        initComponents();
+    }
+    public VentanaEmergenteEditarEmpleado(VentanaMain ventanaMain) {
+    this.ventanaMain = ventanaMain;
+        
 
         initComponents();
     }

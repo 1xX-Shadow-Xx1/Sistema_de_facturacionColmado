@@ -13,18 +13,18 @@ import javax.swing.*;
  *
  * @author kevin
  */
-public class VentanaEmergenteAgrearEmpleado extends javax.swing.JFrame {
+public class VentanaEmergenteAgrearEmpleado extends JFrame {
 
-
+    private VentanaMain ventanaMain;
     /**
      * Creates new form VentanaEmergenteAgrearEmpleado
      */
     public VentanaEmergenteAgrearEmpleado() {
+        initComponents();
+    }
+    public VentanaEmergenteAgrearEmpleado(VentanaMain ventanaMain) {
 
-        setSize(410, 525);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setResizable(false);
+        this.ventanaMain = ventanaMain;
 
         initComponents();
 
