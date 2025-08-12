@@ -23,6 +23,7 @@ public class VentanaEmergenteAgrearEmpleado extends javax.swing.JFrame {
 
         setSize(410, 525);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         initComponents();
